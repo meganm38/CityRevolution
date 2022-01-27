@@ -2,7 +2,6 @@
 ![](data/1.jpeg)
 *Source: shutterstock.com*
 ## Proposal
-___
 
 ### What will this application do?
 This application is a simulation of building a 2-D city. Users/players act as the planner and leader of a city and
@@ -21,4 +20,10 @@ out many aspects of it, so I hope to design such a project where I can control w
 
 ___
 ## User Stories
-
+- As a user, I want to be able to create multiple cities
+- As a user, I want to be able to select a city that I have created and add contents to that city, for example, banks,
+    hotels, etc.
+- As a user, I want to be able to implement the functionality of each content that I have added to my city. For example,
+    hotels need to have staff and rooms can be booked.
+- As a user, I want to be able to view what contents I have added to my city.
+- As a user, I want to be able to view the functionality of contents that I have specified.
