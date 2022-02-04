@@ -254,6 +254,7 @@ public class Simulator {
         System.out.println("\tq -> quit");
     }
 
+    //TODO
     private void processHotelCommand(String command) {
         Hotel hotel = cities.get(currentCity).getHotels().get(currentHotel);
         switch (command) {
