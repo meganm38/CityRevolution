@@ -53,7 +53,7 @@ public class Hotel {
     }
 
     /*
-     * REQUIRES: person's age > 19
+     * REQUIRES: person is not null AND person's age >= 19
      * MODIFIES: this
      * EFFECTS: add person to staff; change person's occupation to working at hotel
      */
@@ -63,12 +63,13 @@ public class Hotel {
     }
 
     /*
-     * REQUIRES: number of rooms > 0 AND number of Staff > 0 AND hotelIsOpen = false
+     * REQUIRES: hotelIsOpen = false
      * MODIFIES: this
-     * EFFECTS: set hotelIsOpen to true
+     * EFFECTS: set hotelIsOpen to true if number of rooms > 0 AND number of Staff > 0
      */
-    public void openHotel() {
-        hotelIsOpen = true;
+    public boolean openHotel() {
+        hotelIsOpen = !roomNumbers.isEmpty() && !staff.isEmpty();
+        return hotelIsOpen;
     }
 
     /*
