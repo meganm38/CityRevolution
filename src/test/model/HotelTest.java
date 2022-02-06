@@ -5,6 +5,8 @@ import static java.util.Arrays.asList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 
 
 class HotelTest {
@@ -36,7 +38,7 @@ class HotelTest {
         assertEquals(1, hotel1.getRoomNumbers().size());
         assertEquals(1, hotel1.getAvailableRooms());
 
-        ArrayList<Integer> roomNumbers = new ArrayList<>(asList(101));
+        ArrayList<Integer> roomNumbers = new ArrayList<>(Collections.singletonList(101));
         assertEquals(roomNumbers, hotel1.getRoomNumbers());
 
         hotel1.addRooms(10);
@@ -62,8 +64,12 @@ class HotelTest {
 
     @Test
     public void testOpenHotel() {
-        hotel1.openBusiness();
-        assertTrue(hotel1.isHotelOpen());
+        assertFalse(hotel1.openBusiness());
+        hotel1.addRooms(1);
+        assertFalse(hotel1.openBusiness());
+        hotel1.addStaff(resident1);
+        assertTrue(hotel1.openBusiness());
+
     }
 
     @Test
@@ -81,5 +87,26 @@ class HotelTest {
         assertEquals(new ArrayList<>(asList(104, 105, 201, 202, 203, 204, 205)), roomsBooked);
         assertEquals(new ArrayList<>(asList(101, 102, 103, 104, 105, 201, 202, 203, 204, 205)),
                 hotel1.getBookedRoomNumbers());
+    }
+
+    @Test
+    public void testGetBookingInfo() {
+        assertTrue(hotel1.getBookingInfo().isEmpty());
+        hotel1.addRooms(2);
+        hotel1.makeBooking(1, resident1);
+        HashMap<Integer, String> bookings = new HashMap<>();
+        bookings.put(101, "Megan");
+        bookings.put(102, "Empty");
+        assertEquals(bookings, hotel1.getBookingInfo());
+    }
+
+    @Test
+    public void testGetSalary() {
+        assertEquals(BusinessInfo.HOTEL.salary(), hotel1.getSalary());
+    }
+
+    @Test
+    public void testGetOccupationCode() {
+        assertEquals(BusinessInfo.HOTEL.occupationCode(), hotel1.getOccupationCode());
     }
 }

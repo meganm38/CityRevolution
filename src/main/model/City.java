@@ -15,7 +15,7 @@ public class City {
         this.cityName = cityName;
         hotels = new ArrayList<>();
         residents = new ArrayList<>();
-        bank = new Bank("Bank of" + cityName);
+        bank = new Bank("Bank of " + cityName);
     }
 
     /*

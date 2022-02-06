@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class CityTest {
     public City city;
@@ -27,7 +28,7 @@ public class CityTest {
         Hotel hotel1 = new Hotel("Holiday Inn");
         Hotel hotel2 = new Hotel("Holiday Inn");
         city.addHotel(hotel1);
-        assertEquals(new ArrayList<>(asList(hotel1)), city.getHotels());
+        assertEquals(new ArrayList<>(Collections.singletonList(hotel1)), city.getHotels());
 
         city.addHotel(hotel2);
         assertEquals(new ArrayList<>(asList(hotel1, hotel2)), city.getHotels());
@@ -38,9 +39,14 @@ public class CityTest {
         Resident resident1 = new Resident("Megan", true, 25);
         Resident resident2 = new Resident("Lucia", true, 26);
         city.addResident(resident1);
-        assertEquals(new ArrayList<>(asList(resident1)), city.getResidents());
+        assertEquals(new ArrayList<>(Collections.singletonList(resident1)), city.getResidents());
 
         city.addResident(resident2);
         assertEquals(new ArrayList<>(asList(resident1, resident2)), city.getResidents());
+    }
+
+    @Test
+    public void testGetBank() {
+        assertEquals("Bank of Vancouver", city.getBank().getBankName());
     }
 }

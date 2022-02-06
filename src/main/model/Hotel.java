@@ -3,9 +3,13 @@ package model;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import static model.BusinessInfo.HOTEL;
+
 // Represents a hotel
 public class Hotel implements Business {
     private static final int ROOMS_EACH_FLOOR = 5;
+    private static final int OCCUPATION_CODE = HOTEL.occupationCode();
+    private static final int SALARY_PER_SECOND = HOTEL.salary();
 
     private String hotelName;
     private boolean hotelIsOpen;
@@ -62,7 +66,7 @@ public class Hotel implements Business {
      */
     public void addStaff(Resident person) {
         staff.add(person);
-        person.setOccupationCode(0);
+        person.setOccupationCode(OCCUPATION_CODE);
     }
 
     /*
@@ -76,7 +80,7 @@ public class Hotel implements Business {
     }
 
     /*
-     * REQUIRES: numOfBookings > 0 AND person != null AND person's occupation code != 0
+     * REQUIRES: numOfBookings > 0 AND person != null
      *           AND number of available rooms >= numOfBookings.
      * MODIFIES: this
      * EFFECTS: create bookings under person's name;
@@ -140,5 +144,13 @@ public class Hotel implements Business {
 
     public ArrayList<Integer> getBookedRoomNumbers() {
         return bookedRoomNumbers;
+    }
+
+    public int getOccupationCode() {
+        return OCCUPATION_CODE;
+    }
+
+    public int getSalary() {
+        return SALARY_PER_SECOND;
     }
 }

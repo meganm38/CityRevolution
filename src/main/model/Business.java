@@ -8,5 +8,7 @@ public interface Business {
 
     boolean openBusiness();
 
+    int getOccupationCode();
 
+    int getSalary();
 }
