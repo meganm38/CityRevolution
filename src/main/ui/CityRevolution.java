@@ -27,7 +27,15 @@ public class CityRevolution {
 
     // EFFECTS: displays opening message and starts the main menu control
     private void runSimulator() {
-        System.out.println("Welcome to City Revolution!");
+        System.out.println("Welcome to City Revolution!\n"
+                + "Here you can create multiple cities, add residents to your cities, build and manage businesses and"
+                + " much more.");
+        System.out.println("When you are done creating a city, a bank will be automatically added to the city. "
+                + "Every resident that you add to the city will automatically have an account at this bank and "
+                + "they will get 2000 dollars right away!");
+        System.out.println("Your residents will spend money if they make purchases, but you can also make them"
+                + " work at businesses to earn money.");
+        System.out.println("Have fun!");
         useMainMenu();
     }
 
@@ -57,7 +65,8 @@ public class CityRevolution {
         City city = new City(name);
         cities.add(city);
         currentCity = cities.size() - 1;
-        System.out.println("The city of " + name + " has been successfully created!");
+        System.out.println("The city of " + name + " has been successfully created! "
+                + "Your city has one bank: Bank of " + name + "!");
     }
 
     /********************************************
@@ -104,7 +113,6 @@ public class CityRevolution {
             System.out.println("Enter the name of your new resident: ");
             residentName = scanner.nextLine();
             residentName = scanner.nextLine();
-
             nameAlreadyExisted = false;
             for (Resident resident : myCity.getResidents()) {
                 if (residentName.equalsIgnoreCase(resident.getName())) {
@@ -129,6 +137,7 @@ public class CityRevolution {
      * Users can - build a new city
      *           - open an existing city
      ********************************************/
+
     //EFFECTS: calls functions that display main menu, ask for input, and process that input
     private void useMainMenu() {
         displayMainMenu();
@@ -168,6 +177,7 @@ public class CityRevolution {
      * Users can - Add contents to city
      *           - Browse contents
      ********************************************/
+
     //EFFECTS: calls functions that display secondary menu, ask for input, and process that input
     private void useSecondaryMenu() {
         displaySecondaryMenu();
@@ -210,6 +220,7 @@ public class CityRevolution {
      * Users can - Add hotel
      *           - Add resident
      ********************************************/
+
     //EFFECTS: calls functions that display contents menu, ask for input, and process that input
     private void useContentsMenu() {
         displayContentsMenu();
@@ -257,6 +268,7 @@ public class CityRevolution {
      *           - Add staff
      *           - Manage hotel bookings
      ********************************************/
+
     //EFFECTS: calls functions that display hotel menu, ask for input, and process that input
     private void useHotelMenu() {
         displayHotelMenu();
@@ -312,6 +324,7 @@ public class CityRevolution {
      * Users can - Add bookings
      *           - Display bookings
      ********************************************/
+
     //EFFECTS: calls functions that display hotel management menu, ask for input, and process that input
     private void useManageHotelsMenu(Hotel hotel) {
         displayManageHotelMenu();
@@ -355,6 +368,7 @@ public class CityRevolution {
      *           - open hotel
      *           - open resident
      ********************************************/
+
     // EFFECTS: displays contents of a city
     private void displayContentsOfCity() {
         City city = cities.get(currentCity);
@@ -404,6 +418,7 @@ public class CityRevolution {
      *           - open hotel
      *           - open resident
      ********************************************/
+
     //EFFECTS: displays options for managing staff
     private void manageStaffMenu(Business business) {
         System.out.println("\nSelect from:");
@@ -422,6 +437,7 @@ public class CityRevolution {
             case "a":
                 displayStaff(business);
                 addStaffToBusiness(business);
+                System.out.println("The hourly wage is " + business.getSalary() + ".");
                 break;
             case "b":
                 if (displayStaff(business)) {
@@ -444,6 +460,7 @@ public class CityRevolution {
     /********************************************
      * Helper functions for staff management *
      ********************************************/
+
     //EFFECTS: display all the staff currently working at business
     private boolean displayStaff(Business business) {
         ArrayList<Resident> staff = business.getStaff();
@@ -550,6 +567,7 @@ public class CityRevolution {
     /***********************************************************************
      * Helper functions for picking a current object of City, hotel, etc.*
      ***********************************************************************/
+
     //MODIFIES: this
     //EFFECTS: displays any existing cities that have been created by user if there are any; changes the current city
     //            to the city that user has picked
