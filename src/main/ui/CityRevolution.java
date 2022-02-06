@@ -5,7 +5,10 @@ import model.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-// City revolution Game.
+// City revolution Game. Users/players act as the planner and leader of a city and build it from scratch.
+// Players can choose to add a variety of 'contents' to a city such as hotels, restaurants, grocery stores
+// and residents to build a successful town.
+
 public class CityRevolution {
     private final Scanner scanner;
     private final ArrayList<City> cities;
