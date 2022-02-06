@@ -6,6 +6,7 @@ public class City {
     private String cityName;
     private ArrayList<Hotel> hotels;
     private ArrayList<Resident> residents;
+    private Bank bank;
 
     /*
      * EFFECTS: Construct a city with no contents
@@ -14,6 +15,7 @@ public class City {
         this.cityName = cityName;
         hotels = new ArrayList<>();
         residents = new ArrayList<>();
+        bank = new Bank("Bank of" + cityName);
     }
 
     /*
@@ -41,5 +43,9 @@ public class City {
 
     public ArrayList<Resident> getResidents() {
         return residents;
+    }
+
+    public Bank getBank() {
+        return bank;
     }
 }

@@ -21,7 +21,7 @@ class HotelTest {
 
     @Test
     public void testConstructor() {
-        assertEquals("Holiday Inn", hotel1.getHotelName());
+        assertEquals("Holiday Inn", hotel1.getBusinessName());
         assertFalse(hotel1.isHotelOpen());
         assertTrue(hotel1.getRoomNumbers().isEmpty());
         assertTrue(hotel1.getStaff().isEmpty());
@@ -62,7 +62,7 @@ class HotelTest {
 
     @Test
     public void testOpenHotel() {
-        hotel1.openHotel();
+        hotel1.openBusiness();
         assertTrue(hotel1.isHotelOpen());
     }
 

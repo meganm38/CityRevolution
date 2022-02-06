@@ -5,7 +5,8 @@ public class Resident {
     private String name;
     private boolean isFemale;
     private int age;
-    private int occupationCode; //-1 == no occupation, 0 == working at hotel, 1 == working at restaurant
+    private int occupationCode;//-1 == no occupation, 0 == working at hotel, 1 == working at grocery store
+    private int accountBalance;
 
     /*
      * REQUIRES:
@@ -41,4 +42,6 @@ public class Resident {
     public int getOccupationCode() {
         return occupationCode;
     }
+
+
 }

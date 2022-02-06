@@ -5,14 +5,14 @@ import model.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Simulator {
+public class CityRevolution {
     private Scanner scanner;
     private ArrayList<City> cities;
     private int currentCity;
     private int currentHotel;
 
     // EFFECTS: runs the simulator application
-    public Simulator() {
+    public CityRevolution() {
         cities = new ArrayList<>();
         scanner = new Scanner(System.in);
         currentCity = -1;
@@ -65,7 +65,7 @@ public class Simulator {
 
             nameAlreadyExisted = false;
             for (Hotel hotel : myCity.getHotels()) {
-                if (hotelName.equalsIgnoreCase(hotel.getHotelName())) {
+                if (hotelName.equalsIgnoreCase(hotel.getBusinessName())) {
                     nameAlreadyExisted = true;
                     break;
                 }
@@ -102,10 +102,10 @@ public class Simulator {
         int age = scanner.nextInt();
         System.out.println("Is " + residentName + " male or female? Enter m or f.");
         boolean isFemale = scanner.next().equalsIgnoreCase("f");
-
-        myCity.addResident(new Resident(residentName, isFemale, age));
-        System.out.println(residentName + " has been successfully added to the city of "
-                + myCity.getCityName() + ".");
+        Resident newResident = new Resident(residentName, isFemale, age);
+        myCity.addResident(newResident);
+        myCity.getBank().createAccountForResident(newResident);
+        System.out.println(residentName + " has been successfully added to the city of " + myCity.getCityName() + ".");
     }
 
 
@@ -243,7 +243,7 @@ public class Simulator {
 
     private void displayHotelMenu() {
         City myCity = cities.get(currentCity);
-        System.out.println("\n You are currently in " + myCity.getHotels().get(currentHotel).getHotelName() + ".");
+        System.out.println("\n You are currently in " + myCity.getHotels().get(currentHotel).getBusinessName() + ".");
         System.out.println("\nSelect from:");
         System.out.println("\ta -> Open hotel for business!");
         System.out.println("\tb -> Create hotel rooms");
@@ -256,16 +256,17 @@ public class Simulator {
 
     //TODO
     private void processHotelCommand(String command) {
+        HotelSimulator hotelSimulator = new HotelSimulator();
         Hotel hotel = cities.get(currentCity).getHotels().get(currentHotel);
         switch (command) {
             case "a":
-                openHotelForBusiness(hotel);
+                hotelSimulator.openHotelForBusiness(hotel);
                 break;
             case "b":
-                createHotelRooms(hotel);
+                hotelSimulator.createHotelRooms(hotel);
                 break;
             case "c":
-                addStaffToHotel(hotel);
+                addStaffToBusiness(hotel);
                 break;
             case "d":
 
@@ -284,43 +285,10 @@ public class Simulator {
         useHotelMenu();
     }
 
-    private void openHotelForBusiness(Hotel hotel) {
-        boolean openSuccessful;
 
-        if (hotel.isHotelOpen()) {
-            System.out.println("Your hotel " + hotel.getHotelName() + " is already open!");
-        } else {
-            openSuccessful = hotel.openHotel();
-            if (openSuccessful) {
-                System.out.println("Your hotel " + hotel.getHotelName() + " is now open for business!");
-            } else {
-                System.out.println(hotel.getHotelName() + " does not meet the requirements for opening.");
-                System.out.println("You need to have staff and hotel rooms!");
-                System.out.println("You currently have " + hotel.getRoomNumbers().size() + " hotel rooms and "
-                        + hotel.getStaff().size() + " staff.");
-                System.out.println("Returning you to the previous menu...");
-            }
-        }
-    }
-
-    private void createHotelRooms(Hotel hotel) {
-        int numRooms;
-
-        System.out.println("How many hotel rooms do you want to create?");
-        do {
-            numRooms = scanner.nextInt();
-            if (numRooms <= 0) {
-                System.out.println("You need to enter a positive integer number. Please enter again: ");
-                numRooms = scanner.nextInt();
-            }
-        } while (numRooms <= 0);
-        hotel.addRooms(numRooms);
-        System.out.println("You have successfully created " + numRooms + " hotel rooms to your "
-                + hotel.getHotelName() + " hotel!");
-    }
 
     //TODO
-    private void addStaffToHotel(Hotel hotel) {
+    private void addStaffToBusiness(Business business) {
         City myCity = cities.get(currentCity);
         int numResidents = myCity.getResidents().size();
         if (numResidents == 0) {
@@ -338,8 +306,8 @@ public class Simulator {
                 System.out.println("This resident is not 19 years old yet...Returning you to the previous menu...");
                 useHotelMenu();
             } else {
-                hotel.addStaff(myCity.getResidents().get(residentIndex));
-                System.out.println("This resident is now working at " + hotel.getHotelName() + "!");
+                business.addStaff(myCity.getResidents().get(residentIndex));
+                System.out.println("This resident is now working at " + business.getBusinessName() + "!");
             }
         }
     }
@@ -358,7 +326,7 @@ public class Simulator {
     // EFFECTS: displays contents of a city
     private void displayContentsOfCity() {
         City city = cities.get(currentCity);
-        System.out.println("The city of " + city.getCityName() + " has " + city.getHotels().size()
+        System.out.println("The city of " + city.getCityName() + " has " + "1 bank, " + city.getHotels().size()
                             + " hotels and " + city.getResidents().size() + " residents" + ".");
     }
 

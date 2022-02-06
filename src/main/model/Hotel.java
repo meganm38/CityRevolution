@@ -1,9 +1,10 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 // Represents a hotel
-public class Hotel {
+public class Hotel implements Business {
     private static final int ROOMS_EACH_FLOOR = 5;
 
     private String hotelName;
@@ -13,6 +14,7 @@ public class Hotel {
     private ArrayList<Resident> staff;
     private ArrayList<Resident> guests;
     private ArrayList<Integer> bookedRoomNumbers;
+    private HashMap<Integer, String> bookingInfo;
 
     /*
      * REQUIRES: hotelName has a non-zero length
@@ -28,6 +30,7 @@ public class Hotel {
         staff = new ArrayList<>();
         guests = new ArrayList<>();
         bookedRoomNumbers = new ArrayList<>();
+        bookingInfo = new HashMap<>();
     }
 
     /*
@@ -67,7 +70,7 @@ public class Hotel {
      * MODIFIES: this
      * EFFECTS: set hotelIsOpen to true if number of rooms > 0 AND number of Staff > 0
      */
-    public boolean openHotel() {
+    public boolean openBusiness() {
         hotelIsOpen = !roomNumbers.isEmpty() && !staff.isEmpty();
         return hotelIsOpen;
     }
@@ -93,9 +96,25 @@ public class Hotel {
     }
 
     /*
+     * MODIFIES: this
+     * EFFECTS: create and return a map with room numbers and guests;
+     *          if a room hasn't been booked, map it with "Empty"
+     */
+    public HashMap<Integer, String> getBookingInfo() {
+        for (int i = 0; i < roomNumbers.size(); i++) {
+            if (i < guests.size()) {
+                bookingInfo.put(roomNumbers.get(i), guests.get(i).getName());
+            } else {
+                bookingInfo.put(roomNumbers.get(i), "Empty");
+            }
+        }
+        return bookingInfo;
+    }
+
+    /*
      * getters
      */
-    public String getHotelName() {
+    public String getBusinessName() {
         return hotelName;
     }
 
