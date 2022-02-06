@@ -30,7 +30,6 @@ public interface Business {
     boolean openBusiness();
 
     // getters
-
     int getOccupationCode();
 
     int getSalary();

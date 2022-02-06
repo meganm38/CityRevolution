@@ -398,25 +398,12 @@ public class CityRevolution {
 //                break;
         }
     }
-
     /********************************************
-     * Helper functions for staff management *
+     * Staff Management Control *
+     * Users can - open bank
+     *           - open hotel
+     *           - open resident
      ********************************************/
-    //EFFECTS: display all the staff currently working at business
-    private boolean displayStaff(Business business) {
-        ArrayList<Resident> staff = business.getStaff();
-        if (staff.isEmpty()) {
-            System.out.println("\nThis business currently does not have any staff.");
-            return false;
-        } else {
-            System.out.println("\nThis business currently has " + staff.size() + " staff:");
-            for (Resident person : staff) {
-                System.out.println(person.getName());
-            }
-            return true;
-        }
-    }
-
     //EFFECTS: displays options for managing staff
     private void manageStaffMenu(Business business) {
         System.out.println("\nSelect from:");
@@ -454,6 +441,23 @@ public class CityRevolution {
         useHotelMenu();
     }
 
+    /********************************************
+     * Helper functions for staff management *
+     ********************************************/
+    //EFFECTS: display all the staff currently working at business
+    private boolean displayStaff(Business business) {
+        ArrayList<Resident> staff = business.getStaff();
+        if (staff.isEmpty()) {
+            System.out.println("\nThis business currently does not have any staff.");
+            return false;
+        } else {
+            System.out.println("\nThis business currently has " + staff.size() + " staff:");
+            for (Resident person : staff) {
+                System.out.println(person.getName());
+            }
+            return true;
+        }
+    }
 
     //EFFECTS: asks for a staff to be removed and confirm they're currently working at business; calls removeStaff to
     //          remove them from business.
