@@ -54,7 +54,8 @@ public class ResidentSimulator {
         System.out.println("\n" + resident.getName());
         System.out.println("\tAge: " + resident.getAge());
         System.out.println("\tGender: " + gender);
-        System.out.println("\tJob: " + job);
+        System.out.println("\tJob: " + job + (job.equals("Unemployed")
+                ? "" : (" staff at " + resident.getWorkingLocation())));
         System.out.println("\tBank account balance: " + bankBalance);
     }
 }

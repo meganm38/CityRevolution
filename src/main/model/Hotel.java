@@ -66,7 +66,19 @@ public class Hotel implements Business {
      */
     public void addStaff(Resident person) {
         staff.add(person);
-        person.setOccupationCode(OCCUPATION_CODE);
+        person.setOccupation(OCCUPATION_CODE, hotelName);
+    }
+
+    /*
+     * REQUIRES: resident is currently working at business
+     * MODIFIES: this
+     * EFFECTS: removes resident as a staff for business
+     */
+    @Override
+    public void removeStaff(Resident resident) {
+        staff.remove(resident);
+        resident.setOccupation(-1, null);
+
     }
 
     /*

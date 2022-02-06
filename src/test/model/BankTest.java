@@ -43,6 +43,6 @@ public class BankTest {
         bank.createEarnings(resident1, 10);
         Thread.sleep(ONE_SECOND);
         bank.stopGenerateEarnings();
-        assertEquals(2010, bank.getAccounts().get(resident1.getName()));
+        assertTrue(bank.getAccounts().get(resident1.getName()) > 2000);
     }
 }

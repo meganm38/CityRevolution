@@ -7,6 +7,7 @@ public class Resident {
     private boolean isFemale;
     private int age;
     private int occupationCode;//-1 == no occupation, 0 == working at hotel, 1 == working at grocery store
+    private String workingLocation;
 
     /*
      * REQUIRES: name is not null AND age > 0
@@ -17,6 +18,7 @@ public class Resident {
         this.isFemale = isFemale;
         this.age = age;
         this.occupationCode = -1;
+        workingLocation = null;
     }
 
     /*
@@ -24,8 +26,9 @@ public class Resident {
      * MODIFIES: this
      * EFFECTS: changes a resident's occupation code to code
      */
-    public void setOccupationCode(int code) {
+    public void setOccupation(int code, String workingLocation) {
         this.occupationCode = code;
+        this.workingLocation = workingLocation;
     }
 
 
@@ -46,5 +49,9 @@ public class Resident {
 
     public int getOccupationCode() {
         return occupationCode;
+    }
+
+    public String getWorkingLocation() {
+        return workingLocation;
     }
 }

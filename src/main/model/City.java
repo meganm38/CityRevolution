@@ -8,6 +8,7 @@ public class City {
     private ArrayList<Hotel> hotels;
     private ArrayList<Resident> residents;
     private Bank bank;
+    private ArrayList<Business> businesses;
 
     /*
      * EFFECTS: Construct a city with no contents
@@ -16,6 +17,7 @@ public class City {
         this.cityName = cityName;
         hotels = new ArrayList<>();
         residents = new ArrayList<>();
+        businesses = new ArrayList<>();
         bank = new Bank("Bank of " + cityName);
     }
 
@@ -25,6 +27,7 @@ public class City {
      */
     public void addHotel(Hotel hotel) {
         hotels.add(hotel);
+        businesses.add(hotel);
     }
 
     /*
@@ -52,5 +55,9 @@ public class City {
 
     public Bank getBank() {
         return bank;
+    }
+
+    public ArrayList<Business> getBusinesses() {
+        return businesses;
     }
 }

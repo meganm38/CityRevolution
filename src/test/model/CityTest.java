@@ -21,6 +21,8 @@ public class CityTest {
         assertEquals("Vancouver", city.getCityName());
         assertTrue(city.getHotels().isEmpty());
         assertTrue(city.getResidents().isEmpty());
+        assertTrue(city.getBusinesses().isEmpty());
+
     }
 
     @Test
@@ -32,6 +34,7 @@ public class CityTest {
 
         city.addHotel(hotel2);
         assertEquals(new ArrayList<>(asList(hotel1, hotel2)), city.getHotels());
+        assertTrue(city.getBusinesses().contains(hotel1));
     }
 
     @Test

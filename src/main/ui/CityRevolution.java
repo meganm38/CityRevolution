@@ -7,12 +7,12 @@ import java.util.Scanner;
 
 // City revolution Game.
 public class CityRevolution {
-    private Scanner scanner;
-    private ArrayList<City> cities;
+    private final Scanner scanner;
+    private final ArrayList<City> cities;
     private int currentCity;
     private int currentHotel;
-    private HotelSimulator hotelSimulator;
-    private ResidentSimulator residentSimulator;
+    private final HotelSimulator hotelSimulator;
+    private final ResidentSimulator residentSimulator;
 
     // EFFECTS: runs the simulator application
     public CityRevolution() {
@@ -129,14 +129,14 @@ public class CityRevolution {
      * Users can - build a new city
      *           - open an existing city
      ********************************************/
-
+    //EFFECTS: calls functions that display main menu, ask for input, and process that input
     private void useMainMenu() {
         displayMainMenu();
         String newCommand = scanner.next();
         processMainMenuCommand(newCommand);
     }
 
-    // EFFECTS: display menu of options to user
+    // EFFECTS: displays main menu
     private void displayMainMenu() {
         System.out.println("\nSelect from:");
         System.out.println("\ta -> build a new city");
@@ -144,8 +144,7 @@ public class CityRevolution {
         System.out.println("\tq -> quit");
     }
 
-    // MODIFIES: this
-    // EFFECTS:
+    // EFFECTS: calls functions according to user input
     private void processMainMenuCommand(String command) {
         switch (command) {
             case "a":
@@ -169,13 +168,14 @@ public class CityRevolution {
      * Users can - Add contents to city
      *           - Browse contents
      ********************************************/
-
+    //EFFECTS: calls functions that display secondary menu, ask for input, and process that input
     private void useSecondaryMenu() {
         displaySecondaryMenu();
         String newCommand = scanner.next();
         processSecondaryCommand(newCommand);
     }
 
+    // EFFECTS: calls functions according to user input
     private void processSecondaryCommand(String command) {
         switch (command) {
             case "a":
@@ -196,7 +196,7 @@ public class CityRevolution {
         }
     }
 
-    // EFFECTS: display secondary menu once a city has been created
+    // EFFECTS: displays secondary menu
     private void displaySecondaryMenu() {
         System.out.println("\nSelect from:");
         System.out.println("\ta -> Add contents to your city");
@@ -210,12 +210,13 @@ public class CityRevolution {
      * Users can - Add hotel
      *           - Add resident
      ********************************************/
-
+    //EFFECTS: calls functions that display contents menu, ask for input, and process that input
     private void useContentsMenu() {
         displayContentsMenu();
         processContentsCommand(scanner.next());
     }
 
+    //EFFECTS: displays contents menu
     private void displayContentsMenu() {
         System.out.println("\nSelect from:");
         System.out.println("\ta -> Hotel");
@@ -225,6 +226,7 @@ public class CityRevolution {
         System.out.println("\te -> Quit");
     }
 
+    //EFFECTS: calls functions according to user input to process that input
     private void processContentsCommand(String command) {
         switch (command) {
             case "a":
@@ -255,25 +257,27 @@ public class CityRevolution {
      *           - Add staff
      *           - Manage hotel bookings
      ********************************************/
-
+    //EFFECTS: calls functions that display hotel menu, ask for input, and process that input
     private void useHotelMenu() {
         displayHotelMenu();
         processHotelCommand(scanner.next());
     }
 
+    //EFFECTS: displays hotel menu
     private void displayHotelMenu() {
         City myCity = cities.get(currentCity);
         System.out.println("\nYou are currently in " + myCity.getHotels().get(currentHotel).getBusinessName() + ".");
         System.out.println("\nSelect from:");
         System.out.println("\ta -> Open hotel for business!");
         System.out.println("\tb -> Create hotel rooms");
-        System.out.println("\tc -> Add staff to hotel");
+        System.out.println("\tc -> Manage staff");
         System.out.println("\td -> Manage hotel bookings");
         System.out.println("\te -> Return to previous menu");
 //        System.out.println("\tf -> Return to main menu");
         System.out.println("\tq -> quit");
     }
 
+    //EFFECTS: calls functions according to user input to process that input
     private void processHotelCommand(String command) {
         Hotel hotel = cities.get(currentCity).getHotels().get(currentHotel);
         switch (command) {
@@ -284,7 +288,7 @@ public class CityRevolution {
                 hotelSimulator.createHotelRooms(hotel);
                 break;
             case "c":
-                addStaffToBusiness(hotel);
+                manageStaffMenu(hotel);
                 break;
             case "d":
                 useManageHotelsMenu(hotel);
@@ -308,12 +312,13 @@ public class CityRevolution {
      * Users can - Add bookings
      *           - Display bookings
      ********************************************/
-
+    //EFFECTS: calls functions that display hotel management menu, ask for input, and process that input
     private void useManageHotelsMenu(Hotel hotel) {
         displayManageHotelMenu();
         processManageHotelCommands(hotel);
     }
 
+    //EFFECTS: displays hotel management menu
     private void displayManageHotelMenu() {
         System.out.println("\nSelect from:");
         System.out.println("\ta -> Add bookings");
@@ -323,6 +328,7 @@ public class CityRevolution {
         System.out.println("\te -> quit");
     }
 
+    //EFFECTS: calls functions according to user input to process that input
     private void processManageHotelCommands(Hotel hotel) {
         String command = scanner.next();
         switch (command) {
@@ -349,7 +355,6 @@ public class CityRevolution {
      *           - open hotel
      *           - open resident
      ********************************************/
-
     // EFFECTS: displays contents of a city
     private void displayContentsOfCity() {
         City city = cities.get(currentCity);
@@ -365,6 +370,7 @@ public class CityRevolution {
         openContentsOfCity(command);
     }
 
+    //EFFECTS: calls functions according to user input to process that input
     private void openContentsOfCity(String command) {
         City city = cities.get(currentCity);
         switch (command) {
@@ -394,9 +400,95 @@ public class CityRevolution {
     }
 
     /********************************************
-     * Helper functions for job assignments *
+     * Helper functions for staff management *
      ********************************************/
+    //EFFECTS: display all the staff currently working at business
+    private boolean displayStaff(Business business) {
+        ArrayList<Resident> staff = business.getStaff();
+        if (staff.isEmpty()) {
+            System.out.println("\nThis business currently does not have any staff.");
+            return false;
+        } else {
+            System.out.println("\nThis business currently has " + staff.size() + " staff:");
+            for (Resident person : staff) {
+                System.out.println(person.getName());
+            }
+            return true;
+        }
+    }
 
+    //EFFECTS: displays options for managing staff
+    private void manageStaffMenu(Business business) {
+        System.out.println("\nSelect from:");
+        System.out.println("\ta -> Add staff");
+        System.out.println("\tb -> Remove staff");
+        System.out.println("\tc -> Return to previous menu");
+        System.out.println("\td -> Return to main menu");
+        System.out.println("\te -> Quit");
+        String command = scanner.next();
+        processManageStaffCommand(command, business);
+    }
+
+    //EFFECTS: calls functions to process user's input
+    private void processManageStaffCommand(String command, Business business) {
+        switch (command) {
+            case "a":
+                displayStaff(business);
+                addStaffToBusiness(business);
+                break;
+            case "b":
+                if (displayStaff(business)) {
+                    selectStaffToRemove(business);
+                } else {
+                    System.out.println("Returning you to previous menu...");
+                }
+                break;
+            case "c":
+                break;
+            case "d":
+                useMainMenu();
+                break;
+            case "e":
+                terminate();
+        }
+        useHotelMenu();
+    }
+
+
+    //EFFECTS: asks for a staff to be removed and confirm they're currently working at business; calls removeStaff to
+    //          remove them from business.
+    private void selectStaffToRemove(Business business) {
+        ArrayList<Resident> allStaff = business.getStaff();
+        System.out.println("\nEnter the name of staff you want to remove: ");
+        String staffName = scanner.nextLine();
+        staffName = scanner.nextLine();
+        int staffIndex = -1;
+        for (int i = 0; i < allStaff.size(); i++) {
+            if (allStaff.get(i).getName().equalsIgnoreCase(staffName)) {
+                staffIndex = i;
+            }
+        }
+        if (staffIndex == -1) {
+            System.out.println("\nThe name you entered doesn't match with any staff on record.");
+            System.out.println("Returning you to previous menu...");
+        } else {
+            removeStaff(business, allStaff.get(staffIndex));
+        }
+    }
+
+    //MODIFIES: business, resident
+    //EFFECTS: removes resident from business; change resident's income at bank to 0.
+    private void removeStaff(Business business, Resident resident) {
+        business.removeStaff(resident);
+        Bank bank = cities.get(currentCity).getBank();
+        bank.stopGenerateEarnings();
+        System.out.println("\n" + resident.getName() + " is no longer working at "
+                + business.getBusinessName() + ".");
+    }
+
+    //MODIFIES: business
+    //EFFECTS: checks if there are any residents in the city and asks users to select one to be added as staff to
+    //          business if the resident is at least 19 years old
     private void addStaffToBusiness(Business business) {
         City myCity = cities.get(currentCity);
         boolean enoughResidents = residentSimulator.checkAndDisplayResidents(myCity.getResidents());
@@ -412,22 +504,28 @@ public class CityRevolution {
         }
     }
 
+    //EFFECTS: helper function for addStaffToBusiness to check if selected resident is already working in selected
+    //         business and displays a message; to check if resident is already working somewhere else and asks if
+    //          user wants to change their jobs; and give this resident a new job.
     private void checkJob(Business business, Resident resident) {
-        if (resident.getOccupationCode() == business.getOccupationCode()) {
+        if (business.getStaff().contains(resident)) {
             System.out.println("\nThis resident is already working here! Returning you to the previous menu...");
             useSecondaryMenu();
         } else if (resident.getOccupationCode() != -1) {
-            String workingLocation = null;
-            for (BusinessInfo businessInfo : BusinessInfo.values()) {
-                workingLocation = resident.getOccupationCode() == businessInfo.occupationCode()
-                        ? businessInfo.businessType() : null;
+            String workingLocation = resident.getWorkingLocation();
+            Business currentEmployer = null;
+            for (Business eachBusiness : cities.get(currentCity).getBusinesses()) {
+                if (eachBusiness.getBusinessName().equals(workingLocation)) {
+                    currentEmployer = eachBusiness;
+                }
             }
-            System.out.println("This resident is already working at a " + workingLocation + ".");
-            System.out.println("Do you want to switch their occupation? y/n");
+            System.out.println("This resident is currently working at " + workingLocation + ".");
+            System.out.println("Do you want to change their job? y/n");
             if (scanner.next().equals("n")) {
                 System.out.println("Returning you the previous menu...");
                 useSecondaryMenu();
             } else {
+                removeStaff(currentEmployer, resident);
                 assignJob(business, resident);
             }
         } else {
@@ -435,6 +533,8 @@ public class CityRevolution {
         }
     }
 
+    //MODIFIES: business, bank, resident
+    //EFFECTS： adds selected resident as staff in business; modifies their bank accounts so that they receive income
     private void assignJob(Business business, Resident resident) {
         business.addStaff(resident);
         Bank bank = cities.get(currentCity).getBank();
@@ -462,7 +562,7 @@ public class CityRevolution {
             }
         }
         currentCity = scanner.nextInt();
-        System.out.println("\n You are now in the city of " + cities.get(currentCity).getCityName() + ".");
+        System.out.println("\nYou are now in the city of " + cities.get(currentCity).getCityName() + ".");
     }
 
     //MODIFIES: this

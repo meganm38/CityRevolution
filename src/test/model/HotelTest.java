@@ -63,6 +63,13 @@ class HotelTest {
     }
 
     @Test
+    public void testRemoveStaff() {
+        hotel1.addStaff(resident1);
+        hotel1.removeStaff(resident1);
+        assertFalse(hotel1.getStaff().contains(resident1));
+    }
+
+    @Test
     public void testOpenHotel() {
         assertFalse(hotel1.openBusiness());
         hotel1.addRooms(1);
