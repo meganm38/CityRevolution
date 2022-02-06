@@ -58,6 +58,10 @@ public class CityRevolution {
         System.out.println("The city of " + name + " has been successfully created!");
     }
 
+    /********************************************
+     * Add contents to the current city *
+     ********************************************/
+
     private void doAddNewHotelToCity() {
         City myCity = cities.get(currentCity);
         String hotelName;
@@ -112,30 +116,11 @@ public class CityRevolution {
         System.out.println(residentName + " has been successfully added to the city of " + myCity.getCityName() + ".");
     }
 
-
-    private void doOpenAnExistingCity() {
-        System.out.println("\n You are now in the city of " + cities.get(currentCity).getCityName() + ".");
-    }
-
-    // REQUIRES: there are cities created
-    // EFFECTS: display any existing cities that have been created by user
-    private void displayCities() {
-        if (cities.size() == 0) {
-            System.out.println("You haven't created any cities. Please start by creating a city.");
-            System.out.println("Returning you to the main menu...");
-            useMainMenu();
-        } else {
-            System.out.println("\nSelect from:");
-            for (int i = 0; i < cities.size(); i++) {
-                System.out.print("\t" + i + ". ");
-                System.out.println(cities.get(i).getCityName());
-            }
-        }
-    }
-
-    /*********************
-     * CONSTRUCTORS, ETC. *
-     *********************/
+    /********************************************
+     * Main Menu Control *
+     * Users can - build a new city
+     *           - open an existing city
+     ********************************************/
 
     private void useMainMenu() {
         displayMainMenu();
@@ -160,9 +145,7 @@ public class CityRevolution {
                 useSecondaryMenu();
                 break;
             case "b":
-                displayCities();
-                currentCity = scanner.nextInt();
-                doOpenAnExistingCity();
+                setCurrentCity();
                 useSecondaryMenu();
                 break;
             case "q":
@@ -172,6 +155,12 @@ public class CityRevolution {
                 break;
         }
     }
+
+    /********************************************
+     * Secondary Menu Control *
+     * Users can - Add contents to city
+     *           - Browse contents
+     ********************************************/
 
     private void useSecondaryMenu() {
         displaySecondaryMenu();
@@ -207,6 +196,12 @@ public class CityRevolution {
         System.out.println("\tc -> Return to the main menu");
         System.out.println("\td -> Quit");
     }
+
+    /********************************************
+     * Contents Menu Control *
+     * Users can - Add hotel
+     *           - Add resident
+     ********************************************/
 
     private void useContentsMenu() {
         displayContentsMenu();
@@ -245,6 +240,14 @@ public class CityRevolution {
         }
     }
 
+    /********************************************
+     * Hotel Menu Control *
+     * Users can - Open hotel for business
+     *           - Create hotel rooms
+     *           - Add staff
+     *           - Manage hotel bookings
+     ********************************************/
+
     private void useHotelMenu() {
         displayHotelMenu();
         processHotelCommand(scanner.next());
@@ -263,7 +266,6 @@ public class CityRevolution {
         System.out.println("\tq -> quit");
     }
 
-    //TODO
     private void processHotelCommand(String command) {
         Hotel hotel = cities.get(currentCity).getHotels().get(currentHotel);
         switch (command) {
@@ -292,6 +294,12 @@ public class CityRevolution {
         }
         useHotelMenu();
     }
+
+    /********************************************
+     * Hotel Management Control *
+     * Users can - Add bookings
+     *           - Display bookings
+     ********************************************/
 
     private void useManageHotelsMenu(Hotel hotel) {
         displayManageHotelMenu();
@@ -327,52 +335,12 @@ public class CityRevolution {
         useHotelMenu();
     }
 
-    private void addStaffToBusiness(Business business) {
-        City myCity = cities.get(currentCity);
-        boolean enoughResidents = residentSimulator.checkAndDisplayResidents(myCity.getResidents());
-        if (!enoughResidents) {
-            useSecondaryMenu();
-        } else {
-            int residentIndex = scanner.nextInt();
-            if (myCity.getResidents().get(residentIndex).getAge() < 19) {
-                System.out.println("\nThis resident is not 19 years old yet...Returning you to the previous menu...");
-            } else {
-                checkJob(business, myCity.getResidents().get(residentIndex));
-            }
-        }
-    }
-
-
-    private void checkJob(Business business, Resident resident) {
-        if (resident.getOccupationCode() == business.getOccupationCode()) {
-            System.out.println("\nThis resident is already working here! Returning you to the previous menu...");
-            useSecondaryMenu();
-        } else if (resident.getOccupationCode() != -1) {
-            String workingLocation = null;
-            for (BusinessInfo businessInfo : BusinessInfo.values()) {
-                workingLocation = resident.getOccupationCode() == businessInfo.occupationCode()
-                        ? businessInfo.businessType() : null;
-            }
-            System.out.println("This resident is already working at a " + workingLocation + ".");
-            System.out.println("Do you want to switch their occupation? y/n");
-            if (scanner.next().equals("n")) {
-                System.out.println("Returning you the previous menu...");
-                useSecondaryMenu();
-            } else {
-                assignJob(business, resident);
-            }
-        } else {
-            assignJob(business, resident);
-        }
-    }
-
-    private void assignJob(Business business, Resident resident) {
-        business.addStaff(resident);
-        Bank bank = cities.get(currentCity).getBank();
-        bank.initializeSES();
-        bank.createEarnings(resident, business.getSalary());
-        System.out.println("This resident is now working at " + business.getBusinessName() + "!");
-    }
+    /********************************************
+     * Open Contents Control *
+     * Users can - open bank
+     *           - open hotel
+     *           - open resident
+     ********************************************/
 
     // EFFECTS: displays contents of a city
     private void displayContentsOfCity() {
@@ -417,6 +385,78 @@ public class CityRevolution {
         }
     }
 
+    /********************************************
+     * Helper functions for job assignments *
+     ********************************************/
+
+    private void addStaffToBusiness(Business business) {
+        City myCity = cities.get(currentCity);
+        boolean enoughResidents = residentSimulator.checkAndDisplayResidents(myCity.getResidents());
+        if (!enoughResidents) {
+            useSecondaryMenu();
+        } else {
+            int residentIndex = scanner.nextInt();
+            if (myCity.getResidents().get(residentIndex).getAge() < 19) {
+                System.out.println("\nThis resident is not 19 years old yet...Returning you to the previous menu...");
+            } else {
+                checkJob(business, myCity.getResidents().get(residentIndex));
+            }
+        }
+    }
+
+    private void checkJob(Business business, Resident resident) {
+        if (resident.getOccupationCode() == business.getOccupationCode()) {
+            System.out.println("\nThis resident is already working here! Returning you to the previous menu...");
+            useSecondaryMenu();
+        } else if (resident.getOccupationCode() != -1) {
+            String workingLocation = null;
+            for (BusinessInfo businessInfo : BusinessInfo.values()) {
+                workingLocation = resident.getOccupationCode() == businessInfo.occupationCode()
+                        ? businessInfo.businessType() : null;
+            }
+            System.out.println("This resident is already working at a " + workingLocation + ".");
+            System.out.println("Do you want to switch their occupation? y/n");
+            if (scanner.next().equals("n")) {
+                System.out.println("Returning you the previous menu...");
+                useSecondaryMenu();
+            } else {
+                assignJob(business, resident);
+            }
+        } else {
+            assignJob(business, resident);
+        }
+    }
+
+    private void assignJob(Business business, Resident resident) {
+        business.addStaff(resident);
+        Bank bank = cities.get(currentCity).getBank();
+        bank.initializeSES();
+        bank.createEarnings(resident, business.getSalary());
+        System.out.println("This resident is now working at " + business.getBusinessName() + "!");
+    }
+
+    /***********************************************************************
+     * Helper functions for picking a current object of City, hotel, etc.*
+     ***********************************************************************/
+
+    // REQUIRES: there are cities created
+    // EFFECTS: display any existing cities that have been created by user
+    private void setCurrentCity() {
+        if (cities.size() == 0) {
+            System.out.println("You haven't created any cities. Please start by creating a city.");
+            System.out.println("Returning you to the main menu...");
+            useMainMenu();
+        } else {
+            System.out.println("\nSelect from:");
+            for (int i = 0; i < cities.size(); i++) {
+                System.out.print("\t" + i + ". ");
+                System.out.println(cities.get(i).getCityName());
+            }
+        }
+        currentCity = scanner.nextInt();
+        System.out.println("\n You are now in the city of " + cities.get(currentCity).getCityName() + ".");
+    }
+
     private void setCurrentHotel() {
         City myCity = cities.get(currentCity);
         boolean hotelsPresent = hotelSimulator.displayAllHotels(myCity.getHotels());
@@ -427,6 +467,10 @@ public class CityRevolution {
             useHotelMenu();
         }
     }
+
+    /********************************************
+     * Game management methods *
+     ********************************************/
 
     // EFFECTS: terminates the game
     private void terminate() {
