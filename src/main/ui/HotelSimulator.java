@@ -8,10 +8,15 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
+// A hotel simulator used in CityRevolution to perform actions about a hotel.
+
 public class HotelSimulator {
     protected final Scanner scanner = new Scanner(System.in);
     protected final ResidentSimulator residentSimulator = new ResidentSimulator();
 
+    /*
+     * EFFECTS: displays a city's all hotels in a list if there are any; returns true if there are, false otherwise.
+     */
     protected boolean displayAllHotels(ArrayList<Hotel> hotels) {
         int numHotels = hotels.size();
         if (numHotels == 0) {
@@ -28,6 +33,10 @@ public class HotelSimulator {
         }
     }
 
+    /*
+     * EFFECTS: tries to open hotel if not already open; displays information about whether a hotel was successfully
+     *          opened.
+     */
     protected void openHotelForBusiness(Hotel hotel) {
         boolean openSuccessful;
 
@@ -47,6 +56,11 @@ public class HotelSimulator {
         }
     }
 
+    /*
+     * EFFECTS: ask for a positive integer number for the number of rooms to be added to a hotel;
+     *          displays information about whether rooms were successfully
+     *          added.
+     */
     protected void createHotelRooms(Hotel hotel) {
         int numRooms;
 
@@ -63,6 +77,10 @@ public class HotelSimulator {
                 + hotel.getBusinessName() + " hotel!");
     }
 
+    /*
+     * EFFECTS: checks if a hotel has any available rooms and if it's open; asks for number of bookings
+     *          to be made and if smaller than # of available rooms but larger than 0, calls createBookings()
+     */
     protected void checkBookingConditions(Hotel hotel, ArrayList<Resident> residents) {
         if (hotel.getAvailableRooms() == 0) {
             System.out.println("\nThis hotel is fully booked. You can check out existing guests or create new rooms.");
@@ -87,6 +105,9 @@ public class HotelSimulator {
         }
     }
 
+    /*
+     * EFFECTS: creates bookings under resident's name
+     */
     protected void createBookings(Hotel hotel, int numOfBookings, Resident resident) {
         ArrayList<Integer> bookedRoomNumbers = hotel.makeBooking(numOfBookings, resident);
         System.out.println("\nSuccessful! The following rooms have been booked: ");
@@ -96,6 +117,9 @@ public class HotelSimulator {
         System.out.print("\n");
     }
 
+    /*
+     * EFFECTS: displays all bookings in the format of room number=> guest name
+     */
     protected void displayAllBookings(Hotel hotel) {
         HashMap<Integer, String> bookingInfo = hotel.getBookingInfo();
         if (!hotel.getRoomNumbers().isEmpty()) {

@@ -1,5 +1,6 @@
 package model;
 
+// Represents residents living in a city.
 public class Resident {
 
     private String name;
@@ -8,7 +9,7 @@ public class Resident {
     private int occupationCode;//-1 == no occupation, 0 == working at hotel, 1 == working at grocery store
 
     /*
-     * REQUIRES:
+     * REQUIRES: name is not null AND age > 0
      * EFFECTS: Construct a resident with the given name, sex and age and no occupation
      */
     public Resident(String name, boolean isFemale, int age) {
@@ -18,6 +19,11 @@ public class Resident {
         this.occupationCode = -1;
     }
 
+    /*
+     * REQUIRES: code has a corresponding occupation
+     * MODIFIES: this
+     * EFFECTS: changes a resident's occupation code to code
+     */
     public void setOccupationCode(int code) {
         this.occupationCode = code;
     }
@@ -41,6 +47,4 @@ public class Resident {
     public int getOccupationCode() {
         return occupationCode;
     }
-
-
 }

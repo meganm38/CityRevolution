@@ -6,12 +6,16 @@ import model.Resident;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
+
+// A resident simulator that performs actions about a resident.
 
 public class ResidentSimulator {
     Scanner scanner = new Scanner(System.in);
 
+    /*
+     * EFFECTS: displays a city's all residents in a list if there are any; returns true if there are, false otherwise.
+     */
     protected boolean checkAndDisplayResidents(ArrayList<Resident> residents) {
         int numResidents = residents.size();
         if (numResidents == 0) {
@@ -28,6 +32,10 @@ public class ResidentSimulator {
         }
     }
 
+    /*
+     * EFFECTS: ask user for a resident about which they want to see information; displays that resident's information
+     *          including name, age, gender, job, bank account balance
+     */
     protected void displayResidentInfo(ArrayList<Resident> residents, Bank bank) {
         int residentIndex = scanner.nextInt();
         Resident resident = residents.get(residentIndex);

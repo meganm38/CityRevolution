@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 import static model.BusinessInfo.HOTEL;
 
-// Represents a hotel
+// Represents a hotel to be added to a city. A hotel needs to have rooms and staff to be open for business.
 public class Hotel implements Business {
     private static final int ROOMS_EACH_FLOOR = 5;
     private static final int OCCUPATION_CODE = HOTEL.occupationCode();
@@ -62,7 +62,7 @@ public class Hotel implements Business {
     /*
      * REQUIRES: person is not null AND person's age >= 19
      * MODIFIES: this
-     * EFFECTS: add person to staff; change person's occupation to working at hotel
+     * EFFECTS: add person to staff; change person's occupation code to hotel's occupation code
      */
     public void addStaff(Resident person) {
         staff.add(person);
@@ -101,7 +101,7 @@ public class Hotel implements Business {
 
     /*
      * MODIFIES: this
-     * EFFECTS: create and return a map with room numbers and guests;
+     * EFFECTS: creates and returns a map with room numbers and guests;
      *          if a room hasn't been booked, map it with "Empty"
      */
     public HashMap<Integer, String> getBookingInfo() {

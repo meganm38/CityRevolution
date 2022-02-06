@@ -1,6 +1,6 @@
 package model;
 
-// salary per minute working at different businesses
+// Storing final information about business-type contents such as occupation code
 public enum BusinessInfo {
     HOTEL("hotel", 1, 0);
 

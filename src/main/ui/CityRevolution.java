@@ -5,6 +5,7 @@ import model.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+// City revolution Game.
 public class CityRevolution {
     private Scanner scanner;
     private ArrayList<City> cities;
@@ -24,6 +25,7 @@ public class CityRevolution {
         runSimulator();
     }
 
+    // EFFECTS: displays opening message and starts the main menu control
     private void runSimulator() {
         System.out.println("Welcome to City Revolution!");
         useMainMenu();
@@ -62,6 +64,9 @@ public class CityRevolution {
      * Add contents to the current city *
      ********************************************/
 
+    // MODIFIES: this
+    // EFFECTS: prompts the users to enter a hotel name that hasn't been used before;
+    //          adds a new hotel with this name to the current city that the user has open
     private void doAddNewHotelToCity() {
         City myCity = cities.get(currentCity);
         String hotelName;
@@ -87,6 +92,9 @@ public class CityRevolution {
                 + myCity.getCityName() + ".");
     }
 
+    // MODIFIES: this
+    // EFFECTS: prompts the users to enter resident's info;
+    //          adds a resident to the current city that the user has open
     private void doAddResidentToCity() {
         City myCity = cities.get(currentCity);
         String residentName;
@@ -438,9 +446,9 @@ public class CityRevolution {
     /***********************************************************************
      * Helper functions for picking a current object of City, hotel, etc.*
      ***********************************************************************/
-
-    // REQUIRES: there are cities created
-    // EFFECTS: display any existing cities that have been created by user
+    //MODIFIES: this
+    //EFFECTS: displays any existing cities that have been created by user if there are any; changes the current city
+    //            to the city that user has picked
     private void setCurrentCity() {
         if (cities.size() == 0) {
             System.out.println("You haven't created any cities. Please start by creating a city.");
@@ -457,6 +465,9 @@ public class CityRevolution {
         System.out.println("\n You are now in the city of " + cities.get(currentCity).getCityName() + ".");
     }
 
+    //MODIFIES: this
+    //EFFECTS: displays any existing hotel that have been created by user if there are any; changes the current hotel
+    //            to the hotel that user has picked
     private void setCurrentHotel() {
         City myCity = cities.get(currentCity);
         boolean hotelsPresent = hotelSimulator.displayAllHotels(myCity.getHotels());

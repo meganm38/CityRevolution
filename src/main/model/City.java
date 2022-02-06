@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 
+// Represents a city. Users can create multiple cities and add contents to each one.
 public class City {
     private String cityName;
     private ArrayList<Hotel> hotels;
@@ -26,6 +27,10 @@ public class City {
         hotels.add(hotel);
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: add a resident to the city
+     */
     public void addResident(Resident resident) {
         residents.add(resident);
     }

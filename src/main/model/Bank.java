@@ -5,6 +5,10 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+/*
+ * A bank is automatically created every time a city is created. Every resident automatically is set up with an account
+ * in the bank.
+ */
 public class Bank {
     private static final int TIME_UNIT_IN_SECONDS = 1;
     private static final int INITIAL_BALANCE = 2000;
@@ -26,7 +30,7 @@ public class Bank {
     /*
      * REQUIRES: resident cannot be NULL
      * MODIFIES: this
-     * EFFECTS: creates an account for resident and give it an initial balance
+     * EFFECTS: add an account for resident and give it an initial balance
      */
     public void createAccountForResident(Resident resident) {
         accounts.put(resident.getName(), INITIAL_BALANCE);
@@ -53,7 +57,7 @@ public class Bank {
     /*
      * REQUIRES: resident cannot be NULL
      * MODIFIES: this
-     * EFFECTS: adds salaryPerSecond to resident's balance every second in the background
+     * EFFECTS: runs addBalance() every second in the background
      */
     public void createEarnings(Resident resident, int salaryPerSecond) {
         timerService.scheduleAtFixedRate(() -> addBalance(resident, salaryPerSecond),
