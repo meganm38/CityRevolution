@@ -440,7 +440,7 @@ public class CityRevolution {
             case "a":
                 displayStaff(business);
                 addStaffToBusiness(business);
-                System.out.println("The hourly wage is " + business.getSalary() + ".");
+                System.out.println("The hourly wage is " + business.getSalary() * 3600 + ".");
                 break;
             case "b":
                 if (displayStaff(business)) {

@@ -6,35 +6,56 @@ package model;
 
 import java.util.ArrayList;
 
-public interface Business {
+public abstract class Business {
+    protected ArrayList<Resident> staff;
+    protected String name;
+    protected boolean businessIsOpen;
+
+    public Business(String name) {
+        this.name = name;
+        businessIsOpen = false;
+        staff = new ArrayList<>();
+    }
 
     /*
      * REQUIRES: resident cannot be null
      * MODIFIES: this
      * EFFECTS: add resident as a staff for business
      */
-    void addStaff(Resident resident);
+    public void addStaff(Resident person) {
+        staff.add(person);
+    }
 
     /*
      * REQUIRES: resident is currently working at business
      * MODIFIES: this
      * EFFECTS: removes resident as a staff for business
      */
-    void removeStaff(Resident resident);
+    public void removeStaff(Resident resident) {
+        staff.remove(resident);
+    }
 
     /*
      * REQUIRES: business is not already open
      * MODIFIES: this
      * EFFECTS: opens a business
      */
-    boolean openBusiness();
+    public abstract boolean openBusiness();
 
     // getters
-    int getOccupationCode();
+    public abstract int getSalary();
 
-    int getSalary();
+    public String getBusinessName() {
+        return name;
+    }
 
-    String getBusinessName();
+    public boolean isBusinessOpen() {
+        return businessIsOpen;
+    }
 
-    ArrayList<Resident> getStaff();
+    public ArrayList<Resident> getStaff() {
+        return staff;
+    }
+
+    public abstract int getOccupationCode();
 }

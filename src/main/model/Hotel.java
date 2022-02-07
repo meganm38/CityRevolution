@@ -6,16 +6,14 @@ import java.util.HashMap;
 import static model.BusinessInfo.HOTEL;
 
 // Represents a hotel to be added to a city. A hotel needs to have rooms and staff to be open for business.
-public class Hotel implements Business {
+public class Hotel extends Business {
     private static final int ROOMS_EACH_FLOOR = 5;
     private static final int OCCUPATION_CODE = HOTEL.occupationCode();
     private static final int SALARY_PER_SECOND = HOTEL.salary();
 
-    private String hotelName;
-    private boolean hotelIsOpen;
+//    private String name;
     private int availableRooms;
     private ArrayList<Integer> roomNumbers;
-    private ArrayList<Resident> staff;
     private ArrayList<Resident> guests;
     private ArrayList<Integer> bookedRoomNumbers;
     private HashMap<Integer, String> bookingInfo;
@@ -26,12 +24,10 @@ public class Hotel implements Business {
      *          hotel is not open; hotel has no rooms; hotel has no staff;
      *          hotel has no guests; available rooms = 0; no booked rooms.
      */
-    public Hotel(String hotelName) {
-        this.hotelName = hotelName;
+    public Hotel(String name) {
+        super(name);
         availableRooms = 0;
-        hotelIsOpen = false;
         roomNumbers = new ArrayList<>();
-        staff = new ArrayList<>();
         guests = new ArrayList<>();
         bookedRoomNumbers = new ArrayList<>();
         bookingInfo = new HashMap<>();
@@ -64,9 +60,10 @@ public class Hotel implements Business {
      * MODIFIES: this
      * EFFECTS: add person to staff; change person's occupation code to hotel's occupation code
      */
+    @Override
     public void addStaff(Resident person) {
-        staff.add(person);
-        person.setOccupation(OCCUPATION_CODE, hotelName);
+        super.addStaff(person);
+        person.setOccupation(OCCUPATION_CODE, name);
     }
 
     /*
@@ -76,7 +73,7 @@ public class Hotel implements Business {
      */
     @Override
     public void removeStaff(Resident resident) {
-        staff.remove(resident);
+        super.removeStaff(resident);
         resident.setOccupation(-1, null);
 
     }
@@ -87,8 +84,8 @@ public class Hotel implements Business {
      * EFFECTS: set hotelIsOpen to true if number of rooms > 0 AND number of Staff > 0
      */
     public boolean openBusiness() {
-        hotelIsOpen = !roomNumbers.isEmpty() && !staff.isEmpty();
-        return hotelIsOpen;
+        businessIsOpen = !roomNumbers.isEmpty() && !staff.isEmpty();
+        return businessIsOpen;
     }
 
     /*
@@ -130,20 +127,8 @@ public class Hotel implements Business {
     /*
      * getters
      */
-    public String getBusinessName() {
-        return hotelName;
-    }
-
-    public boolean isHotelOpen() {
-        return hotelIsOpen;
-    }
-
     public ArrayList<Integer> getRoomNumbers() {
         return roomNumbers;
-    }
-
-    public ArrayList<Resident> getStaff() {
-        return staff;
     }
 
     public int getAvailableRooms() {

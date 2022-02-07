@@ -40,7 +40,7 @@ public class HotelSimulator {
     protected void openHotelForBusiness(Hotel hotel) {
         boolean openSuccessful;
 
-        if (hotel.isHotelOpen()) {
+        if (hotel.isBusinessOpen()) {
             System.out.println("\nYour hotel " + hotel.getBusinessName() + " is already open!");
         } else {
             openSuccessful = hotel.openBusiness();
@@ -85,7 +85,7 @@ public class HotelSimulator {
         if (hotel.getAvailableRooms() == 0) {
             System.out.println("\nThis hotel is fully booked. You can check out existing guests or create new rooms.");
             System.out.println("Returning you to the previous menu...");
-        } else if (!hotel.isHotelOpen()) {
+        } else if (!hotel.isBusinessOpen()) {
             System.out.println("\nThis hotel is not open for business yet! Please open it before creating bookings.");
             System.out.println("Returning you the previous menu...");
         } else if (residentSimulator.checkAndDisplayResidents(residents)) {

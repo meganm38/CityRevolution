@@ -24,7 +24,7 @@ class HotelTest {
     @Test
     public void testConstructor() {
         assertEquals("Holiday Inn", hotel1.getBusinessName());
-        assertFalse(hotel1.isHotelOpen());
+        assertFalse(hotel1.isBusinessOpen());
         assertTrue(hotel1.getRoomNumbers().isEmpty());
         assertTrue(hotel1.getStaff().isEmpty());
         assertTrue(hotel1.getGuests().isEmpty());
