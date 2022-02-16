@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Map;
 
 
 class HotelTest {
@@ -38,6 +39,10 @@ class HotelTest {
         assertEquals(1, hotel1.getRoomNumbers().size());
         assertEquals(1, hotel1.getAvailableRooms());
 
+        HashMap<Integer, String> bookingInfoMap = hotel1.getBookingInfo();
+        assertEquals(1, bookingInfoMap.size());
+        assertEquals("Empty", bookingInfoMap.get(101));
+
         ArrayList<Integer> roomNumbers = new ArrayList<>(Collections.singletonList(101));
         assertEquals(roomNumbers, hotel1.getRoomNumbers());
 
@@ -47,6 +52,12 @@ class HotelTest {
 
         roomNumbers = new ArrayList<>(asList(101, 102, 103, 104, 105, 201, 202, 203, 204, 205, 301));
         assertEquals(roomNumbers, hotel1.getRoomNumbers());
+
+        bookingInfoMap = hotel1.getBookingInfo();
+        assertEquals(11, bookingInfoMap.size());
+        for (Integer roomNum : roomNumbers) {
+            assertEquals("Empty", bookingInfoMap.get(roomNum));
+        }
     }
 
     @Test
@@ -88,12 +99,26 @@ class HotelTest {
         assertEquals(new ArrayList<>(asList(101, 102, 103)), roomsBooked);
         assertEquals(new ArrayList<>(asList(101, 102, 103)), hotel1.getBookedRoomNumbers());
 
+        HashMap<Integer, String> bookingInfoMap = hotel1.getBookingInfo();
+        assertTrue(bookingInfoMap.size() == 5);
+
+        for (Integer bookedRoomNum : hotel1.getBookedRoomNumbers()) {
+            assertEquals(resident1.getName(), bookingInfoMap.get(bookedRoomNum));
+        }
+
         hotel1.addRooms(10);
         roomsBooked = hotel1.makeBooking(7, resident1);
         assertEquals(5, hotel1.getAvailableRooms());
         assertEquals(new ArrayList<>(asList(104, 105, 201, 202, 203, 204, 205)), roomsBooked);
         assertEquals(new ArrayList<>(asList(101, 102, 103, 104, 105, 201, 202, 203, 204, 205)),
                 hotel1.getBookedRoomNumbers());
+
+        bookingInfoMap = hotel1.getBookingInfo();
+        assertTrue(bookingInfoMap.size() == 15);
+
+        for (Integer bookedRoomNum : hotel1.getBookedRoomNumbers()) {
+            assertEquals(resident1.getName(), bookingInfoMap.get(bookedRoomNum));
+        }
     }
 
     @Test

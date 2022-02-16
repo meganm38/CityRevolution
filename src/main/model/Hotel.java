@@ -1,17 +1,23 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.JsonWriter;
+import persistence.Writable;
+
+import java.nio.file.Watchable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
 import static model.BusinessInfo.HOTEL;
 
 // Represents a hotel to be added to a city. A hotel needs to have rooms and staff to be open for business.
-public class Hotel extends Business {
+public class Hotel extends Business implements Writable {
     private static final int ROOMS_EACH_FLOOR = 5;
     private static final int OCCUPATION_CODE = HOTEL.occupationCode();
     private static final int SALARY_PER_SECOND = HOTEL.salary();
 
-//    private String name;
     private int availableRooms;
     private ArrayList<Integer> roomNumbers;
     private ArrayList<Resident> guests;
@@ -41,18 +47,26 @@ public class Hotel extends Business {
      *          add num to available rooms.
      */
     public void addRooms(int num) {
+        ArrayList<Integer> newRoomNumbers = new ArrayList<>();
+        int nextRoomNumber;
+
         for (int i = 0; i < num; i++) {
             if (roomNumbers.isEmpty()) {
-                roomNumbers.add(101);
+                nextRoomNumber = 101;
             } else {
-                int nextRoomNumber;
                 nextRoomNumber = roomNumbers.size() % ROOMS_EACH_FLOOR == 0
                         ? roomNumbers.get(roomNumbers.size() - 1) + 101 - ROOMS_EACH_FLOOR
                         : roomNumbers.get(roomNumbers.size() - 1) + 1;
-                roomNumbers.add(nextRoomNumber);
             }
+            roomNumbers.add(nextRoomNumber);
+            newRoomNumbers.add(nextRoomNumber);
         }
         availableRooms += num;
+
+        // create booking info with empty rooms
+        for (Integer roomNumber : newRoomNumbers) {
+            bookingInfo.put(roomNumber, "Empty");
+        }
     }
 
     /*
@@ -93,7 +107,9 @@ public class Hotel extends Business {
      *           AND number of available rooms >= numOfBookings.
      * MODIFIES: this
      * EFFECTS: create bookings under person's name;
-     * add newly booked room numbers to booked room numbers
+     * add newly booked room numbers to booked room numbers;
+     * creates and returns a map with room numbers and guests;
+     *          if a room hasn't been booked, map it with "Empty"
      */
     public ArrayList<Integer> makeBooking(int numOfBookings, Resident person) {
 
@@ -105,23 +121,11 @@ public class Hotel extends Business {
         }
         availableRooms -= numOfBookings;
         bookedRoomNumbers.addAll(newBookedRoomNumbers);
-        return newBookedRoomNumbers;
-    }
 
-    /*
-     * MODIFIES: this
-     * EFFECTS: creates and returns a map with room numbers and guests;
-     *          if a room hasn't been booked, map it with "Empty"
-     */
-    public HashMap<Integer, String> getBookingInfo() {
-        for (int i = 0; i < roomNumbers.size(); i++) {
-            if (i < guests.size()) {
-                bookingInfo.put(roomNumbers.get(i), guests.get(i).getName());
-            } else {
-                bookingInfo.put(roomNumbers.get(i), "Empty");
-            }
+        for (int i = 0; i < newBookedRoomNumbers.size(); i++) {
+            bookingInfo.put(newBookedRoomNumbers.get(i), person.getName());
         }
-        return bookingInfo;
+        return newBookedRoomNumbers;
     }
 
     /*
@@ -149,5 +153,31 @@ public class Hotel extends Business {
 
     public int getSalary() {
         return SALARY_PER_SECOND;
+    }
+
+    public HashMap<Integer, String> getBookingInfo() {
+        return bookingInfo;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("Hotel Name", name);
+        jsonObject.put("Available Rooms", availableRooms);
+        jsonObject.put("Room Numbers", roomNumbers);
+        jsonObject.put("Guests", guests);
+        jsonObject.put("Booked Room Numbers", bookedRoomNumbers);
+
+        JSONArray jsonArray = new JSONArray();
+        JSONObject bookingInfoJson = new JSONObject();
+        Iterator it = bookingInfo.entrySet().iterator();
+        while (it.hasNext()) {
+            HashMap.Entry pairs = (HashMap.Entry)it.next();
+            bookingInfoJson.put((String) pairs.getKey(), pairs.getValue());
+            jsonArray.put(bookingInfoJson);
+        }
+
+        jsonObject.put("Booking Info", jsonArray);
+        return jsonObject;
     }
 }

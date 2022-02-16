@@ -1,7 +1,10 @@
 package model;
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 // Represents residents living in a city.
-public class Resident {
+public class Resident implements Writable {
 
     private String name;
     private boolean isFemale;
@@ -31,7 +34,6 @@ public class Resident {
         this.workingLocation = workingLocation;
     }
 
-
     /*
      * getters
      */
@@ -53,5 +55,19 @@ public class Resident {
 
     public String getWorkingLocation() {
         return workingLocation;
+    }
+
+    // EFFECTS: returns a resident as JSON object
+    @Override
+    public JSONObject toJson() {
+        JSONObject jsonObject = new JSONObject();
+
+        jsonObject.put("Working Location", workingLocation == null ? "Unemployed" : workingLocation);
+        jsonObject.put("Occupation Code", occupationCode);
+        jsonObject.put("Sex", isFemale ? "Female" : "Male");
+        jsonObject.put("Age", age);
+        jsonObject.put("Name", name);
+
+        return jsonObject;
     }
 }

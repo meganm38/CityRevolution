@@ -1,6 +1,10 @@
 package model;
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -9,7 +13,7 @@ import java.util.concurrent.TimeUnit;
  * A bank is automatically created every time a city is created. Every resident automatically is set up with an account
  * in the bank.
  */
-public class Bank {
+public class Bank implements Writable {
     private static final int TIME_UNIT_IN_SECONDS = 1;
     private static final int INITIAL_BALANCE = 2000;
 
@@ -79,5 +83,18 @@ public class Bank {
 
     public String getBankName() {
         return bankName;
+    }
+
+    // EFFECTS: returns bank accounts as JSON object
+    @Override
+    public JSONObject toJson() {
+        JSONObject jsonObject = new JSONObject();
+
+        Iterator it = accounts.entrySet().iterator();
+        while (it.hasNext()) {
+            HashMap.Entry pairs = (HashMap.Entry)it.next();
+            jsonObject.put((String) pairs.getKey(), pairs.getValue());
+        }
+        return jsonObject;
     }
 }

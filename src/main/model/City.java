@@ -1,9 +1,13 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.ArrayList;
 
 // Represents a city. Users can create multiple cities and add contents to each one.
-public class City {
+public class City implements Writable {
     private String cityName;
     private ArrayList<Hotel> hotels;
     private ArrayList<Resident> residents;
@@ -59,5 +63,34 @@ public class City {
 
     public ArrayList<Business> getBusinesses() {
         return businesses;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("City Name", cityName);
+        json.put("Residents", residentsToJson());
+        json.put("Bank Accounts", bank.toJson());
+        json.put("Hotels", hotelsToJson());
+        return json;
+    }
+
+    public JSONArray residentsToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Resident resident : residents) {
+            jsonArray.put(resident.toJson());
+        }
+        return jsonArray;
+    }
+
+
+    public JSONArray hotelsToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Hotel hotel : hotels) {
+            jsonArray.put(hotel.toJson());
+        }
+        return jsonArray;
     }
 }
