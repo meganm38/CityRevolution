@@ -69,7 +69,6 @@ public class JsonWriterTest {
 //            assertEquals(2, thingies.size());
 //            checkThingy("saw", Category.METALWORK, thingies.get(0));
 //            checkThingy("needle", Category.STITCHING, thingies.get(1));
-
         } catch (IOException e) {
             fail("Exception should not have been thrown");
         }
