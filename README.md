@@ -30,3 +30,5 @@ ___
   For example, I want to be able to see information about each of my residents, or the room booking status of a hotel.
 - As a user, I want to be able to make my residents work at the businesses that I have created and earn money. Employees
   should automatically receive their wages in their bank accounts.
+- As a user, I want to be able to save all the contents in my cities into a JSON file.
+- As a user, I want to be given an option to load a JSON file to restore all contents that I have created.

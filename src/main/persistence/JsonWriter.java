@@ -1,11 +1,13 @@
 package persistence;
 
 import model.City;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 
 // Represents a writer that writes JSON representation of a city to file
 public class JsonWriter {
@@ -27,9 +29,14 @@ public class JsonWriter {
 
     // MODIFIES: this
     // EFFECTS: writes JSON representation of workroom to file
-    public void write(City city) {
-        JSONObject json = city.toJson();
-        saveToFile(json.toString(TAB));
+    public void write(ArrayList<City> cities) {
+        JSONArray citiesJson = new JSONArray();
+        for (City city : cities) {
+            JSONObject json = city.toJson();
+            citiesJson.put(json);
+        }
+
+        saveToFile(citiesJson.toString(TAB));
     }
 
     // MODIFIES: this

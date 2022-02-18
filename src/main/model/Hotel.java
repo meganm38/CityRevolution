@@ -2,10 +2,8 @@ package model;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import persistence.JsonWriter;
 import persistence.Writable;
 
-import java.nio.file.Watchable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -169,15 +167,16 @@ public class Hotel extends Business implements Writable {
         jsonObject.put("Booked Room Numbers", bookedRoomNumbers);
 
         JSONArray jsonArray = new JSONArray();
-        JSONObject bookingInfoJson = new JSONObject();
         Iterator it = bookingInfo.entrySet().iterator();
         while (it.hasNext()) {
+            JSONObject bookingInfoJson = new JSONObject();
             HashMap.Entry pairs = (HashMap.Entry)it.next();
-            bookingInfoJson.put((String) pairs.getKey(), pairs.getValue());
+            bookingInfoJson.put(String.valueOf(pairs.getKey()), pairs.getValue());
             jsonArray.put(bookingInfoJson);
         }
 
         jsonObject.put("Booking Info", jsonArray);
+        jsonObject.put("Staff", staff);
         return jsonObject;
     }
 }

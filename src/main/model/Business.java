@@ -11,6 +11,7 @@ public abstract class Business {
     protected String name;
     protected boolean businessIsOpen;
 
+    //
     public Business(String name) {
         this.name = name;
         businessIsOpen = false;

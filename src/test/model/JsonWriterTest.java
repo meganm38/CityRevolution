@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import persistence.JsonWriter;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -34,14 +35,31 @@ public class JsonWriterTest {
             city.getBank().createAccountForResident(resident1);
             city.getBank().createAccountForResident(resident2);
 
-            Hotel hotel = new Hotel("Holiday Inn");
-            city.addHotel(hotel);
-            hotel.addRooms(10);
-            hotel.makeBooking(2, resident1);
+            Hotel hotel1 = new Hotel("Holiday Inn");
+            city.addHotel(hotel1);
+            hotel1.addRooms(10);
+            hotel1.makeBooking(2, resident1);
+            hotel1.addStaff(resident1);
+            hotel1.addStaff(resident2);
+
+
+
+            City city2 = new City("Toronto");
+            Resident resident3 = new Resident("Joey", false, 25);
+            Resident resident4 = new Resident("Ross", false, 25);
+            city2.addResident(resident3);
+            city2.addResident(resident4);
+            city2.getBank().createAccountForResident(resident3);
+            city2.getBank().createAccountForResident(resident4);
+
+
+            ArrayList<City> cities = new ArrayList<>();
+            cities.add(city);
+            cities.add(city2);
 
             JsonWriter writer = new JsonWriter("./data/testWriterGeneralCity.json");
             writer.open();
-            writer.write(city);
+            writer.write(cities);
             writer.close();
 
 //            JsonReader reader = new JsonReader("./data/testWriterGeneralWorkroom.json");
