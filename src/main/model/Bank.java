@@ -41,6 +41,15 @@ public class Bank implements Writable {
     }
 
     /*
+     * REQUIRES: resident cannot be NULL, balance >= 0
+     * MODIFIES: this
+     * EFFECTS: add an account for resident and set its balance = balance
+     */
+    public void createAccountForResident(Resident resident, int balance) {
+        accounts.put(resident.getName(), balance);
+    }
+
+    /*
      * MODIFIES: this
      * EFFECTS: initializes Scheduled Executor Service
      */

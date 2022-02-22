@@ -10,6 +10,7 @@ public abstract class Business {
     protected ArrayList<Resident> staff;
     protected String name;
     protected boolean businessIsOpen;
+    protected int occupationCode;
 
     //
     public Business(String name) {
@@ -58,5 +59,7 @@ public abstract class Business {
         return staff;
     }
 
-    public abstract int getOccupationCode();
+    public int getOccupationCode() {
+        return occupationCode;
+    }
 }

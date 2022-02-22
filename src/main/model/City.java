@@ -68,10 +68,10 @@ public class City implements Writable {
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
+        json.put("Hotels", hotelsToJson());
         json.put("City Name", cityName);
         json.put("Residents", residentsToJson());
         json.put("Bank Accounts", bank.toJson());
-        json.put("Hotels", hotelsToJson());
         return json;
     }
 

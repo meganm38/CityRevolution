@@ -13,7 +13,6 @@ import static model.BusinessInfo.HOTEL;
 // Represents a hotel to be added to a city. A hotel needs to have rooms and staff to be open for business.
 public class Hotel extends Business implements Writable {
     private static final int ROOMS_EACH_FLOOR = 5;
-    private static final int OCCUPATION_CODE = HOTEL.occupationCode();
     private static final int SALARY_PER_SECOND = HOTEL.salary();
 
     private int availableRooms;
@@ -35,6 +34,7 @@ public class Hotel extends Business implements Writable {
         guests = new ArrayList<>();
         bookedRoomNumbers = new ArrayList<>();
         bookingInfo = new HashMap<>();
+        occupationCode = HOTEL.occupationCode();
     }
 
     /*
@@ -75,7 +75,7 @@ public class Hotel extends Business implements Writable {
     @Override
     public void addStaff(Resident person) {
         super.addStaff(person);
-        person.setOccupation(OCCUPATION_CODE, name);
+        person.setOccupation(occupationCode, name);
     }
 
     /*
@@ -145,10 +145,6 @@ public class Hotel extends Business implements Writable {
         return bookedRoomNumbers;
     }
 
-    public int getOccupationCode() {
-        return OCCUPATION_CODE;
-    }
-
     public int getSalary() {
         return SALARY_PER_SECOND;
     }
@@ -156,6 +152,7 @@ public class Hotel extends Business implements Writable {
     public HashMap<Integer, String> getBookingInfo() {
         return bookingInfo;
     }
+
 
     @Override
     public JSONObject toJson() {
@@ -174,9 +171,9 @@ public class Hotel extends Business implements Writable {
             bookingInfoJson.put(String.valueOf(pairs.getKey()), pairs.getValue());
             jsonArray.put(bookingInfoJson);
         }
-
         jsonObject.put("Booking Info", jsonArray);
         jsonObject.put("Staff", staff);
+        jsonObject.put("Is Open", isBusinessOpen());
         return jsonObject;
     }
 }

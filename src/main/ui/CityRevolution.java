@@ -1,7 +1,11 @@
 package ui;
 
 import model.*;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -16,6 +20,9 @@ public class CityRevolution {
     private int currentHotel;
     private final HotelSimulator hotelSimulator;
     private final ResidentSimulator residentSimulator;
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
+    private final String destination = "./data/WriterCities.json";
 
     // EFFECTS: runs the simulator application
     public CityRevolution() {
@@ -153,6 +160,8 @@ public class CityRevolution {
         System.out.println("\nSelect from:");
         System.out.println("\ta -> build a new city");
         System.out.println("\tb -> open an existing city");
+        System.out.println("\tc -> load cities from file");
+        System.out.println("\td -> save cities to file");
         System.out.println("\tq -> quit");
     }
 
@@ -167,11 +176,45 @@ public class CityRevolution {
                 setCurrentCity();
                 useSecondaryMenu();
                 break;
+            case "c" :
+                loadCities();
+                useMainMenu();
+                break;
+            case "d":
+                writeCities();
+                useMainMenu();
+                break;
             case "q":
                 terminate();
             default:
                 processMainMenuCommand(processInvalidCommand());
                 break;
+        }
+    }
+
+    /********************************************
+     * JSON Control *
+     ********************************************/
+    private void writeCities() {
+        try {
+            jsonWriter = new JsonWriter(destination);
+            jsonWriter.open();
+            jsonWriter.write(cities);
+            jsonWriter.close();
+            System.out.println("\nYour cities have been saved.");
+        } catch (FileNotFoundException e) {
+            System.out.println("\nCould not open file to write");
+        }
+    }
+
+    private void loadCities() {
+        try {
+            jsonReader = new JsonReader(destination);
+            ArrayList<City> citiesLoaded = jsonReader.read();
+            cities.addAll(citiesLoaded);
+            System.out.println("\nYour cities have been loaded.");
+        } catch (IOException e) {
+            System.out.println("\nCouldn't open file to read. File doesn't exist.");
         }
     }
 

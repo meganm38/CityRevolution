@@ -1,6 +1,7 @@
 package model;
 
 import org.junit.jupiter.api.Test;
+import persistence.JsonReader;
 import persistence.JsonWriter;
 
 import java.io.IOException;
@@ -41,8 +42,10 @@ public class JsonWriterTest {
             hotel1.makeBooking(2, resident1);
             hotel1.addStaff(resident1);
             hotel1.addStaff(resident2);
+            hotel1.openBusiness();
 
-
+            Hotel hotel2 = new Hotel("Another Hotel");
+            city.addHotel(hotel2);
 
             City city2 = new City("Toronto");
             Resident resident3 = new Resident("Joey", false, 25);
@@ -62,7 +65,17 @@ public class JsonWriterTest {
             writer.write(cities);
             writer.close();
 
-//            JsonReader reader = new JsonReader("./data/testWriterGeneralWorkroom.json");
+            JsonReader reader = new JsonReader("./data/testWriterGeneralCity.json");
+            ArrayList<City> citiesRead = reader.read();
+            City city1Read = citiesRead.get(0);
+            assertEquals("Vancouver", city1Read.getCityName());
+            ArrayList<Hotel> city1Hotels = city1Read.getHotels();
+            assertEquals(2, city1Hotels.size());
+            assertEquals("Holiday Inn", city1Hotels.get(0).getBusinessName());
+            assertEquals("Another Hotel", city1Hotels.get(1).getBusinessName());
+
+
+
 //            city = reader.read();
 //            assertEquals("My work room", city.getName());
 //            List<Thingy> thingies = city.getThingies();
