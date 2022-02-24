@@ -80,12 +80,12 @@ public class JsonReader {
         for (Object object : jsonArray) {
             JSONObject staffJson = (JSONObject) object;
             String staffName = staffJson.getString("name");
-            for (Resident resident : residents) {
-                if (staffName.equalsIgnoreCase(resident.getName())) {
-                    business.addStaff(resident);
-                    break;
-                }
-            }
+            int age = staffJson.getInt("age");
+            boolean sex = staffJson.getBoolean("female");
+            Resident resident = new Resident(staffName, sex, age);
+            resident.setOccupation(staffJson.getInt("occupationCode"
+            ), staffJson.getString("workingLocation"));
+            business.addStaff(resident);
         }
     }
 
@@ -150,13 +150,12 @@ public class JsonReader {
         for (Resident resident : residents) {
             bank.createAccountForResident(resident, bankJson.getInt(resident.getName()));
             if (resident.getOccupationCode() != -1) {
-                int salary = 0;
-                for (BusinessInfo businessInfo : BusinessInfo.values()) {
-                    if (resident.getOccupationCode() == businessInfo.occupationCode()) {
-                        salary = businessInfo.salary();
-                        break;
-                    }
-                }
+                int salary = 1;
+//                for (BusinessInfo businessInfo : BusinessInfo.values()) {
+//                    if (resident.getOccupationCode() == businessInfo.occupationCode()) {
+//                        salary = businessInfo.salary();
+//                    }
+//                }
                 bank.initializeSES();
                 bank.createEarnings(resident, salary);
             }
