@@ -7,8 +7,7 @@ import persistence.JsonWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class JsonWriterTest {
 
@@ -62,7 +61,6 @@ public class JsonWriterTest {
             hotel1.addRooms(10);
             hotel1.makeBooking(2, resident1);
             hotel1.addStaff(resident1);
-            hotel1.addStaff(resident2);
             hotel1.openBusiness();
 
             Hotel hotel2 = new Hotel("Another Hotel");
@@ -98,7 +96,10 @@ public class JsonWriterTest {
             checkResidentsInfo(resident2, city1Residents.get(1));
 
             //check city 1 bank accounts info
-            //assertEquals(city.getBank().getAccounts(),city1Read.getBank().getAccounts());
+            Thread.sleep(1000);
+            assertTrue(city1Read.getBank().getAccounts().get("Monica") > 2000);
+            assertTrue(city1Read.getBank().getAccounts().get("Chandler") == 2000);
+
 
             //check city 1 hotels info
             checkHotelInfo(hotel1, city1Hotels.get(0));
@@ -115,7 +116,7 @@ public class JsonWriterTest {
             assertEquals(city2.getBank().getAccounts(), city2Read.getBank().getAccounts());
 
 
-        } catch (IOException e) {
+        } catch (IOException | InterruptedException e) {
             fail("Exception should not have been thrown");
         }
     }

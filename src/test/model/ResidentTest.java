@@ -1,8 +1,10 @@
 package model;
 
-import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ResidentTest {
     public Resident resident1;
@@ -18,7 +20,7 @@ public class ResidentTest {
         assertTrue(resident1.isFemale());
         assertEquals(25, resident1.getAge());
         assertEquals(-1, resident1.getOccupationCode());
-        assertNull(resident1.getWorkingLocation());
+        assertEquals("Unemployed", resident1.getWorkingLocation());
     }
 
     @Test

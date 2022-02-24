@@ -39,7 +39,7 @@ public class Resident implements Writable {
     public JSONObject toJson() {
         JSONObject jsonObject = new JSONObject();
 
-        jsonObject.put("Working Location", workingLocation == null ? "Unemployed" : workingLocation);
+        jsonObject.put("Working Location", workingLocation);
         jsonObject.put("Occupation Code", occupationCode);
         jsonObject.put("Sex", isFemale ? "Female" : "Male");
         jsonObject.put("Age", age);
