@@ -1,0 +1,59 @@
+[
+  {
+    "Hotels": [
+      {
+        "Hotel Name": "holiday inn",
+        "Guests": [],
+        "Booked Room Numbers": [],
+        "Staff": [
+          {
+            "occupationCode": 0,
+            "workingLocation": "holiday inn",
+            "name": "hotel1",
+            "female": true,
+            "age": 23
+          }
+        ],
+        "Room Numbers": [
+          101,
+          102,
+          103,
+          104,
+          105
+        ],
+        "Is Open": false,
+        "Available Rooms": 5,
+        "Booking Info": [
+          {
+            "101": "Empty"
+          },
+          {
+            "102": "Empty"
+          },
+          {
+            "103": "Empty"
+          },
+          {
+            "104": "Empty"
+          },
+          {
+            "105": "Empty"
+          }
+        ]
+      }
+    ],
+    "City Name": "vancouver",
+    "Bank Accounts": {
+      "hotel1": 2015
+    },
+    "Residents": [
+      {
+        "Occupation Code": 0,
+        "Working Location": "holiday inn",
+        "Sex": "Female",
+        "Age": 23,
+        "Name": "hotel1"
+      }
+    ]
+  }
+]
