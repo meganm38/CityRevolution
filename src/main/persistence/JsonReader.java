@@ -21,6 +21,7 @@ public class JsonReader {
         this.source = source;
     }
 
+    //EFFECTS: reads cities information from source file and returns them as a list of cities
     public ArrayList<City> read() throws IOException {
         ArrayList<City> cities = new ArrayList<>();
         String jsonData = readFile(source);

@@ -9,7 +9,7 @@ public enum BusinessInfo {
     private final int occupationCode;
 
     /*
-     * EFFECTS: constructs an info with business type, salary per second, and occupation code
+     * EFFECTS: constructs info with business type, salary per second, and occupation code
      */
     BusinessInfo(final String businessType, final int salary, final int occupationCode) {
         this.businessType = businessType;
