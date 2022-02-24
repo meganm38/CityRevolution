@@ -6,7 +6,7 @@ import persistence.Writable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
+import java.util.Map;
 
 import static model.BusinessInfo.HOTEL;
 
@@ -120,10 +120,33 @@ public class Hotel extends Business implements Writable {
         availableRooms -= numOfBookings;
         bookedRoomNumbers.addAll(newBookedRoomNumbers);
 
-        for (int i = 0; i < newBookedRoomNumbers.size(); i++) {
-            bookingInfo.put(newBookedRoomNumbers.get(i), person.getName());
+        for (Integer newBookedRoomNumber : newBookedRoomNumbers) {
+            bookingInfo.put(newBookedRoomNumber, person.getName());
         }
         return newBookedRoomNumbers;
+    }
+
+    // EFFECTS: returns a hotel as JSON object
+    @Override
+    public JSONObject toJson() {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("Hotel Name", name);
+        jsonObject.put("Available Rooms", availableRooms);
+        jsonObject.put("Room Numbers", roomNumbers);
+        jsonObject.put("Guests", guests);
+        jsonObject.put("Booked Room Numbers", bookedRoomNumbers);
+
+        JSONArray jsonArray = new JSONArray();
+        for (Map.Entry<Integer, String> integerStringEntry : bookingInfo.entrySet()) {
+            JSONObject bookingInfoJson = new JSONObject();
+            JSONObject put = bookingInfoJson.put(String.valueOf(((HashMap.Entry) integerStringEntry).getKey()),
+                    ((HashMap.Entry) integerStringEntry).getValue());
+            jsonArray.put(bookingInfoJson);
+        }
+        jsonObject.put("Booking Info", jsonArray);
+        jsonObject.put("Staff", staff);
+        jsonObject.put("Is Open", isBusinessOpen());
+        return jsonObject;
     }
 
     /*
@@ -151,29 +174,5 @@ public class Hotel extends Business implements Writable {
 
     public HashMap<Integer, String> getBookingInfo() {
         return bookingInfo;
-    }
-
-
-    @Override
-    public JSONObject toJson() {
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("Hotel Name", name);
-        jsonObject.put("Available Rooms", availableRooms);
-        jsonObject.put("Room Numbers", roomNumbers);
-        jsonObject.put("Guests", guests);
-        jsonObject.put("Booked Room Numbers", bookedRoomNumbers);
-
-        JSONArray jsonArray = new JSONArray();
-        Iterator it = bookingInfo.entrySet().iterator();
-        while (it.hasNext()) {
-            JSONObject bookingInfoJson = new JSONObject();
-            HashMap.Entry pairs = (HashMap.Entry)it.next();
-            bookingInfoJson.put(String.valueOf(pairs.getKey()), pairs.getValue());
-            jsonArray.put(bookingInfoJson);
-        }
-        jsonObject.put("Booking Info", jsonArray);
-        jsonObject.put("Staff", staff);
-        jsonObject.put("Is Open", isBusinessOpen());
-        return jsonObject;
     }
 }

@@ -34,6 +34,20 @@ public class Resident implements Writable {
         this.workingLocation = workingLocation;
     }
 
+    // EFFECTS: returns a resident as JSON object
+    @Override
+    public JSONObject toJson() {
+        JSONObject jsonObject = new JSONObject();
+
+        jsonObject.put("Working Location", workingLocation == null ? "Unemployed" : workingLocation);
+        jsonObject.put("Occupation Code", occupationCode);
+        jsonObject.put("Sex", isFemale ? "Female" : "Male");
+        jsonObject.put("Age", age);
+        jsonObject.put("Name", name);
+
+        return jsonObject;
+    }
+
     /*
      * getters
      */
@@ -55,19 +69,5 @@ public class Resident implements Writable {
 
     public String getWorkingLocation() {
         return workingLocation;
-    }
-
-    // EFFECTS: returns a resident as JSON object
-    @Override
-    public JSONObject toJson() {
-        JSONObject jsonObject = new JSONObject();
-
-        jsonObject.put("Working Location", workingLocation == null ? "Unemployed" : workingLocation);
-        jsonObject.put("Occupation Code", occupationCode);
-        jsonObject.put("Sex", isFemale ? "Female" : "Male");
-        jsonObject.put("Age", age);
-        jsonObject.put("Name", name);
-
-        return jsonObject;
     }
 }

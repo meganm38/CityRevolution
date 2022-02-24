@@ -6,10 +6,8 @@ import persistence.JsonWriter;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class JsonWriterTest {
 
@@ -26,7 +24,29 @@ public class JsonWriterTest {
     }
 
     @Test
-    void testWriterGeneralCity() {
+    void testEmptyCity() {
+        try {
+            City city = new City("Vancouver");
+            ArrayList<City> cities = new ArrayList<>();
+            cities.add(city);
+            JsonWriter writer = new JsonWriter("./data/testWriterEmptyCity.json");
+            writer.open();
+            writer.write(cities);
+            writer.close();
+
+            JsonReader reader = new JsonReader("./data/testWriterEmptyCity.json");
+            cities = reader.read();
+            assertEquals("Vancouver", cities.get(0).getCityName());
+            assertEquals(0, city.getResidents().size());
+            assertEquals(0, city.getHotels().size());
+
+        } catch (IOException e) {
+            fail("Exception shouldn't have been thrown");
+        }
+    }
+
+    @Test
+    void testWriter2Cities() {
         try {
             City city = new City("Vancouver");
             Resident resident1 = new Resident("Monica", true, 25);
@@ -68,20 +88,41 @@ public class JsonWriterTest {
             JsonReader reader = new JsonReader("./data/testWriterGeneralCity.json");
             ArrayList<City> citiesRead = reader.read();
             City city1Read = citiesRead.get(0);
-            assertEquals("Vancouver", city1Read.getCityName());
             ArrayList<Hotel> city1Hotels = city1Read.getHotels();
+            Hotel holidayInn = city1Hotels.get(0);
+            ArrayList<Resident> holidayInnGuests = holidayInn.getGuests();
+            ArrayList<Resident> city1Residents = city1Read.getResidents();
+
+            //check city 1 name and residents info
+            assertEquals("Vancouver", city1Read.getCityName());
+            assertEquals(2, city1Residents.size());
+            assertEquals("Monica", city1Residents.get(0).getName());
+            assertEquals("Holiday Inn", city1Residents.get(0).getWorkingLocation());
+            assertEquals(25, city1Residents.get(0).getAge());
+            assertEquals(0, city1Residents.get(0).getOccupationCode());
+            assertTrue(city1Residents.get(0).isFemale());
+            assertEquals("Chandler", city1Residents.get(1).getName());
+            assertEquals("Holiday Inn", city1Residents.get(1).getWorkingLocation());
+            assertEquals(25, city1Residents.get(1).getAge());
+            assertEquals(0, city1Residents.get(1).getOccupationCode());
+            assertFalse(city1Residents.get(1).isFemale());
+
+            //check city 1 hotel info
             assertEquals(2, city1Hotels.size());
             assertEquals("Holiday Inn", city1Hotels.get(0).getBusinessName());
             assertEquals("Another Hotel", city1Hotels.get(1).getBusinessName());
+            assertEquals(2, holidayInnGuests.size());
+            assertEquals(10, holidayInn.getRoomNumbers().size());
+            assertEquals(2, holidayInn.getBookedRoomNumbers().size());
+            assertTrue(holidayInn.isBusinessOpen());
+            assertEquals(8, holidayInn.getAvailableRooms());
 
+            //check city 2 name and residents info
+            City city2Read = citiesRead.get(1);
+            assertEquals("Toronto", city2Read.getCityName());
+            assertEquals(0, city2Read.getHotels().size());
+            assertEquals(2, city2Read.getResidents().size());
 
-
-//            city = reader.read();
-//            assertEquals("My work room", city.getName());
-//            List<Thingy> thingies = city.getThingies();
-//            assertEquals(2, thingies.size());
-//            checkThingy("saw", Category.METALWORK, thingies.get(0));
-//            checkThingy("needle", Category.STITCHING, thingies.get(1));
         } catch (IOException e) {
             fail("Exception should not have been thrown");
         }

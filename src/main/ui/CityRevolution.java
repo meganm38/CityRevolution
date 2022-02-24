@@ -24,7 +24,7 @@ public class CityRevolution {
     private JsonReader jsonReader;
     private final String destination = "./data/WriterCities.json";
 
-    // EFFECTS: runs the simulator application
+    // EFFECTS: initiates all simulators and runs the city revolution application
     public CityRevolution() {
         cities = new ArrayList<>();
         scanner = new Scanner(System.in);
@@ -195,6 +195,7 @@ public class CityRevolution {
     /********************************************
      * JSON Control *
      ********************************************/
+    //EFFECTS: writes all cities as Json data and saves to Json file
     private void writeCities() {
         try {
             jsonWriter = new JsonWriter(destination);
@@ -207,6 +208,8 @@ public class CityRevolution {
         }
     }
 
+    //MODIFIES: this
+    //EFFECTS: reads all contents from Json file and loads them to cities
     private void loadCities() {
         try {
             jsonReader = new JsonReader(destination);

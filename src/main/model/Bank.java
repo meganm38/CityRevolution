@@ -4,7 +4,7 @@ import org.json.JSONObject;
 import persistence.Writable;
 
 import java.util.HashMap;
-import java.util.Iterator;
+import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -77,12 +77,25 @@ public class Bank implements Writable {
                 0, TIME_UNIT_IN_SECONDS, TimeUnit.SECONDS);
     }
 
+
     /*
      * MODIFIES: this
      * EFFECTS: shuts down Scheduled Executor Service
      */
     public void stopGenerateEarnings() {
         timerService.shutdown();
+    }
+
+    // EFFECTS: returns bank accounts as JSON object
+    @Override
+    public JSONObject toJson() {
+        JSONObject jsonObject = new JSONObject();
+
+        for (Map.Entry<String, Integer> stringIntegerEntry : accounts.entrySet()) {
+            jsonObject.put((String) ((HashMap.Entry) stringIntegerEntry).getKey(),
+                    ((HashMap.Entry) stringIntegerEntry).getValue());
+        }
+        return jsonObject;
     }
 
     // getters
@@ -94,16 +107,5 @@ public class Bank implements Writable {
         return bankName;
     }
 
-    // EFFECTS: returns bank accounts as JSON object
-    @Override
-    public JSONObject toJson() {
-        JSONObject jsonObject = new JSONObject();
 
-        Iterator it = accounts.entrySet().iterator();
-        while (it.hasNext()) {
-            HashMap.Entry pairs = (HashMap.Entry)it.next();
-            jsonObject.put((String) pairs.getKey(), pairs.getValue());
-        }
-        return jsonObject;
-    }
 }

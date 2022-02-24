@@ -1,18 +1,20 @@
 package model;
 
+import java.util.ArrayList;
+
 /*
  * An interface for all business-type contents where residents can be hired as staff.
  */
-
-import java.util.ArrayList;
-
 public abstract class Business {
     protected ArrayList<Resident> staff;
     protected String name;
     protected boolean businessIsOpen;
     protected int occupationCode;
 
-    //
+    /*
+     * REQUIRES: name has a non-zero length
+     * EFFECTS: construct a business that is not yet open for business and does not have any staff
+     */
     public Business(String name) {
         this.name = name;
         businessIsOpen = false;

@@ -33,6 +33,8 @@ public class JsonReader {
         return cities;
     }
 
+    // Method taken from JSONReader class in
+    // https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
     // EFFECTS: reads source file as string and returns it
     private String readFile(String source) throws IOException {
         StringBuilder contentBuilder = new StringBuilder();
@@ -44,7 +46,7 @@ public class JsonReader {
         return contentBuilder.toString();
     }
 
-    //TODO
+
     // EFFECTS: parses city from JSON object and returns it
     private City parseCity(JSONObject jsonObject) {
         String cityName = jsonObject.getString("City Name");
@@ -56,7 +58,7 @@ public class JsonReader {
     }
 
     //MODIFIES: city
-    //EFFECTS: parses hotels from JSON object and return them
+    //EFFECTS: parses hotels from JSON object and adds them to city
     private void addHotelToCity(City city, JSONObject jsonObject) {
         JSONArray jsonArray = jsonObject.getJSONArray("Hotels");
         for (Object object : jsonArray) {
@@ -106,14 +108,13 @@ public class JsonReader {
             for (Resident resident : residents) {
                 if (guestName.equalsIgnoreCase(resident.getName())) {
                     hotel.makeBooking(1, resident);
-                    break;
                 }
             }
         }
 
     }
 
-    //MODIFIES: this
+    //MODIFIES: hotel
     //EFFECTS: parses hotel open status from JSONObject and sets hotel open status
     private void setHotelOpenStatus(Hotel hotel, JSONObject hotelJson) {
         boolean isOpen = hotelJson.getBoolean("Is Open");
@@ -121,7 +122,6 @@ public class JsonReader {
             hotel.openBusiness();
         }
     }
-
 
     //MODIFIES: city
     //EFFECTS: parses residents from JSON object and adds them to city
