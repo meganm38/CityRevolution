@@ -75,7 +75,7 @@ public class Hotel extends Business implements Writable {
     @Override
     public void addStaff(Resident person) {
         super.addStaff(person);
-        person.setOccupation(occupationCode, name);
+        person.setOccupation(occupationCode, name, SALARY_PER_SECOND);
     }
 
     /*
@@ -86,7 +86,7 @@ public class Hotel extends Business implements Writable {
     @Override
     public void removeStaff(Resident resident) {
         super.removeStaff(resident);
-        resident.setOccupation(-1, null);
+        resident.setOccupation(-1, null, 0);
 
     }
 

@@ -4,18 +4,20 @@
             {
                 "Hotel Name": "Holiday Inn",
                 "Guests": [
-                    {
-                        "occupationCode": 0,
-                        "workingLocation": "Holiday Inn",
-                        "name": "Monica",
-                        "female": true,
-                      "age": 25
-                    },
                   {
                     "occupationCode": 0,
                     "workingLocation": "Holiday Inn",
                     "name": "Monica",
                     "female": true,
+                    "salary": 1,
+                    "age": 25
+                  },
+                  {
+                    "occupationCode": 0,
+                    "workingLocation": "Holiday Inn",
+                    "name": "Monica",
+                    "female": true,
+                    "salary": 1,
                     "age": 25
                   }
                 ],
@@ -29,6 +31,7 @@
                   "workingLocation": "Holiday Inn",
                   "name": "Monica",
                   "female": true,
+                  "salary": 1,
                   "age": 25
                 }
               ],
@@ -62,12 +65,22 @@
                 {
                   "105": "Empty"
                 },
-                    {"201": "Empty"},
-                    {"202": "Empty"},
-                    {"203": "Empty"},
-                    {"204": "Empty"},
-                    {"205": "Empty"}
-                ]
+                {
+                  "201": "Empty"
+                },
+                {
+                  "202": "Empty"
+                },
+                {
+                  "203": "Empty"
+                },
+                {
+                  "204": "Empty"
+                },
+                {
+                  "205": "Empty"
+                }
+              ]
             },
             {
                 "Hotel Name": "Another Hotel",
@@ -88,6 +101,7 @@
         "Residents": [
           {
             "Occupation Code": 0,
+            "Salary": 1,
             "Working Location": "Holiday Inn",
             "Sex": "Female",
             "Age": 25,
@@ -95,6 +109,7 @@
           },
           {
             "Occupation Code": -1,
+            "Salary": 0,
             "Working Location": "Unemployed",
             "Sex": "Male",
             "Age": 25,
@@ -110,20 +125,22 @@
             "Ross": 2000
         },
         "Residents": [
-            {
-                "Occupation Code": -1,
-                "Working Location": "Unemployed",
-                "Sex": "Male",
-                "Age": 25,
-                "Name": "Joey"
-            },
-            {
-                "Occupation Code": -1,
-                "Working Location": "Unemployed",
-                "Sex": "Male",
-                "Age": 25,
-                "Name": "Ross"
-            }
+          {
+            "Occupation Code": -1,
+            "Salary": 0,
+            "Working Location": "Unemployed",
+            "Sex": "Male",
+            "Age": 25,
+            "Name": "Joey"
+          },
+          {
+            "Occupation Code": -1,
+            "Salary": 0,
+            "Working Location": "Unemployed",
+            "Sex": "Male",
+            "Age": 25,
+            "Name": "Ross"
+          }
         ]
     }
 ]

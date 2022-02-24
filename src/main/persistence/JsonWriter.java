@@ -19,6 +19,8 @@ public class JsonWriter {
         this.destination = destination;
     }
 
+    // Method taken from JSONWriter class in
+    // https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
     // MODIFIES: this
     // EFFECTS: opens writer; throws FileNotFoundException if destination file cannot
     // be opened for writing
@@ -27,7 +29,7 @@ public class JsonWriter {
     }
 
     // MODIFIES: this
-    // EFFECTS: writes JSON representation of workroom to file
+    // EFFECTS: writes JSON representation of cities to file
     public void write(ArrayList<City> cities) {
         JSONArray citiesJson = new JSONArray();
         for (City city : cities) {

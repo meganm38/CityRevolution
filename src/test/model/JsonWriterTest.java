@@ -127,6 +127,7 @@ public class JsonWriterTest {
         assertEquals(expectedResident.getAge(), residentRead.getAge());
         assertEquals(expectedResident.getWorkingLocation(), residentRead.getWorkingLocation());
         assertEquals(expectedResident.isFemale(), residentRead.isFemale());
+        assertEquals(expectedResident.getSalary(), residentRead.getSalary());
     }
 
     void checkHotelInfo(Hotel expectedHotel, Hotel hotelRead) {

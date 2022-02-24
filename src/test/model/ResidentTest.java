@@ -21,12 +21,14 @@ public class ResidentTest {
         assertEquals(25, resident1.getAge());
         assertEquals(-1, resident1.getOccupationCode());
         assertEquals("Unemployed", resident1.getWorkingLocation());
+        assertEquals(0, resident1.getSalary());
     }
 
     @Test
     public void testSetOccupation() {
-        resident1.setOccupation(0, "Hotel");
+        resident1.setOccupation(0, "Hotel", 1);
         assertEquals(0, resident1.getOccupationCode());
         assertEquals("Hotel", resident1.getWorkingLocation());
+        assertEquals(1, resident1.getSalary());
     }
 }

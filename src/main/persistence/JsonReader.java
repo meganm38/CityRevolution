@@ -85,7 +85,7 @@ public class JsonReader {
             boolean sex = staffJson.getBoolean("female");
             Resident resident = new Resident(staffName, sex, age);
             resident.setOccupation(staffJson.getInt("occupationCode"
-            ), staffJson.getString("workingLocation"));
+            ), staffJson.getString("workingLocation"), staffJson.getInt("salary"));
             business.addStaff(resident);
         }
     }
@@ -136,7 +136,7 @@ public class JsonReader {
             boolean sex = residentJson.getString("Sex").equals("Female");
             Resident resident = new Resident(name, sex, age);
             resident.setOccupation(residentJson.getInt("Occupation Code"
-            ), residentJson.getString("Working Location"));
+            ), residentJson.getString("Working Location"), residentJson.getInt("Salary"));
             city.addResident(resident);
         }
     }
@@ -151,14 +151,8 @@ public class JsonReader {
         for (Resident resident : residents) {
             bank.createAccountForResident(resident, bankJson.getInt(resident.getName()));
             if (resident.getOccupationCode() != -1) {
-                int salary = 1;
-//                for (BusinessInfo businessInfo : BusinessInfo.values()) {
-//                    if (resident.getOccupationCode() == businessInfo.occupationCode()) {
-//                        salary = businessInfo.salary();
-//                    }
-//                }
                 bank.initializeSES();
-                bank.createEarnings(resident, salary);
+                bank.createEarnings(resident, resident.getSalary());
             }
         }
     }
