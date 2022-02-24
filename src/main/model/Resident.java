@@ -21,7 +21,7 @@ public class Resident implements Writable {
         this.isFemale = isFemale;
         this.age = age;
         this.occupationCode = -1;
-        workingLocation = null;
+        workingLocation = "Unemployed";
     }
 
     /*

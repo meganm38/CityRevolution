@@ -139,7 +139,7 @@ public class Hotel extends Business implements Writable {
         JSONArray jsonArray = new JSONArray();
         for (Map.Entry<Integer, String> integerStringEntry : bookingInfo.entrySet()) {
             JSONObject bookingInfoJson = new JSONObject();
-            JSONObject put = bookingInfoJson.put(String.valueOf(((HashMap.Entry) integerStringEntry).getKey()),
+            bookingInfoJson.put(String.valueOf(((HashMap.Entry) integerStringEntry).getKey()),
                     ((HashMap.Entry) integerStringEntry).getValue());
             jsonArray.put(bookingInfoJson);
         }

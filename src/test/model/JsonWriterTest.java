@@ -7,7 +7,8 @@ import persistence.JsonWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class JsonWriterTest {
 
@@ -89,42 +90,64 @@ public class JsonWriterTest {
             ArrayList<City> citiesRead = reader.read();
             City city1Read = citiesRead.get(0);
             ArrayList<Hotel> city1Hotels = city1Read.getHotels();
-            Hotel holidayInn = city1Hotels.get(0);
-            ArrayList<Resident> holidayInnGuests = holidayInn.getGuests();
             ArrayList<Resident> city1Residents = city1Read.getResidents();
 
             //check city 1 name and residents info
             assertEquals("Vancouver", city1Read.getCityName());
-            assertEquals(2, city1Residents.size());
-            assertEquals("Monica", city1Residents.get(0).getName());
-            assertEquals("Holiday Inn", city1Residents.get(0).getWorkingLocation());
-            assertEquals(25, city1Residents.get(0).getAge());
-            assertEquals(0, city1Residents.get(0).getOccupationCode());
-            assertTrue(city1Residents.get(0).isFemale());
-            assertEquals("Chandler", city1Residents.get(1).getName());
-            assertEquals("Holiday Inn", city1Residents.get(1).getWorkingLocation());
-            assertEquals(25, city1Residents.get(1).getAge());
-            assertEquals(0, city1Residents.get(1).getOccupationCode());
-            assertFalse(city1Residents.get(1).isFemale());
+            checkResidentsInfo(resident1, city1Residents.get(0));
+            checkResidentsInfo(resident2, city1Residents.get(1));
 
-            //check city 1 hotel info
-            assertEquals(2, city1Hotels.size());
-            assertEquals("Holiday Inn", city1Hotels.get(0).getBusinessName());
-            assertEquals("Another Hotel", city1Hotels.get(1).getBusinessName());
-            assertEquals(2, holidayInnGuests.size());
-            assertEquals(10, holidayInn.getRoomNumbers().size());
-            assertEquals(2, holidayInn.getBookedRoomNumbers().size());
-            assertTrue(holidayInn.isBusinessOpen());
-            assertEquals(8, holidayInn.getAvailableRooms());
+            //check city 1 bank accounts info
+            //assertEquals(city.getBank().getAccounts(),city1Read.getBank().getAccounts());
 
-            //check city 2 name and residents info
+            //check city 1 hotels info
+            checkHotelInfo(hotel1, city1Hotels.get(0));
+            checkHotelInfo(hotel2, city1Hotels.get(1));
+
+            //check city 2 info
             City city2Read = citiesRead.get(1);
+            ArrayList<Resident> city2Residents = city2Read.getResidents();
             assertEquals("Toronto", city2Read.getCityName());
-            assertEquals(0, city2Read.getHotels().size());
             assertEquals(2, city2Read.getResidents().size());
+            checkResidentsInfo(resident3, city2Residents.get(0));
+            checkResidentsInfo(resident4, city2Residents.get(1));
+            assertEquals(0, city2Read.getHotels().size());
+            assertEquals(city2.getBank().getAccounts(), city2Read.getBank().getAccounts());
+
 
         } catch (IOException e) {
             fail("Exception should not have been thrown");
+        }
+    }
+
+    void checkResidentsInfo(Resident expectedResident, Resident residentRead) {
+        assertEquals(expectedResident.getName(), residentRead.getName());
+        assertEquals(expectedResident.getOccupationCode(), residentRead.getOccupationCode());
+        assertEquals(expectedResident.getAge(), residentRead.getAge());
+        assertEquals(expectedResident.getWorkingLocation(), residentRead.getWorkingLocation());
+        assertEquals(expectedResident.isFemale(), residentRead.isFemale());
+    }
+
+    void checkHotelInfo(Hotel expectedHotel, Hotel hotelRead) {
+        assertEquals(expectedHotel.getBusinessName(), hotelRead.getBusinessName());
+        assertEquals(expectedHotel.getAvailableRooms(), hotelRead.getAvailableRooms());
+        assertEquals(expectedHotel.getBookingInfo(), hotelRead.getBookingInfo());
+        assertEquals(expectedHotel.getRoomNumbers(), hotelRead.getRoomNumbers());
+        assertEquals(expectedHotel.isBusinessOpen(), hotelRead.isBusinessOpen());
+        assertEquals(expectedHotel.getSalary(), hotelRead.getSalary());
+        assertEquals(expectedHotel.getBookedRoomNumbers(), hotelRead.getBookedRoomNumbers());
+        assertEquals(expectedHotel.getBookingInfo(), hotelRead.getBookingInfo());
+
+        ArrayList<Resident> expectedStaff = expectedHotel.getStaff();
+        ArrayList<Resident> readStaff = hotelRead.getStaff();
+        for (int i = 0; i < expectedStaff.size(); i++) {
+            checkResidentsInfo(expectedStaff.get(i), readStaff.get(i));
+        }
+
+        ArrayList<Resident> expectedGuests = expectedHotel.getStaff();
+        ArrayList<Resident> readGuests = hotelRead.getStaff();
+        for (int i = 0; i < expectedGuests.size(); i++) {
+            checkResidentsInfo(expectedGuests.get(i), readGuests.get(i));
         }
     }
 }
