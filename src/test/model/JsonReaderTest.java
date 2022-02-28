@@ -25,7 +25,7 @@ public class JsonReaderTest {
 
     @Test
     void testReaderEmptyCity() {
-        JsonReader reader = new JsonReader("./data/testWriterEmptyCity.json");
+        JsonReader reader = new JsonReader("./data/testReaderEmptyCity.json");
         try {
             ArrayList<City> cities = reader.read();
             assertEquals(1, cities.size());
@@ -40,7 +40,7 @@ public class JsonReaderTest {
 
     @Test
     void testReaderGeneralCities() {
-        JsonReader reader = new JsonReader("./data/testWriterGeneralCity.json");
+        JsonReader reader = new JsonReader("./data/testReaderGeneralCity.json");
         try {
             ArrayList<City> cities = reader.read();
             assertEquals("Vancouver", cities.get(0).getCityName());

@@ -46,6 +46,8 @@ public class JsonWriter {
         writer.close();
     }
 
+    // Method taken from JSONWriter class in
+    // https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
     // MODIFIES: this
     // EFFECTS: writes string to file
     private void saveToFile(String json) {

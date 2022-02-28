@@ -8,16 +8,16 @@
                     "occupationCode": 0,
                     "workingLocation": "Holiday Inn",
                     "name": "Monica",
-                    "female": true,
                     "salary": 1,
+                    "female": true,
                     "age": 25
                   },
                   {
                     "occupationCode": 0,
                     "workingLocation": "Holiday Inn",
                     "name": "Monica",
-                    "female": true,
                     "salary": 1,
+                    "female": true,
                     "age": 25
                   }
                 ],
@@ -30,8 +30,8 @@
                   "occupationCode": 0,
                   "workingLocation": "Holiday Inn",
                   "name": "Monica",
-                  "female": true,
                   "salary": 1,
+                  "female": true,
                   "age": 25
                 }
               ],

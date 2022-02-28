@@ -1,0 +1,146 @@
+[
+  {
+    "Hotels": [
+      {
+        "Hotel Name": "Holiday Inn",
+        "Guests": [
+          {
+            "occupationCode": 0,
+            "workingLocation": "Holiday Inn",
+            "name": "Monica",
+            "female": true,
+            "salary": 1,
+            "age": 25
+          },
+          {
+            "occupationCode": 0,
+            "workingLocation": "Holiday Inn",
+            "name": "Monica",
+            "female": true,
+            "salary": 1,
+            "age": 25
+          }
+        ],
+        "Booked Room Numbers": [
+          101,
+          102
+        ],
+        "Staff": [
+          {
+            "occupationCode": 0,
+            "workingLocation": "Holiday Inn",
+            "name": "Monica",
+            "female": true,
+            "salary": 1,
+            "age": 25
+          }
+        ],
+        "Room Numbers": [
+          101,
+          102,
+          103,
+          104,
+          105,
+          201,
+          202,
+          203,
+          204,
+          205
+        ],
+        "Is Open": true,
+        "Available Rooms": 8,
+        "Booking Info": [
+          {
+            "101": "Monica"
+          },
+          {
+            "102": "Monica"
+          },
+          {
+            "103": "Empty"
+          },
+          {
+            "104": "Empty"
+          },
+          {
+            "105": "Empty"
+          },
+          {
+            "201": "Empty"
+          },
+          {
+            "202": "Empty"
+          },
+          {
+            "203": "Empty"
+          },
+          {
+            "204": "Empty"
+          },
+          {
+            "205": "Empty"
+          }
+        ]
+      },
+      {
+        "Hotel Name": "Another Hotel",
+        "Guests": [],
+        "Booked Room Numbers": [],
+        "Staff": [],
+        "Room Numbers": [],
+        "Is Open": false,
+        "Available Rooms": 0,
+        "Booking Info": []
+      }
+    ],
+    "City Name": "Vancouver",
+    "Bank Accounts": {
+      "Chandler": 2000,
+      "Monica": 2000
+    },
+    "Residents": [
+      {
+        "Occupation Code": 0,
+        "Salary": 1,
+        "Working Location": "Holiday Inn",
+        "Sex": "Female",
+        "Age": 25,
+        "Name": "Monica"
+      },
+      {
+        "Occupation Code": -1,
+        "Salary": 0,
+        "Working Location": "Unemployed",
+        "Sex": "Male",
+        "Age": 25,
+        "Name": "Chandler"
+      }
+    ]
+  },
+  {
+    "Hotels": [],
+    "City Name": "Toronto",
+    "Bank Accounts": {
+      "Joey": 2000,
+      "Ross": 2000
+    },
+    "Residents": [
+      {
+        "Occupation Code": -1,
+        "Salary": 0,
+        "Working Location": "Unemployed",
+        "Sex": "Male",
+        "Age": 25,
+        "Name": "Joey"
+      },
+      {
+        "Occupation Code": -1,
+        "Salary": 0,
+        "Working Location": "Unemployed",
+        "Sex": "Male",
+        "Age": 25,
+        "Name": "Ross"
+      }
+    ]
+  }
+]
