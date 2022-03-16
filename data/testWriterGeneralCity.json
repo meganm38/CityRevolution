@@ -84,63 +84,65 @@
             },
             {
                 "Hotel Name": "Another Hotel",
-                "Guests": [],
-                "Booked Room Numbers": [],
-                "Staff": [],
-                "Room Numbers": [],
-                "Is Open": false,
-                "Available Rooms": 0,
-                "Booking Info": []
+              "Guests": [],
+              "Booked Room Numbers": [],
+              "Staff": [],
+              "Room Numbers": [],
+              "Is Open": false,
+              "Available Rooms": 0,
+              "Booking Info": []
             }
         ],
-        "City Name": "Vancouver",
-        "Bank Accounts": {
-            "Chandler": 2000,
-            "Monica": 2000
+      "City Name": "Vancouver",
+      "Theme": "LIGHT",
+      "Bank Accounts": {
+        "Chandler": 2000,
+        "Monica": 2000
+      },
+      "Residents": [
+        {
+          "Occupation Code": 0,
+          "Salary": 1,
+          "Working Location": "Holiday Inn",
+          "Sex": "Female",
+          "Age": 25,
+          "Name": "Monica"
         },
-        "Residents": [
-          {
-            "Occupation Code": 0,
-            "Salary": 1,
-            "Working Location": "Holiday Inn",
-            "Sex": "Female",
-            "Age": 25,
-            "Name": "Monica"
-          },
-          {
-            "Occupation Code": -1,
-            "Salary": 0,
-            "Working Location": "Unemployed",
-            "Sex": "Male",
-            "Age": 25,
-            "Name": "Chandler"
-          }
-        ]
+        {
+          "Occupation Code": -1,
+          "Salary": 0,
+          "Working Location": "Unemployed",
+          "Sex": "Male",
+          "Age": 25,
+          "Name": "Chandler"
+        }
+      ]
     },
-    {
-        "Hotels": [],
-        "City Name": "Toronto",
-        "Bank Accounts": {
-            "Joey": 2000,
-            "Ross": 2000
-        },
-        "Residents": [
-          {
-            "Occupation Code": -1,
-            "Salary": 0,
-            "Working Location": "Unemployed",
-            "Sex": "Male",
-            "Age": 25,
-            "Name": "Joey"
-          },
-          {
-            "Occupation Code": -1,
-            "Salary": 0,
-            "Working Location": "Unemployed",
-            "Sex": "Male",
-            "Age": 25,
-            "Name": "Ross"
-          }
-        ]
+  {
+    "Hotels": [],
+    "City Name": "Toronto",
+    "Theme": "LIGHT",
+    "Bank Accounts": {
+      "Joey": 2000,
+      "Ross": 2000
+    },
+    "Residents": [
+      {
+        "Occupation Code": -1,
+        "Salary": 0,
+        "Working Location": "Unemployed",
+        "Sex": "Male",
+        "Age": 25,
+        "Name": "Joey"
+      },
+      {
+        "Occupation Code": -1,
+        "Salary": 0,
+        "Working Location": "Unemployed",
+        "Sex": "Male",
+        "Age": 25,
+        "Name": "Ross"
+      }
+    ]
     }
 ]

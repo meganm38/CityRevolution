@@ -72,7 +72,7 @@ public class CityRevolution {
             }
         } while (nameAlreadyExisted);
 
-        City city = new City(name);
+        City city = new City(name, City.Theme.LIGHT);
         cities.add(city);
         currentCity = cities.size() - 1;
         System.out.println("The city of " + name + " has been successfully created! "

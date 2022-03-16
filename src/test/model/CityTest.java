@@ -1,19 +1,21 @@
 package model;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static java.util.Arrays.asList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
+import static java.util.Arrays.asList;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 public class CityTest {
     public City city;
 
     @BeforeEach
     public void setup() {
-        city = new City("Vancouver");
+        city = new City("Vancouver", City.Theme.LIGHT);
     }
 
     @Test
@@ -22,7 +24,7 @@ public class CityTest {
         assertTrue(city.getHotels().isEmpty());
         assertTrue(city.getResidents().isEmpty());
         assertTrue(city.getBusinesses().isEmpty());
-
+        assertEquals(City.Theme.LIGHT, city.getTheme());
     }
 
     @Test

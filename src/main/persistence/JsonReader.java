@@ -51,7 +51,9 @@ public class JsonReader {
     // EFFECTS: parses city from JSON object and returns it
     private City parseCity(JSONObject jsonObject) {
         String cityName = jsonObject.getString("City Name");
-        City city = new City(cityName);
+        String cityTheme = jsonObject.getString("Theme");
+
+        City city = new City(cityName, cityTheme.equals("LIGHT") ? City.Theme.LIGHT : City.Theme.DARK);
         addResidentsToCity(city, jsonObject);
         addHotelToCity(city, jsonObject);
         addBankAccount(city, jsonObject);

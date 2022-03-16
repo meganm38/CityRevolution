@@ -8,40 +8,49 @@
             "occupationCode": -1,
             "workingLocation": "Unemployed",
             "name": "Monica",
-            "salary": 0,
             "female": true,
+            "salary": 0,
             "age": 25
           },
           {
             "occupationCode": -1,
             "workingLocation": "Unemployed",
             "name": "Monica",
-            "salary": 0,
             "female": true,
+            "salary": 0,
             "age": 25
           },
           {
             "occupationCode": -1,
             "workingLocation": "Unemployed",
             "name": "Monica",
-            "salary": 0,
             "female": true,
+            "salary": 0,
+            "age": 25
+          },
+          {
+            "occupationCode": -1,
+            "workingLocation": "Unemployed",
+            "name": "Monica",
+            "female": true,
+            "salary": 0,
             "age": 25
           }
         ],
         "Booked Room Numbers": [
           101,
           102,
-          103
+          103,
+          104
         ],
         "Staff": [
           {
             "occupationCode": 0,
             "workingLocation": "Holiday Inn",
             "name": "Chandler",
-            "salary": 1,
             "female": false,
-            "age": 24
+            "salary": 1,
+            "age": 25
           }
         ],
         "Room Numbers": [
@@ -49,10 +58,13 @@
           102,
           103,
           104,
-          105
+          105,
+          201,
+          202,
+          203
         ],
         "Is Open": true,
-        "Available Rooms": 2,
+        "Available Rooms": 4,
         "Booking Info": [
           {
             "101": "Monica"
@@ -64,17 +76,26 @@
             "103": "Monica"
           },
           {
-            "104": "Empty"
+            "104": "Monica"
           },
           {
             "105": "Empty"
+          },
+          {
+            "201": "Empty"
+          },
+          {
+            "202": "Empty"
+          },
+          {
+            "203": "Empty"
           }
         ]
       }
     ],
     "City Name": "Vancouver",
     "Bank Accounts": {
-      "Chandler": 2044,
+      "Chandler": 2052,
       "Monica": 2000
     },
     "Residents": [
@@ -83,7 +104,7 @@
         "Salary": 1,
         "Working Location": "Holiday Inn",
         "Sex": "Male",
-        "Age": 24,
+        "Age": 25,
         "Name": "Chandler"
       },
       {
@@ -95,11 +116,5 @@
         "Name": "Monica"
       }
     ]
-  },
-  {
-    "Hotels": [],
-    "City Name": "Toronto",
-    "Bank Accounts": {},
-    "Residents": []
   }
 ]

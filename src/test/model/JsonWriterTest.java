@@ -14,7 +14,7 @@ public class JsonWriterTest {
     @Test
     void testWriterInvalidFile() {
         try {
-            City wr = new City("Vancouver");
+            City wr = new City("Vancouver", City.Theme.LIGHT);
             JsonWriter writer = new JsonWriter("./data/my\0illegal:fileName.json");
             writer.open();
             fail("IOException was expected");
@@ -26,7 +26,7 @@ public class JsonWriterTest {
     @Test
     void testEmptyCity() {
         try {
-            City city = new City("Vancouver");
+            City city = new City("Vancouver", City.Theme.LIGHT);
             ArrayList<City> cities = new ArrayList<>();
             cities.add(city);
             JsonWriter writer = new JsonWriter("./data/testWriterEmptyCity.json");
@@ -39,6 +39,7 @@ public class JsonWriterTest {
             assertEquals("Vancouver", cities.get(0).getCityName());
             assertEquals(0, city.getResidents().size());
             assertEquals(0, city.getHotels().size());
+            assertEquals(City.Theme.LIGHT, city.getTheme());
 
         } catch (IOException e) {
             fail("Exception shouldn't have been thrown");
@@ -48,7 +49,7 @@ public class JsonWriterTest {
     @Test
     void testWriter2Cities() {
         try {
-            City city = new City("Vancouver");
+            City city = new City("Vancouver", City.Theme.LIGHT);
             Resident resident1 = new Resident("Monica", true, 25);
             Resident resident2 = new Resident("Chandler", false, 25);
             city.addResident(resident1);
@@ -66,7 +67,7 @@ public class JsonWriterTest {
             Hotel hotel2 = new Hotel("Another Hotel");
             city.addHotel(hotel2);
 
-            City city2 = new City("Toronto");
+            City city2 = new City("Toronto", City.Theme.LIGHT);
             Resident resident3 = new Resident("Joey", false, 25);
             Resident resident4 = new Resident("Ross", false, 25);
             city2.addResident(resident3);

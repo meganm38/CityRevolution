@@ -13,17 +13,21 @@ public class City implements Writable {
     private ArrayList<Resident> residents;
     private Bank bank;
     private ArrayList<Business> businesses;
+    private Theme theme;
+
+    public enum Theme {LIGHT, DARK}
 
     /*
      * REQUIRES: cityName is not null
      * EFFECTS: Constructs a city with no contents
      */
-    public City(String cityName) {
+    public City(String cityName, Theme theme) {
         this.cityName = cityName;
         hotels = new ArrayList<>();
         residents = new ArrayList<>();
         businesses = new ArrayList<>();
         bank = new Bank("Bank of " + cityName);
+        this.theme = theme;
     }
 
     /*
@@ -51,6 +55,7 @@ public class City implements Writable {
         json.put("City Name", cityName);
         json.put("Residents", residentsToJson());
         json.put("Bank Accounts", bank.toJson());
+        json.put("Theme", theme);
         return json;
     }
 
@@ -96,5 +101,9 @@ public class City implements Writable {
 
     public ArrayList<Business> getBusinesses() {
         return businesses;
+    }
+
+    public Theme getTheme() {
+        return theme;
     }
 }
