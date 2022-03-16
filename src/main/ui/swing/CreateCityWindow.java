@@ -22,10 +22,12 @@ public class CreateCityWindow extends Window {
     private City.Theme theme;
     private String cityName;
 
-    public CreateCityWindow(City city, SwingCityRevolution cityRevolution) {
+    public CreateCityWindow(SwingCityRevolution cityRevolution) {
         super();
-        this.city = city;
-        this.cityRevolution = cityRevolution == null ? new SwingCityRevolution() : cityRevolution;
+        if (cityRevolution != null) {
+            city = cityRevolution.getCurrentCity();
+        }
+        this.cityRevolution = cityRevolution;
         init();
         centreOnScreen();
         setVisible(true);
@@ -194,14 +196,14 @@ public class CreateCityWindow extends Window {
         checkBtn.addActionListener(e -> {
             cityName = inputField.getText();
             if (cityName != null && theme != null) {
-                if (city == null) {
-                    city = new City(cityName, theme);
-                    cityRevolution.addNewCity(city);
+                if (cityRevolution == null) {
+                    cityRevolution = new SwingCityRevolution();
+                    cityRevolution.addNewCity(new City(cityName, theme));
                 } else {
-                    city.setCityName(cityName);
-                    city.setTheme(theme);
+                    cityRevolution.changeCityName(cityName);
+                    cityRevolution.changeCityTheme(theme);
                 }
-                CityWindow cityWindow = new CityWindow(city, cityRevolution);
+                CityWindow cityWindow = new CityWindow(cityRevolution);
                 setVisible(false);
             } else {
                 showMessageDialog(this, "Empty Name/Theme");

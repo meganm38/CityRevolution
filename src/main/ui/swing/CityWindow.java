@@ -20,9 +20,9 @@ public class CityWindow extends Window {
     private JPanel hotelPanel;
     private JPanel optionsPanel;
 
-    public CityWindow(City city, SwingCityRevolution cityRevolution) {
+    public CityWindow(SwingCityRevolution cityRevolution) {
         super();
-        this.city = city;
+        this.city = cityRevolution.getCurrentCity();
         this.cityRevolution = cityRevolution;
         init();
         centreOnScreen();
@@ -127,7 +127,7 @@ public class CityWindow extends Window {
         settingBtn.setBounds(residentPanel.getWidth() / 2, residentPanel.getHeight() - 60, 45, 45);
         settingBtn.setBorderPainted(false);
         settingBtn.addActionListener(e -> {
-            ResidentCheckerWindow residentCheckerWindow = new ResidentCheckerWindow(city, cityRevolution);
+            ResidentCheckerWindow residentCheckerWindow = new ResidentCheckerWindow(cityRevolution);
             dispose();
         });
 
@@ -168,7 +168,7 @@ public class CityWindow extends Window {
         settingBtn.setBounds(residentPanel.getWidth() / 2, residentPanel.getHeight() - 60, 45, 45);
         settingBtn.setBorderPainted(false);
         settingBtn.addActionListener(e -> {
-            HotelCheckerWindow hotelCheckerWindow = new HotelCheckerWindow(city, cityRevolution);
+            HotelCheckerWindow hotelCheckerWindow = new HotelCheckerWindow(cityRevolution);
             dispose();
         });
 
@@ -190,7 +190,7 @@ public class CityWindow extends Window {
         backBtn.setBounds(0, 0, 50, 48);
         backBtn.setBorderPainted(false);
         backBtn.addActionListener(e -> {
-            CreateCityWindow cityWindow = new CreateCityWindow(city, cityRevolution);
+            CreateCityWindow cityWindow = new CreateCityWindow(cityRevolution);
             dispose();
         });
         optionsPanel.add(backBtn);

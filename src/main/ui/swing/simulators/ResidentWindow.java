@@ -202,7 +202,7 @@ public class ResidentWindow extends Window {
                 }
                 city.addResident(new Resident(name, isFemale, age));
                 showMessageDialog(this, "Resident has been successfully added!");
-                CityWindow cityWindow = new CityWindow(city, cityRevolution);
+                CityWindow cityWindow = new CityWindow(cityRevolution);
                 dispose();
             } else {
                 showMessageDialog(this, "Empty Name/Age/Gender");
@@ -216,7 +216,7 @@ public class ResidentWindow extends Window {
         backBtn.setBounds(0, 0, 50, 48);
         backBtn.setBorderPainted(false);
         backBtn.addActionListener(e -> {
-            CityWindow cityWindow = new CityWindow(city, cityRevolution);
+            CityWindow cityWindow = new CityWindow(cityRevolution);
             dispose();
         });
         confirmPanel.add(backBtn);

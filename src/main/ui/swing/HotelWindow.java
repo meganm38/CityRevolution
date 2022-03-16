@@ -204,10 +204,9 @@ public class HotelWindow extends Window {
             if (nameField.getText().length() != 0 && themeSelected) {
                 name = nameField.getText();
                 star = starList.getSelectedIndex() + 1;
-                Hotel hotel = new Hotel(name, star, theme);
-                city.addHotel(hotel);
+                cityRevolution.addNewHotel(new Hotel(name, star, theme));
                 showMessageDialog(this, "Hotel has been successfully added!");
-                CityWindow cityWindow = new CityWindow(city, cityRevolution);
+                CityWindow cityWindow = new CityWindow(cityRevolution);
                 dispose();
             } else {
                 showMessageDialog(this, "Empty Name/Theme");
@@ -221,7 +220,7 @@ public class HotelWindow extends Window {
         backBtn.setBounds(0, 0, 50, 48);
         backBtn.setBorderPainted(false);
         backBtn.addActionListener(e -> {
-            CityWindow cityWindow = new CityWindow(city, cityRevolution);
+            CityWindow cityWindow = new CityWindow(cityRevolution);
             dispose();
         });
         confirmPanel.add(backBtn);

@@ -57,7 +57,7 @@ public class MainWindow extends JFrame {
         newCityBtn.setPreferredSize(new Dimension(110, 50));
         newCityBtn.setBorder(new EmptyBorder(50, 300, 20, 20));
         newCityBtn.addActionListener(e -> {
-            CreateCityWindow createCityWindow = new CreateCityWindow(null, null);
+            CreateCityWindow createCityWindow = new CreateCityWindow(null);
             dispose();
         });
 

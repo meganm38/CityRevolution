@@ -23,9 +23,9 @@ public class HotelCheckerWindow extends Window {
     private JScrollPane hotelScrollPane;
     private JPanel confirmPanel;
 
-    public HotelCheckerWindow(City city, SwingCityRevolution cityRevolution) {
+    public HotelCheckerWindow(SwingCityRevolution cityRevolution) {
         super();
-        this.city = city;
+        this.city = cityRevolution.getCurrentCity();
         this.cityRevolution = cityRevolution;
         init();
         centreOnScreen();
@@ -151,7 +151,7 @@ public class HotelCheckerWindow extends Window {
         backBtn.setBounds(0, 0, 50, 48);
         backBtn.setBorderPainted(false);
         backBtn.addActionListener(e -> {
-            CityWindow cityWindow = new CityWindow(city, cityRevolution);
+            CityWindow cityWindow = new CityWindow(cityRevolution);
             dispose();
         });
         confirmPanel.add(backBtn);

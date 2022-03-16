@@ -23,13 +23,13 @@ public class SwingCityRevolution {
     public SwingCityRevolution() {
         cities = new ArrayList<>();
         currentCity = -1;
-        currentHotel = -1;
-        currentResident = -1;
     }
 
     public void addNewCity(City city) {
         cities.add(city);
         currentCity = cities.size() - 1;
+        currentHotel = -1;
+        currentResident = -1;
     }
 
     public void addNewResident(Resident resident) {
@@ -54,5 +54,15 @@ public class SwingCityRevolution {
 
     public City getCurrentCity() {
         return cities.get(currentCity);
+    }
+
+    public void changeCityName(String name) {
+        City city = cities.get(currentCity);
+        city.setCityName(name);
+    }
+
+    public void changeCityTheme(City.Theme theme) {
+        City city = cities.get(currentCity);
+        city.setTheme(theme);
     }
 }

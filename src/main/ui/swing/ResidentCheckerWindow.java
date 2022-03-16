@@ -23,9 +23,9 @@ public class ResidentCheckerWindow extends Window {
     private JScrollPane residentScrollPane;
     private JPanel confirmPanel;
 
-    public ResidentCheckerWindow(City city, SwingCityRevolution cityRevolution) {
+    public ResidentCheckerWindow(SwingCityRevolution cityRevolution) {
         super();
-        this.city = city;
+        this.city = cityRevolution.getCurrentCity();
         this.cityRevolution = cityRevolution;
         init();
         centreOnScreen();
@@ -137,9 +137,8 @@ public class ResidentCheckerWindow extends Window {
         checkBtn.setBorderPainted(false);
         checkBtn.addActionListener(e -> {
             if (residentList.getSelectedIndex() != -1) {
-                int selectedIndex = residentList.getSelectedIndex();
-                ResidentManagementWindow residentManagementWindow = new ResidentManagementWindow(
-                        city, city.getResidents().get(selectedIndex), cityRevolution);
+                cityRevolution.selectResident(residentList.getSelectedIndex());
+                ResidentManagementWindow residentManagementWindow = new ResidentManagementWindow(cityRevolution);
                 dispose();
             } else {
                 showMessageDialog(this, "Select a resident to proceed");
@@ -150,7 +149,7 @@ public class ResidentCheckerWindow extends Window {
         backBtn.setBounds(0, 0, 50, 48);
         backBtn.setBorderPainted(false);
         backBtn.addActionListener(e -> {
-            CityWindow cityWindow = new CityWindow(city, cityRevolution);
+            CityWindow cityWindow = new CityWindow(cityRevolution);
             dispose();
         });
         confirmPanel.add(backBtn);

@@ -18,10 +18,10 @@ public class ResidentManagementWindow extends Window {
     private JPanel confirmPanel;
 
 
-    public ResidentManagementWindow(City city, Resident resident, SwingCityRevolution cityRevolution) {
+    public ResidentManagementWindow(SwingCityRevolution cityRevolution) {
         super();
-        this.city = city;
-        this.resident = resident;
+        this.city = cityRevolution.getCurrentCity();
+        this.resident = cityRevolution.getSelectedResident();
         this.cityRevolution = cityRevolution;
         init();
         centreOnScreen();
@@ -156,7 +156,7 @@ public class ResidentManagementWindow extends Window {
         checkBtn.setBounds(450, 0, 50, 48);
         checkBtn.setBorderPainted(false);
         checkBtn.addActionListener(e -> {
-            ResidentCheckerWindow residentCheckerWindow = new ResidentCheckerWindow(city, cityRevolution);
+            ResidentCheckerWindow residentCheckerWindow = new ResidentCheckerWindow(cityRevolution);
             dispose();
         });
         confirmPanel.add(checkBtn);
