@@ -16,10 +16,16 @@ public class Hotel extends Business implements Writable {
     private static final int SALARY_PER_SECOND = HOTEL.salary();
 
     private int availableRooms;
+    private int star;
     private ArrayList<Integer> roomNumbers;
     private ArrayList<Resident> guests;
     private ArrayList<Integer> bookedRoomNumbers;
     private HashMap<Integer, String> bookingInfo;
+    private Theme theme;
+
+    public enum Theme {
+        BEACH, SKI
+    }
 
     /*
      * REQUIRES: hotelName has a non-zero length
@@ -27,7 +33,7 @@ public class Hotel extends Business implements Writable {
      *          hotel is not open; hotel has no rooms; hotel has no staff;
      *          hotel has no guests; available rooms = 0; no booked rooms.
      */
-    public Hotel(String name) {
+    public Hotel(String name, int star, Theme theme) {
         super(name);
         availableRooms = 0;
         roomNumbers = new ArrayList<>();
@@ -35,6 +41,8 @@ public class Hotel extends Business implements Writable {
         bookedRoomNumbers = new ArrayList<>();
         bookingInfo = new HashMap<>();
         occupationCode = HOTEL.occupationCode();
+        this.star = star;
+        this.theme = theme;
     }
 
     /*
@@ -135,6 +143,8 @@ public class Hotel extends Business implements Writable {
         jsonObject.put("Room Numbers", roomNumbers);
         jsonObject.put("Guests", guests);
         jsonObject.put("Booked Room Numbers", bookedRoomNumbers);
+        jsonObject.put("Hotel Star", star);
+        jsonObject.put("Theme", theme);
 
         JSONArray jsonArray = new JSONArray();
         for (Map.Entry<Integer, String> integerStringEntry : bookingInfo.entrySet()) {
@@ -174,5 +184,13 @@ public class Hotel extends Business implements Writable {
 
     public HashMap<Integer, String> getBookingInfo() {
         return bookingInfo;
+    }
+
+    public int getStar() {
+        return star;
+    }
+
+    public Theme getTheme() {
+        return theme;
     }
 }

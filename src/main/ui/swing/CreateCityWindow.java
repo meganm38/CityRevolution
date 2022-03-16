@@ -1,7 +1,7 @@
 package ui.swing;
 
 import model.City;
-import ui.swing.Simulators.SwingCityRevolution;
+import ui.swing.simulators.SwingCityRevolution;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -9,14 +9,9 @@ import java.awt.*;
 
 import static javax.swing.JOptionPane.showMessageDialog;
 
-public class CreateCityWindow extends JFrame {
-    private static final Color LIGHT_BLUE = new Color(240, 248, 255);
-    private static final Color BLUE = new Color(104, 151, 187);
-    private static final Color FONT_COLOR_DARK = new Color(0, 0, 102);
-    private static final int THEME_IMAGE_DIMENSIONS = 150;
+public class CreateCityWindow extends Window {
 
     private SwingCityRevolution cityRevolution;
-    private JPanel mainPanel;
     private JPanel settingPanel;
     private JPanel themePanel;
     private JPanel confirmPanel;
@@ -25,22 +20,19 @@ public class CreateCityWindow extends JFrame {
     private String cityName;
 
     public CreateCityWindow() {
-        super("City Revolution");
+        super();
         cityRevolution = new SwingCityRevolution();
-        setResizable(false);
-        setMinimumSize(new Dimension(1024, 576));
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         init();
         centreOnScreen();
         setVisible(true);
     }
 
-    private void init() {
+    protected void init() {
         initBackground();
         initMain();
     }
 
-    private void initBackground() {
+    protected void initBackground() {
         ImageIcon imgIcon = new ImageIcon("data/pictures/cityback.png");
         Image img = imgIcon.getImage();
         JPanel background = new JPanel() {
@@ -54,25 +46,17 @@ public class CreateCityWindow extends JFrame {
         pack();
     }
 
-
-    private void initMain() {
-        JPanel fake = new JPanel();
-        fake.setPreferredSize(new Dimension(1024, 30));
-        fake.setOpaque(false);
-        mainPanel = new JPanel();
-        mainPanel.setBackground(Color.white);
-        mainPanel.setOpaque(true);
-        mainPanel.setPreferredSize(new Dimension(500, 476));
-        mainPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
+    @Override
+    protected void initMain() {
+        super.initMain();
         setupMenu();
-        add(fake);
         add(mainPanel);
     }
 
     private void setupMenu() {
         JLabel menuTitle = new JLabel("NEW CITY");
         menuTitle.setForeground(FONT_COLOR_DARK);
-        menuTitle.setFont(new Font("Ayuthaya", Font.BOLD, 28));
+        menuTitle.setFont(TITLE_FONT);
         menuTitle.setBorder(new EmptyBorder(10, 0, 10, 0));
         mainPanel.add(menuTitle);
         JPanel fake = new JPanel();
@@ -175,6 +159,11 @@ public class CreateCityWindow extends JFrame {
         confirmPanel.setLayout(null);
         confirmPanel.setBackground(new Color(192, 192, 192));
         confirmPanel.setPreferredSize(new Dimension(500, 50));
+        addButtonsToConfirmPanel();
+        mainPanel.add(confirmPanel);
+    }
+
+    private void addButtonsToConfirmPanel() {
         JButton checkBtn = new JButton(new ImageIcon("data/pictures/checkmark.png"));
         checkBtn.setBounds(450, 0, 50, 48);
         checkBtn.setBorderPainted(false);
@@ -182,19 +171,23 @@ public class CreateCityWindow extends JFrame {
             cityName = inputField.getText();
             if (cityName != null && theme != null) {
                 City city = new City(cityName, theme);
-                CityWindow cityWindow = new CityWindow(city);
+                cityRevolution.addNewCity(city);
+                CityWindow cityWindow = new CityWindow(city, cityRevolution);
                 setVisible(false);
             } else {
                 showMessageDialog(this, "Empty Name/Theme");
             }
         });
 
+        JButton backBtn = new JButton(new ImageIcon("data/pictures/backBtn.png"));
+        backBtn.setBounds(0, 0, 50, 48);
+        backBtn.setBorderPainted(false);
+        backBtn.addActionListener(e -> {
+            MainWindow mainWindow = new MainWindow();
+            dispose();
+        });
+        confirmPanel.add(backBtn);
         confirmPanel.add(checkBtn);
-        mainPanel.add(confirmPanel);
     }
 
-    private void centreOnScreen() {
-        Dimension scrn = Toolkit.getDefaultToolkit().getScreenSize();
-        setLocation((scrn.width - getWidth()) / 2, (scrn.height - getHeight()) / 2);
-    }
 }

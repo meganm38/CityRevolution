@@ -58,7 +58,7 @@ public class MainWindow extends JFrame {
         newCityBtn.setBorder(new EmptyBorder(50, 300, 20, 20));
         newCityBtn.addActionListener(e -> {
             CreateCityWindow createCityWindow = new CreateCityWindow();
-            this.setVisible(false);
+            dispose();
         });
 
         JButton exitBtn = new JButton(new ImageIcon("data/pictures/exitbutton.png"));

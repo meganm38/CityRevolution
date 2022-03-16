@@ -66,7 +66,9 @@ public class JsonReader {
         JSONArray jsonArray = jsonObject.getJSONArray("Hotels");
         for (Object object : jsonArray) {
             JSONObject hotelJson = (JSONObject) object;
-            Hotel hotel = new Hotel(hotelJson.getString("Hotel Name"));
+            Hotel hotel = new Hotel(hotelJson.getString("Hotel Name"),
+                    hotelJson.getInt("Hotel Star"),
+                    hotelJson.getString("Theme").equals("SKI") ? Hotel.Theme.SKI : Hotel.Theme.BEACH);
             addStaffToBusiness(hotel, city, hotelJson);
             addRoomNumbersToHotel(hotel, hotelJson);
             addGuestsToHotel(hotel, city, hotelJson);

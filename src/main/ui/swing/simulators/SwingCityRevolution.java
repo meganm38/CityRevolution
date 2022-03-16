@@ -1,4 +1,4 @@
-package ui.swing.Simulators;
+package ui.swing.simulators;
 
 import model.City;
 import persistence.JsonReader;

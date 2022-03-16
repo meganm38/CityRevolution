@@ -1,13 +1,14 @@
 package model;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static java.util.Arrays.asList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Map;
+
+import static java.util.Arrays.asList;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 class HotelTest {
@@ -17,7 +18,7 @@ class HotelTest {
 
     @BeforeEach
     public void setup() {
-        hotel1 = new Hotel("Holiday Inn");
+        hotel1 = new Hotel("Holiday Inn", 3, Hotel.Theme.SKI);
         resident1 = new Resident("Megan", true, 25);
         resident2 = new Resident("Lucia", true, 26);
     }
@@ -31,6 +32,8 @@ class HotelTest {
         assertTrue(hotel1.getGuests().isEmpty());
         assertEquals(0, hotel1.getAvailableRooms());
         assertTrue(hotel1.getBookedRoomNumbers().isEmpty());
+        assertEquals(3, hotel1.getStar());
+        assertEquals(Hotel.Theme.SKI, hotel1.getTheme());
     }
 
     @Test

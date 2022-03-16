@@ -104,7 +104,7 @@ public class CityRevolution {
             }
         } while (nameAlreadyExisted);
 
-        Hotel hotel = new Hotel(hotelName);
+        Hotel hotel = new Hotel(hotelName, 3, Hotel.Theme.SKI);
         myCity.addHotel(hotel);
         currentHotel = myCity.getHotels().size() - 1;
         System.out.println("\n" + hotelName + " has been successfully added to the city of "

@@ -57,14 +57,14 @@ public class JsonWriterTest {
             city.getBank().createAccountForResident(resident1);
             city.getBank().createAccountForResident(resident2);
 
-            Hotel hotel1 = new Hotel("Holiday Inn");
+            Hotel hotel1 = new Hotel("Holiday Inn", 3, Hotel.Theme.SKI);
             city.addHotel(hotel1);
             hotel1.addRooms(10);
             hotel1.makeBooking(2, resident1);
             hotel1.addStaff(resident1);
             hotel1.openBusiness();
 
-            Hotel hotel2 = new Hotel("Another Hotel");
+            Hotel hotel2 = new Hotel("Another Hotel", 3, Hotel.Theme.SKI);
             city.addHotel(hotel2);
 
             City city2 = new City("Toronto", City.Theme.LIGHT);
@@ -140,6 +140,8 @@ public class JsonWriterTest {
         assertEquals(expectedHotel.getSalary(), hotelRead.getSalary());
         assertEquals(expectedHotel.getBookedRoomNumbers(), hotelRead.getBookedRoomNumbers());
         assertEquals(expectedHotel.getBookingInfo(), hotelRead.getBookingInfo());
+        assertEquals(expectedHotel.getStar(), hotelRead.getStar());
+        assertEquals(expectedHotel.getTheme(), hotelRead.getTheme());
 
         ArrayList<Resident> expectedStaff = expectedHotel.getStaff();
         ArrayList<Resident> readStaff = hotelRead.getStaff();

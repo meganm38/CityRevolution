@@ -29,8 +29,8 @@ public class CityTest {
 
     @Test
     public void testAddHotel() {
-        Hotel hotel1 = new Hotel("Holiday Inn");
-        Hotel hotel2 = new Hotel("Holiday Inn");
+        Hotel hotel1 = new Hotel("Holiday Inn", 3, Hotel.Theme.SKI);
+        Hotel hotel2 = new Hotel("Holiday Inn", 3, Hotel.Theme.SKI);
         city.addHotel(hotel1);
         assertEquals(new ArrayList<>(Collections.singletonList(hotel1)), city.getHotels());
 
