@@ -10,18 +10,22 @@ import java.awt.*;
 import static javax.swing.JOptionPane.showMessageDialog;
 
 public class CreateCityWindow extends Window {
-
+    private City city;
     private SwingCityRevolution cityRevolution;
     private JPanel settingPanel;
     private JPanel themePanel;
     private JPanel confirmPanel;
     private JTextField inputField;
+    private JButton lightThemeBtn;
+    private JButton darkThemeBtn;
+
     private City.Theme theme;
     private String cityName;
 
-    public CreateCityWindow() {
+    public CreateCityWindow(City city, SwingCityRevolution cityRevolution) {
         super();
-        cityRevolution = new SwingCityRevolution();
+        this.city = city;
+        this.cityRevolution = cityRevolution == null ? new SwingCityRevolution() : cityRevolution;
         init();
         centreOnScreen();
         setVisible(true);
@@ -54,7 +58,8 @@ public class CreateCityWindow extends Window {
     }
 
     private void setupMenu() {
-        JLabel menuTitle = new JLabel("NEW CITY");
+        JLabel menuTitle = city == null ? new JLabel("NEW CITY") : new JLabel("MODIFY CITY");
+
         menuTitle.setForeground(FONT_COLOR_DARK);
         menuTitle.setFont(TITLE_FONT);
         menuTitle.setBorder(new EmptyBorder(10, 0, 10, 0));
@@ -89,9 +94,11 @@ public class CreateCityWindow extends Window {
 
     private void configSettingPanel() {
         JLabel cityNameText = new JLabel("City Name:");
-        inputField = new JTextField();
         cityNameText.setBounds(90, 25, 100, 50);
         cityNameText.setForeground(FONT_COLOR_DARK);
+
+        inputField = new JTextField();
+        inputField.setText(city == null ? "" : city.getCityName());
         inputField.setBounds(180, 25, 150, 50);
         inputField.setHorizontalAlignment(JTextField.CENTER);
         settingPanel.add(cityNameText);
@@ -101,9 +108,10 @@ public class CreateCityWindow extends Window {
     private void initThemePanel() {
         JPanel textPanel = new JPanel();
         textPanel.setBackground(BLUE);
-        JLabel label = new JLabel("THEME SETTINGS");
-        label.setForeground(Color.white);
         textPanel.setPreferredSize(new Dimension(450, 30));
+
+        JLabel label = new JLabel("THEME SETTING");
+        label.setForeground(Color.white);
         textPanel.add(label);
 
         themePanel = new JPanel();
@@ -130,12 +138,29 @@ public class CreateCityWindow extends Window {
     }
 
     private void addThemeButtons() {
-        JButton lightThemeBtn = new JButton(new ImageIcon("data/pictures/lighttheme.png"));
-        JButton darkThemeBtn = new JButton(new ImageIcon("data/pictures/darktheme.png"));
+        if (city == null) {
+            lightThemeBtn = new JButton(new ImageIcon("data/pictures/lighttheme.png"));
+            darkThemeBtn = new JButton(new ImageIcon("data/pictures/darktheme.png"));
+        } else {
+            theme = city.getTheme();
+            if (theme.equals(City.Theme.LIGHT)) {
+                lightThemeBtn = new JButton(new ImageIcon("data/pictures/lightthemedarken.png"));
+                darkThemeBtn = new JButton(new ImageIcon("data/pictures/darktheme.png"));
+            } else {
+                lightThemeBtn = new JButton(new ImageIcon("data/pictures/lighttheme.png"));
+                darkThemeBtn = new JButton(new ImageIcon("data/pictures/darkthemedarken.png"));
+            }
+        }
         lightThemeBtn.setBounds(60, 20, THEME_IMAGE_DIMENSIONS, THEME_IMAGE_DIMENSIONS);
         darkThemeBtn.setBounds(80 + THEME_IMAGE_DIMENSIONS, 20, THEME_IMAGE_DIMENSIONS, THEME_IMAGE_DIMENSIONS);
         lightThemeBtn.setBorder(BorderFactory.createEtchedBorder(0));
         darkThemeBtn.setBorder(BorderFactory.createEtchedBorder(1));
+        addListenersToThemeButtons();
+        themePanel.add(lightThemeBtn);
+        themePanel.add(darkThemeBtn);
+    }
+
+    private void addListenersToThemeButtons() {
         lightThemeBtn.addActionListener(e -> {
             if (darkThemeBtn.isEnabled()) {
                 darkThemeBtn.setIcon(new ImageIcon("data/pictures/darktheme.png"));
@@ -150,8 +175,6 @@ public class CreateCityWindow extends Window {
             darkThemeBtn.setIcon(new ImageIcon("data/pictures/darkthemedarken.png"));
             theme = City.Theme.DARK;
         });
-        themePanel.add(lightThemeBtn);
-        themePanel.add(darkThemeBtn);
     }
 
     private void initConfirmPanel() {
@@ -159,26 +182,35 @@ public class CreateCityWindow extends Window {
         confirmPanel.setLayout(null);
         confirmPanel.setBackground(new Color(192, 192, 192));
         confirmPanel.setPreferredSize(new Dimension(500, 50));
-        addButtonsToConfirmPanel();
+        addConfirmBtn();
+        addBackBtn();
         mainPanel.add(confirmPanel);
     }
 
-    private void addButtonsToConfirmPanel() {
+    private void addConfirmBtn() {
         JButton checkBtn = new JButton(new ImageIcon("data/pictures/checkmark.png"));
         checkBtn.setBounds(450, 0, 50, 48);
         checkBtn.setBorderPainted(false);
         checkBtn.addActionListener(e -> {
             cityName = inputField.getText();
             if (cityName != null && theme != null) {
-                City city = new City(cityName, theme);
-                cityRevolution.addNewCity(city);
+                if (city == null) {
+                    city = new City(cityName, theme);
+                    cityRevolution.addNewCity(city);
+                } else {
+                    city.setCityName(cityName);
+                    city.setTheme(theme);
+                }
                 CityWindow cityWindow = new CityWindow(city, cityRevolution);
                 setVisible(false);
             } else {
                 showMessageDialog(this, "Empty Name/Theme");
             }
         });
+        confirmPanel.add(checkBtn);
+    }
 
+    private void addBackBtn() {
         JButton backBtn = new JButton(new ImageIcon("data/pictures/backBtn.png"));
         backBtn.setBounds(0, 0, 50, 48);
         backBtn.setBorderPainted(false);
@@ -187,7 +219,5 @@ public class CreateCityWindow extends Window {
             dispose();
         });
         confirmPanel.add(backBtn);
-        confirmPanel.add(checkBtn);
     }
-
 }

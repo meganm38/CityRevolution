@@ -179,11 +179,12 @@ public class ResidentWindow extends Window {
         confirmPanel.setLayout(null);
         confirmPanel.setBackground(new Color(192, 192, 192));
         confirmPanel.setPreferredSize(new Dimension(500, 50));
-        addButtonsToConfirmPanel();
+        addConfirmBtn();
+        addBackButton();
         mainPanel.add(confirmPanel);
     }
 
-    private void addButtonsToConfirmPanel() {
+    private void addConfirmBtn() {
         JButton confirmButton = new JButton(new ImageIcon("data/pictures/checkmark.png"));
         confirmButton.setBounds(450, 0, 50, 48);
         confirmButton.setBorderPainted(false);
@@ -208,5 +209,16 @@ public class ResidentWindow extends Window {
             }
         });
         confirmPanel.add(confirmButton);
+    }
+
+    private void addBackButton() {
+        JButton backBtn = new JButton(new ImageIcon("data/pictures/backBtn.png"));
+        backBtn.setBounds(0, 0, 50, 48);
+        backBtn.setBorderPainted(false);
+        backBtn.addActionListener(e -> {
+            CityWindow cityWindow = new CityWindow(city, cityRevolution);
+            dispose();
+        });
+        confirmPanel.add(backBtn);
     }
 }

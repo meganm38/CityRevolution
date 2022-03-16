@@ -100,10 +100,10 @@ public class CityWindow extends Window {
         residentPanel.setBackground(new Color(223, 220, 229));
         residentPanel.setBounds(GAP, GAP,
                 SETTINGS_PANEL_WIDTH / 2 - GAP * 2, SETTINGS_PANEL_HEIGHT - 2 * GAP);
-        JLabel residentText = new JLabel("ADD RESIDENTS");
+        JLabel residentText = new JLabel("RESIDENTS");
         residentText.setForeground(FONT_COLOR_DARK);
         residentText.setPreferredSize(new Dimension(residentPanel.getWidth(), 50));
-        residentText.setBorder(new EmptyBorder(GAP, 5 * GAP, GAP, GAP));
+        residentText.setBorder(new EmptyBorder(GAP, 7 * GAP, GAP, GAP));
         residentPanel.add(residentText);
 
         JLabel residentsImg = new JLabel(new ImageIcon("data/pictures/residentsImg.png"));
@@ -115,14 +115,23 @@ public class CityWindow extends Window {
     }
 
     private void addButtonToResidentsPanel() {
-        JButton addBtn = new JButton(new ImageIcon("data/pictures/checkmark.png"));
-        addBtn.setBounds(residentPanel.getWidth() / 2 - 45, residentPanel.getHeight() - 60, 50, 48);
+        JButton addBtn = new JButton(new ImageIcon("data/pictures/addIcon.png"));
+        addBtn.setBounds(residentPanel.getWidth() - 45, residentPanel.getHeight() - 60, 50, 48);
         addBtn.setBorderPainted(false);
         addBtn.addActionListener(e -> {
             ResidentWindow residentWindow = new ResidentWindow(city, cityRevolution);
             dispose();
         });
+
+        JButton settingBtn = new JButton(new ImageIcon("data/pictures/settingIcon.png"));
+        settingBtn.setBounds(residentPanel.getWidth() / 2, residentPanel.getHeight() - 60, 45, 45);
+        settingBtn.setBorderPainted(false);
+        settingBtn.addActionListener(e -> {
+
+        });
+
         residentPanel.add(addBtn);
+        residentPanel.add(settingBtn);
     }
 
     private void initHotelPanel() {
@@ -131,10 +140,10 @@ public class CityWindow extends Window {
         hotelPanel.setBounds(residentPanel.getWidth() + GAP * 3, GAP,
                 SETTINGS_PANEL_WIDTH / 2 - GAP * 2, SETTINGS_PANEL_HEIGHT - 2 * GAP);
 
-        JLabel hotelText = new JLabel("ADD HOTELS");
+        JLabel hotelText = new JLabel("HOTELS");
         hotelText.setForeground(FONT_COLOR_DARK);
         hotelText.setPreferredSize(new Dimension(residentPanel.getWidth(), 50));
-        hotelText.setBorder(new EmptyBorder(GAP, 6 * GAP, GAP, GAP));
+        hotelText.setBorder(new EmptyBorder(GAP, 8 * GAP, GAP, GAP));
         hotelPanel.add(hotelText);
 
         JLabel hotelImg = new JLabel(new ImageIcon("data/pictures/hotelImg.png"));
@@ -146,14 +155,24 @@ public class CityWindow extends Window {
     }
 
     private void addButtonToHotelPanel() {
-        JButton addBtn = new JButton(new ImageIcon("data/pictures/checkmark.png"));
-        addBtn.setBounds(hotelPanel.getWidth() / 2 - 45, hotelPanel.getHeight() - 60, 50, 48);
+        JButton addBtn = new JButton(new ImageIcon("data/pictures/addIcon.png"));
+        addBtn.setBounds(hotelPanel.getWidth() - 45, hotelPanel.getHeight() - 60, 50, 48);
         addBtn.setBorderPainted(false);
         addBtn.addActionListener(e -> {
             HotelWindow hotelWindow = new HotelWindow(city, cityRevolution);
             dispose();
         });
+
+        JButton settingBtn = new JButton(new ImageIcon("data/pictures/settingIcon.png"));
+        settingBtn.setBounds(residentPanel.getWidth() / 2, residentPanel.getHeight() - 60, 45, 45);
+        settingBtn.setBorderPainted(false);
+        settingBtn.addActionListener(e -> {
+            HotelCheckerWindow hotelCheckerWindow = new HotelCheckerWindow(city, cityRevolution);
+            dispose();
+        });
+
         hotelPanel.add(addBtn);
+        hotelPanel.add(settingBtn);
     }
 
     private void initConfirmPanel() {
@@ -161,20 +180,19 @@ public class CityWindow extends Window {
         optionsPanel.setLayout(null);
         optionsPanel.setBackground(new Color(192, 192, 192));
         optionsPanel.setPreferredSize(new Dimension(500, 50));
-        addButtonsToOptionPanel();
+        addButtonsToConfirmPanel();
         mainPanel.add(optionsPanel);
     }
 
-    private void addButtonsToOptionPanel() {
-        JButton nextBtn = new JButton(new ImageIcon("data/pictures/nextIcon.png"));
-        nextBtn.setBounds(450, 0, 50, 48);
-        nextBtn.setBorderPainted(false);
-        nextBtn.setToolTipText("Click here to check out your city contents.");
-        UIManager.put("ToolTip.font", new Font("Arial", Font.PLAIN, 13));
-        nextBtn.addActionListener(e -> {
-            //TODO
+    private void addButtonsToConfirmPanel() {
+        JButton backBtn = new JButton(new ImageIcon("data/pictures/backBtn.png"));
+        backBtn.setBounds(0, 0, 50, 48);
+        backBtn.setBorderPainted(false);
+        backBtn.addActionListener(e -> {
+            CreateCityWindow cityWindow = new CreateCityWindow(city, cityRevolution);
+            dispose();
         });
-        optionsPanel.add(nextBtn);
+        optionsPanel.add(backBtn);
     }
 }
 

@@ -168,7 +168,7 @@ public class HotelWindow extends Window {
 
         skiResortBtn.addActionListener(e -> {
             if (beachResortBtn.isEnabled()) {
-                beachResortBtn.setIcon(new ImageIcon("data/pictures/beachDarken.png"));
+                beachResortBtn.setIcon(new ImageIcon("data/pictures/beachResort.png"));
             }
             skiResortBtn.setIcon(new ImageIcon("data/pictures/skiDarken.png"));
             theme = Hotel.Theme.SKI;
@@ -191,6 +191,7 @@ public class HotelWindow extends Window {
         confirmPanel.setBackground(new Color(192, 192, 192));
         confirmPanel.setPreferredSize(new Dimension(500, 50));
         addButtonsToConfirmPanel();
+        addBackButton();
         mainPanel.add(confirmPanel);
     }
 
@@ -213,5 +214,16 @@ public class HotelWindow extends Window {
             }
         });
         confirmPanel.add(confirmButton);
+    }
+
+    private void addBackButton() {
+        JButton backBtn = new JButton(new ImageIcon("data/pictures/backBtn.png"));
+        backBtn.setBounds(0, 0, 50, 48);
+        backBtn.setBorderPainted(false);
+        backBtn.addActionListener(e -> {
+            CityWindow cityWindow = new CityWindow(city, cityRevolution);
+            dispose();
+        });
+        confirmPanel.add(backBtn);
     }
 }

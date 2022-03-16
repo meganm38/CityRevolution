@@ -83,6 +83,14 @@ public class City implements Writable {
     /*
      * getters
      */
+    public void setCityName(String name) {
+        this.cityName = name;
+    }
+
+    public void setTheme(Theme theme) {
+        this.theme = theme;
+    }
+
     public String getCityName() {
         return cityName;
     }
