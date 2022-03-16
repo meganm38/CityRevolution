@@ -127,7 +127,8 @@ public class CityWindow extends Window {
         settingBtn.setBounds(residentPanel.getWidth() / 2, residentPanel.getHeight() - 60, 45, 45);
         settingBtn.setBorderPainted(false);
         settingBtn.addActionListener(e -> {
-
+            ResidentCheckerWindow residentCheckerWindow = new ResidentCheckerWindow(city, cityRevolution);
+            dispose();
         });
 
         residentPanel.add(addBtn);

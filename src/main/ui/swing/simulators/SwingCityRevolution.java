@@ -1,10 +1,10 @@
 package ui.swing.simulators;
 
 import model.City;
+import model.Hotel;
+import model.Resident;
 import persistence.JsonReader;
 import persistence.JsonWriter;
-import ui.HotelSimulator;
-import ui.ResidentSimulator;
 
 import java.util.ArrayList;
 
@@ -13,8 +13,8 @@ public class SwingCityRevolution {
     private final ArrayList<City> cities;
     private int currentCity;
     private int currentHotel;
-    private final HotelSimulator hotelSimulator;
-    private final ResidentSimulator residentSimulator;
+    private int currentResident;
+
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
     private final String destination = "./data/WriterCitiesSwing.json";
@@ -22,14 +22,37 @@ public class SwingCityRevolution {
     // EFFECTS: initiates all simulators and runs the city revolution application
     public SwingCityRevolution() {
         cities = new ArrayList<>();
-        hotelSimulator = new HotelSimulator();
-        residentSimulator = new ResidentSimulator();
         currentCity = -1;
         currentHotel = -1;
+        currentResident = -1;
     }
 
     public void addNewCity(City city) {
         cities.add(city);
         currentCity = cities.size() - 1;
+    }
+
+    public void addNewResident(Resident resident) {
+        City city = cities.get(currentCity);
+        city.addResident(resident);
+        city.getBank().createAccountForResident(resident, 2000);
+    }
+
+    public void selectResident(int residentIndex) {
+        currentResident = residentIndex;
+    }
+
+    public void addNewHotel(Hotel hotel) {
+        City city = cities.get(currentCity);
+        city.addHotel(hotel);
+    }
+
+    public Resident getSelectedResident() {
+        City city = cities.get(currentCity);
+        return city.getResidents().get(currentResident);
+    }
+
+    public City getCurrentCity() {
+        return cities.get(currentCity);
     }
 }
