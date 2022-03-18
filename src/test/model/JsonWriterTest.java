@@ -64,10 +64,10 @@ public class JsonWriterTest {
             hotel1.addStaff(resident1);
             hotel1.openBusiness();
 
-            Hotel hotel2 = new Hotel("Another Hotel", 3, Hotel.Theme.SKI);
+            Hotel hotel2 = new Hotel("Another Hotel", 3, Hotel.Theme.BEACH);
             city.addHotel(hotel2);
 
-            City city2 = new City("Toronto", City.Theme.LIGHT);
+            City city2 = new City("Toronto", City.Theme.DARK);
             Resident resident3 = new Resident("Joey", false, 25);
             Resident resident4 = new Resident("Ross", false, 25);
             city2.addResident(resident3);
@@ -93,6 +93,8 @@ public class JsonWriterTest {
 
             //check city 1 name and residents info
             assertEquals("Vancouver", city1Read.getCityName());
+            assertEquals(City.Theme.LIGHT, city1Read.getTheme());
+
             checkResidentsInfo(resident1, city1Residents.get(0));
             checkResidentsInfo(resident2, city1Residents.get(1));
 
@@ -108,6 +110,7 @@ public class JsonWriterTest {
 
             //check city 2 info
             City city2Read = citiesRead.get(1);
+            assertEquals(City.Theme.DARK, city2Read.getTheme());
             ArrayList<Resident> city2Residents = city2Read.getResidents();
             assertEquals("Toronto", city2Read.getCityName());
             assertEquals(2, city2Read.getResidents().size());
