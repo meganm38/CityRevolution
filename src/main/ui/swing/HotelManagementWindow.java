@@ -13,6 +13,7 @@ import java.util.Map;
 
 import static javax.swing.JOptionPane.showMessageDialog;
 
+// Represents a window that displays hotel attributes and internal management settings
 public class HotelManagementWindow extends Window {
     private final SwingCityRevolution cityRevolution;
     private final Hotel hotel;
@@ -40,7 +41,6 @@ public class HotelManagementWindow extends Window {
     private JButton viewBookingBtn;
 
     /*
-     * REQUIRES: cityRevolution cannot be empty
      * EFFECTS: constructs a visible hotel management window
      */
     public HotelManagementWindow(SwingCityRevolution cityRevolution) {
@@ -62,7 +62,7 @@ public class HotelManagementWindow extends Window {
     }
 
     /*
-     * MODIFIFES: this
+     * MODIFIES: this
      * EFFECTS: initiates the main panel
      */
     @Override
@@ -147,6 +147,10 @@ public class HotelManagementWindow extends Window {
         mainPanel.add(settingsBackgroundPanel);
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: initiates attributesPanel and adds title
+     */
     private void addAttributes() {
         attributesPanel = new JPanel();
         attributesPanel.setBackground(PINK);
@@ -171,6 +175,10 @@ public class HotelManagementWindow extends Window {
         attributesPanel.add(hotelName);
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: adds hotel theme and star attributes to attributesPanel
+     */
     private void addAdditionalAttributes() {
         String theme = hotel.getTheme().equals(Hotel.Theme.SKI) ? "Ski resort" : "Beach resort";
         JLabel hotelTheme = new JLabel("Theme:");
@@ -199,6 +207,10 @@ public class HotelManagementWindow extends Window {
         attributesPanel.add(starOfHotel);
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: adds business status and setting button to settingsPanel
+     */
     private void addBusinessStatus() {
         JPanel openForBusinessPanel = new JPanel();
         openForBusinessPanel.setBackground(PINK);
@@ -229,6 +241,10 @@ public class HotelManagementWindow extends Window {
         settingsPanel.add(blank);
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: initiates a setting window for displaying instructions on setting a hotel status
+     */
     @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     private void configOpenSettingBtn() {
         openSettingBtn.addActionListener(e -> {
@@ -236,6 +252,10 @@ public class HotelManagementWindow extends Window {
                     "Hotel Status Setting", "Hotel Status", imgIcon, cityRevolution) {
                 JComboBox<String> list;
 
+                /*
+                 * MODIFIES: this
+                 * EFFECTS: adds instructions to background panel for setting a hotel status
+                 */
                 @Override
                 protected void setupBackgroundPanel() {
                     JLabel instructionLabel = new JLabel("Hotel Status:");
@@ -251,6 +271,10 @@ public class HotelManagementWindow extends Window {
                     backgroundPanel.add(list);
                 }
 
+                /*
+                 * MODIFIES: this
+                 * EFFECTS: adds listener to checkBtn
+                 */
                 @Override
                 protected void addBtnActionListener() {
                     checkBtn.addActionListener(e -> {
@@ -275,10 +299,18 @@ public class HotelManagementWindow extends Window {
         });
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: updates hotel status based on openHotel being true or false
+     */
     private void changeHotelStatus(boolean openHotel) {
         businessStatus.setText(openHotel ? "Open" : "Closed");
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: adds staff info to settingsPanel that displays the number of staff in hotel
+     */
     private void addStaffInfo() {
         staffInfoPanel = new JPanel();
         staffInfoPanel.setBackground(PINK);
@@ -305,6 +337,10 @@ public class HotelManagementWindow extends Window {
         settingsPanel.add(blank);
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: adds view and setting buttons for staff Info
+     */
     private void addViewAndSettingButtons() {
         staffSettingBtn = new JButton(new ImageIcon("data/pictures/settingSmall.png"));
         staffSettingBtn.setBounds(380, 0, 35, 35);
@@ -320,10 +356,19 @@ public class HotelManagementWindow extends Window {
         staffInfoPanel.add(viewStaffBtn);
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: initiates a new table window that displays all staff
+     */
     private void configViewStaffBtn() {
         viewStaffBtn.addActionListener(e -> {
             final TableWindow settingWindow = new TableWindow(
                     "View Hotel Staff", "Staff", imgIcon, cityRevolution, 3) {
+
+                /*
+                 * MODIFIES: this
+                 * EFFECTS: sets up table content for displaying staff
+                 */
                 @Override
                 protected void initTableContent() {
                     columnNames = new String[]{"Name", "Age", "Gender"};
@@ -339,6 +384,10 @@ public class HotelManagementWindow extends Window {
         });
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: initiates a new setting window for uses to choose resident to add as hotel staff
+     */
     @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     private void configStaffSettingBtn() {
         staffSettingBtn.addActionListener(e -> {
@@ -346,6 +395,10 @@ public class HotelManagementWindow extends Window {
                     "Hotel Staff Setting", "Add Staff", imgIcon, cityRevolution) {
                 JComboBox<String> list;
 
+                /*
+                 * MODIFIES: this
+                 * EFFECTS: sets up instructions for choosing resident
+                 */
                 @Override
                 protected void setupBackgroundPanel() {
                     JLabel instructionLabel = new JLabel("Choose a resident:");
@@ -365,7 +418,11 @@ public class HotelManagementWindow extends Window {
                     backgroundPanel.add(list);
                 }
 
-                //TODO: change associations between staff and work
+                /*
+                 * MODIFIES: this
+                 * EFFECTS: adds listener to checkmark button if a resident is selected
+                 */
+                //TODO: user working somewhere else
                 @Override
                 protected void addBtnActionListener() {
                     checkBtn.addActionListener(e -> {
@@ -387,10 +444,18 @@ public class HotelManagementWindow extends Window {
         });
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: updates the number of staff
+     */
     private void changeHotelStaff() {
         staff.setText(hotel.getStaff().size() + "/1");
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: adds room info to settingsPanel that displays the number of rooms in hotel
+     */
     private void addRoomInfo() {
         roomInfoPanel = new JPanel();
         roomInfoPanel.setBackground(PINK);
@@ -417,6 +482,10 @@ public class HotelManagementWindow extends Window {
         settingsPanel.add(blank);
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: adds view and setting buttons for room Info
+     */
     private void addButtonsToRoomInfo() {
         roomSettingBtn = new JButton(new ImageIcon("data/pictures/settingSmall.png"));
         roomSettingBtn.setBounds(380, 0, 35, 35);
@@ -431,10 +500,19 @@ public class HotelManagementWindow extends Window {
         roomInfoPanel.add(viewRoomBtn);
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: initiates a new table window that displays all room numbers
+     */
     private void configRoomViewBtn() {
         viewRoomBtn.addActionListener(e -> {
             final TableWindow settingWindow = new TableWindow(
                     "View Hotel Rooms", "Rooms", imgIcon, cityRevolution, 2) {
+
+                /*
+                 * MODIFIES: this
+                 * EFFECTS: sets up table content for displaying room numbers
+                 */
                 @Override
                 protected void initTableContent() {
                     columnNames = new String[]{"Count", "Room Number"};
@@ -449,6 +527,10 @@ public class HotelManagementWindow extends Window {
         });
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: initiates a new setting window for uses to choose the number of rooms to add to hotel
+     */
     @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     private void configRoomSettingBtn() {
         roomSettingBtn.addActionListener(e -> {
@@ -456,6 +538,10 @@ public class HotelManagementWindow extends Window {
                     "Hotel Rooms Setting", "Add rooms", imgIcon, cityRevolution) {
                 JTextField textField;
 
+                /*
+                 * MODIFIES: this
+                 * EFFECTS: sets up instructions for choosing the number of rooms
+                 */
                 @Override
                 protected void setupBackgroundPanel() {
                     JLabel instructionLabel = new JLabel("Number of Rooms to add:");
@@ -470,7 +556,10 @@ public class HotelManagementWindow extends Window {
                     backgroundPanel.add(textField);
                 }
 
-                //TODO: change associations between staff and work
+                /*
+                 * MODIFIES: this
+                 * EFFECTS: adds listener to checkmark button
+                 */
                 @Override
                 protected void addBtnActionListener() {
                     checkBtn.addActionListener(e -> {
@@ -489,10 +578,18 @@ public class HotelManagementWindow extends Window {
         });
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: updates rooms numbers display
+     */
     private void changeRoomNumbersDisplay() {
         rooms.setText(hotel.getRoomNumbers().size() + "/1");
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: adds booking info to settingsPanel that displays the number of rooms in hotel
+     */
     private void addBookingInfo() {
         bookingInfoPanel = new JPanel();
         bookingInfoPanel.setBackground(PINK);
@@ -519,6 +616,10 @@ public class HotelManagementWindow extends Window {
         settingsPanel.add(blank);
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: adds view and setting buttons to bookingInfoPanel
+     */
     private void addButtonsToBooking() {
         bookingSettingBtn = new JButton(new ImageIcon("data/pictures/settingSmall.png"));
         bookingSettingBtn.setBounds(380, 0, 35, 35);
@@ -533,6 +634,10 @@ public class HotelManagementWindow extends Window {
         bookingInfoPanel.add(viewBookingBtn);
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: initiates a new table window that displays all hotel bookings
+     */
     private void configBookingViewBtn() {
         viewBookingBtn.addActionListener(e -> {
             final TableWindow settingWindow = new TableWindow(
@@ -559,6 +664,10 @@ public class HotelManagementWindow extends Window {
         });
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: initiates a new setting window for uses to add bookings
+     */
     @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     private void configBookingSettingBtn() {
         bookingSettingBtn.addActionListener(e -> {
@@ -629,10 +738,18 @@ public class HotelManagementWindow extends Window {
         });
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: updates the number of bookings
+     */
     private void changeBookingsInfo() {
         bookings.setText(hotel.getBookedRoomNumbers().size() + "");
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: sets the background image of the window depending on the theme of city
+     */
     @Override
     protected void initBackground() {
         if (hotel.getTheme().equals(Hotel.Theme.SKI)) {
@@ -652,6 +769,10 @@ public class HotelManagementWindow extends Window {
         pack();
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: initiates confirm panel and sets its position
+     */
     private void initConfirmPanel() {
         confirmPanel = new JPanel();
         confirmPanel.setLayout(null);
@@ -661,6 +782,10 @@ public class HotelManagementWindow extends Window {
         mainPanel.add(confirmPanel);
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: adds a checkmark button to confirmPanel that provides input instructions when clicked on
+     */
     private void addButtonsToConfirmPanel() {
         JButton checkBtn = new JButton(new ImageIcon("data/pictures/checkmark.png"));
         checkBtn.setBounds(450, 0, 50, 48);

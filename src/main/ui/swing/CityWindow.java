@@ -1,25 +1,27 @@
 package ui.swing;
 
 import model.City;
-import ui.swing.simulators.ResidentWindow;
 import ui.swing.simulators.SwingCityRevolution;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
-
+// Represents a window that lets user choose view/edit residents and hotels
 public class CityWindow extends Window {
     private static final int SETTINGS_PANEL_WIDTH = 450;
     private static final int SETTINGS_PANEL_HEIGHT = 330;
 
-    private City city;
-    private SwingCityRevolution cityRevolution;
+    private final City city;
+    private final SwingCityRevolution cityRevolution;
     private JPanel settingPanel;
     private JPanel residentPanel;
     private JPanel hotelPanel;
     private JPanel optionsPanel;
 
+    /*
+     * EFFECTS: creates a city window
+     */
     public CityWindow(SwingCityRevolution cityRevolution) {
         super();
         this.city = cityRevolution.getCity();
@@ -29,12 +31,19 @@ public class CityWindow extends Window {
         setVisible(true);
     }
 
+    /*
+     * EFFECTS: starting method that calls methods to initiate background and main menu
+     */
     @Override
     protected void init() {
         initBackground();
         initMain();
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: initiates main menu
+     */
     @Override
     protected void initMain() {
         super.initMain();
@@ -42,6 +51,10 @@ public class CityWindow extends Window {
         add(mainPanel);
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: sets the background image of the window depending on the theme of city
+     */
     @Override
     protected void initBackground() {
         ImageIcon imgIcon;
@@ -62,6 +75,10 @@ public class CityWindow extends Window {
         pack();
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: sets up main menu template and spacing
+     */
     private void setupMenu() {
         JLabel menuTitle = new JLabel("The City of " + city.getCityName());
         menuTitle.setForeground(FONT_COLOR_DARK);
@@ -77,6 +94,10 @@ public class CityWindow extends Window {
         initConfirmPanel();
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: initiates settingsPanel and sets its position
+     */
     private void initSettingsPanel() {
         JPanel cityInfoText = new JPanel();
         cityInfoText.setBackground(BLUE);
@@ -95,6 +116,10 @@ public class CityWindow extends Window {
         mainPanel.add(settingPanel);
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: initiates resident panel where user can choose to view or edit residents
+     */
     private void initResidentPanel() {
         residentPanel = new JPanel();
         residentPanel.setBackground(PINK);
@@ -114,12 +139,16 @@ public class CityWindow extends Window {
         settingPanel.add(residentPanel);
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: adds view and setting buttons to resident panel
+     */
     private void addButtonToResidentsPanel() {
         JButton addBtn = new JButton(new ImageIcon("data/pictures/addIcon.png"));
         addBtn.setBounds(residentPanel.getWidth() - 45, residentPanel.getHeight() - 60, 50, 48);
         addBtn.setBorderPainted(false);
         addBtn.addActionListener(e -> {
-            ResidentWindow residentWindow = new ResidentWindow(city, cityRevolution);
+            CreateResidentWindow createResidentWindow = new CreateResidentWindow(city, cityRevolution);
             dispose();
         });
 
@@ -135,6 +164,10 @@ public class CityWindow extends Window {
         residentPanel.add(settingBtn);
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: initiates hotel panel where user can choose to view or edit hotel
+     */
     private void initHotelPanel() {
         hotelPanel = new JPanel();
         hotelPanel.setBackground(new Color(171, 209, 201));
@@ -155,12 +188,16 @@ public class CityWindow extends Window {
         settingPanel.add(hotelPanel);
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: adds view and setting buttons to hotel panel
+     */
     private void addButtonToHotelPanel() {
         JButton addBtn = new JButton(new ImageIcon("data/pictures/addIcon.png"));
         addBtn.setBounds(hotelPanel.getWidth() - 45, hotelPanel.getHeight() - 60, 50, 48);
         addBtn.setBorderPainted(false);
         addBtn.addActionListener(e -> {
-            HotelWindow hotelWindow = new HotelWindow(city, cityRevolution);
+            CreateHotelWindow createHotelWindow = new CreateHotelWindow(city, cityRevolution);
             dispose();
         });
 
@@ -176,6 +213,10 @@ public class CityWindow extends Window {
         hotelPanel.add(settingBtn);
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: initiates confirm panel and sets its position
+     */
     private void initConfirmPanel() {
         optionsPanel = new JPanel();
         optionsPanel.setLayout(null);
@@ -185,6 +226,10 @@ public class CityWindow extends Window {
         mainPanel.add(optionsPanel);
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: adds a checkmark button and home button to confirmPanel
+     */
     private void addButtonsToConfirmPanel() {
         JButton backBtn = new JButton(new ImageIcon("data/pictures/backBtn.png"));
         backBtn.setBounds(450, 0, 50, 48);

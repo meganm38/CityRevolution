@@ -9,6 +9,7 @@ import java.awt.*;
 
 import static javax.swing.JOptionPane.showMessageDialog;
 
+// Represents a window that lets user create a new city
 public class CreateCityWindow extends Window {
     private City city;
     private SwingCityRevolution cityRevolution;
@@ -22,6 +23,10 @@ public class CreateCityWindow extends Window {
     private JButton lightThemeBtn;
     private JButton darkThemeBtn;
 
+
+    /*
+     * EFFECTS: creates a create city window
+     */
     public CreateCityWindow(SwingCityRevolution cityRevolution) {
         super();
         if (cityRevolution.getCity() != null) {
@@ -33,11 +38,18 @@ public class CreateCityWindow extends Window {
         setVisible(true);
     }
 
+    /*
+     * EFFECTS: starting method that calls methods to initiate background and main menu
+     */
     protected void init() {
         initBackground();
         initMain();
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: sets the background image of the window depending on the theme of city
+     */
     protected void initBackground() {
         ImageIcon imgIcon = new ImageIcon("data/pictures/cityback.png");
         Image img = imgIcon.getImage();
@@ -52,6 +64,10 @@ public class CreateCityWindow extends Window {
         pack();
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: initiates main menu
+     */
     @Override
     protected void initMain() {
         super.initMain();
@@ -59,6 +75,10 @@ public class CreateCityWindow extends Window {
         add(mainPanel);
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: sets up main menu template and spacing
+     */
     private void setupMenu() {
         JLabel menuTitle = city == null ? new JLabel("NEW CITY") : new JLabel("MODIFY CITY");
 
@@ -76,6 +96,10 @@ public class CreateCityWindow extends Window {
         initConfirmPanel();
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: initiates settingsPanel and sets its position
+     */
     private void initSettingPanel() {
         JPanel cityInfoText = new JPanel();
         cityInfoText.setBackground(BLUE);
@@ -94,6 +118,10 @@ public class CreateCityWindow extends Window {
         mainPanel.add(settingPanel);
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: adds content to settingsPanel
+     */
     private void configSettingPanel() {
         JLabel cityNameText = new JLabel("City Name:");
         cityNameText.setBounds(90, 25, 100, 50);
@@ -107,6 +135,10 @@ public class CreateCityWindow extends Window {
         settingPanel.add(inputField);
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: initiates themePanel
+     */
     private void initThemePanel() {
         JPanel textPanel = new JPanel();
         textPanel.setBackground(BLUE);
@@ -126,6 +158,10 @@ public class CreateCityWindow extends Window {
         mainPanel.add(themePanel);
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: adds content to themePanel
+     */
     private void configThemePanel() {
         addThemeButtons();
         JLabel lightThemeText = new JLabel("Light");
@@ -139,6 +175,10 @@ public class CreateCityWindow extends Window {
         themePanel.add(darkThemeText);
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: adds light and dark theme buttons to themePanel
+     */
     private void addThemeButtons() {
         if (city == null) {
             lightThemeBtn = new JButton(new ImageIcon("data/pictures/lighttheme.png"));
@@ -162,6 +202,10 @@ public class CreateCityWindow extends Window {
         themePanel.add(darkThemeBtn);
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: adds listeners to themeButtons
+     */
     private void addListenersToThemeButtons() {
         lightThemeBtn.addActionListener(e -> {
             if (darkThemeBtn.isEnabled()) {
@@ -179,6 +223,10 @@ public class CreateCityWindow extends Window {
         });
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: initiates confirm panel and sets its position
+     */
     private void initConfirmPanel() {
         confirmPanel = new JPanel();
         confirmPanel.setLayout(null);
@@ -189,6 +237,10 @@ public class CreateCityWindow extends Window {
         mainPanel.add(confirmPanel);
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: adds a checkmark button to confirmPanel that provides input instructions when is clicked on
+     */
     private void addConfirmBtn() {
         JButton checkBtn = new JButton(new ImageIcon("data/pictures/checkmark.png"));
         checkBtn.setBounds(450, 0, 50, 48);
@@ -212,6 +264,10 @@ public class CreateCityWindow extends Window {
         confirmPanel.add(checkBtn);
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: adds a back button to confirmPanel that leads user to previous page if clicked on
+     */
     private void addBackBtn() {
         JButton backBtn = new JButton(new ImageIcon("data/pictures/backBtn.png"));
         backBtn.setBounds(0, 0, 50, 48);

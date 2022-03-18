@@ -3,6 +3,7 @@ package ui.swing;
 import javax.swing.*;
 import java.awt.*;
 
+// Represents an abstract window of the game with necessary colors and fonts
 public abstract class Window extends JFrame {
     protected static final Color LIGHT_BLUE = new Color(240, 248, 255);
     protected static final Color BLUE = new Color(104, 151, 187);
@@ -17,6 +18,9 @@ public abstract class Window extends JFrame {
 
     protected JPanel mainPanel;
 
+    /*
+     *  EFFECTS: constructs a window with the game title
+     */
     protected Window() {
         super("City Revolution");
         setResizable(false);
@@ -24,15 +28,29 @@ public abstract class Window extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
+    /*
+     *  EFFECTS: initiates the background and main panel
+     */
     protected abstract void init();
 
+    /*
+     *  EFFECTS: initiates the background image
+     */
     protected abstract void initBackground();
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: centers window on screen
+     */
     protected void centreOnScreen() {
         Dimension scrn = Toolkit.getDefaultToolkit().getScreenSize();
         setLocation((scrn.width - getWidth()) / 2, (scrn.height - getHeight()) / 2);
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: initiates and sets up the main panel
+     */
     protected void initMain() {
         JPanel fake = new JPanel();
         fake.setPreferredSize(new Dimension(1024, 30));

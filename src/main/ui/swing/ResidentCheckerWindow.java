@@ -11,6 +11,8 @@ import java.util.ArrayList;
 
 import static javax.swing.JOptionPane.showMessageDialog;
 
+// Represents a window that displays all residents in the city
+
 public class ResidentCheckerWindow extends Window {
     private static final int DISPLAY_PANEL_WIDTH = 450;
     private static final int DISPLAY_PANEL_HEIGHT = 330;
@@ -23,6 +25,9 @@ public class ResidentCheckerWindow extends Window {
     private JScrollPane residentScrollPane;
     private JPanel confirmPanel;
 
+    /*
+     * EFFECTS: creates a residentCheckerWindow
+     */
     public ResidentCheckerWindow(SwingCityRevolution cityRevolution) {
         super();
         this.city = cityRevolution.getCity();
@@ -32,12 +37,19 @@ public class ResidentCheckerWindow extends Window {
         setVisible(true);
     }
 
+    /*
+     * EFFECTS: starting method that calls methods to initiate background and main menu
+     */
     @Override
     protected void init() {
         initBackground();
         initMain();
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: initiates main menu
+     */
     @Override
     protected void initMain() {
         super.initMain();
@@ -45,6 +57,10 @@ public class ResidentCheckerWindow extends Window {
         add(mainPanel);
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: sets up main menu template and spacing
+     */
     private void setupMenu() {
         JLabel menuTitle = new JLabel("CITY CONTENTS");
         menuTitle.setForeground(FONT_COLOR_DARK);
@@ -60,6 +76,10 @@ public class ResidentCheckerWindow extends Window {
         initConfirmPanel();
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: sets up display panel and adds title
+     */
     private void initDisplayPanel() {
         JPanel cityInfoText = new JPanel();
         cityInfoText.setBackground(BLUE);
@@ -78,6 +98,10 @@ public class ResidentCheckerWindow extends Window {
         mainPanel.add(displayPanel);
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: sets up hotel panel and adds residents list
+     */
     private void initResidentPanel() {
         hotelPanel = new JPanel();
         hotelPanel.setBackground(new Color(171, 209, 201));
@@ -102,6 +126,10 @@ public class ResidentCheckerWindow extends Window {
         displayPanel.add(hotelPanel);
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: sets the background image of the window depending on the theme of city
+     */
     @Override
     protected void initBackground() {
         ImageIcon imgIcon;
@@ -122,6 +150,10 @@ public class ResidentCheckerWindow extends Window {
         pack();
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: initiates confirm panel and sets its position
+     */
     private void initConfirmPanel() {
         confirmPanel = new JPanel();
         confirmPanel.setLayout(null);
@@ -131,6 +163,11 @@ public class ResidentCheckerWindow extends Window {
         mainPanel.add(confirmPanel);
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: adds a checkmark button to confirmPanel that provides input instructions when clicked on
+     *          adds a back button to go back to previous window
+     */
     private void addButtonsToConfirmPanel() {
         JButton checkBtn = new JButton(new ImageIcon("data/pictures/checkmark.png"));
         checkBtn.setBounds(450, 0, 50, 48);

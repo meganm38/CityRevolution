@@ -8,6 +8,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
+// Represents a city revolution game that runs on swing
 public class SwingCityRevolution {
 
     private int currentHotel;
@@ -29,11 +30,68 @@ public class SwingCityRevolution {
         currentResident = -1;
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: adds a new resident to city and opens a bank account with $2000
+     */
     public void addNewResident(Resident resident) {
         city.addResident(resident);
         city.getBank().createAccountForResident(resident, 2000);
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: sets the current hotel to open if it meets the requirements
+     */
+    public boolean openCurrentHotel() {
+        Hotel hotel = city.getHotels().get(currentHotel);
+        return hotel.openBusiness();
+    }
+
+    /*
+     * MODIFIES: this
+     * EFFECTS: closes the current hotel
+     */
+    public void closeCurrentHotel() {
+        Hotel hotel = city.getHotels().get(currentHotel);
+        hotel.closeHotel();
+    }
+
+    /*
+     * MODIFIES: this
+     * EFFECTS: assigns a job to a resident and starts creating earnings
+     */
+    public void assignJob(Business business, Resident resident) {
+        business.addStaff(resident);
+        Bank bank = city.getBank();
+        bank.initializeSES();
+        bank.createEarnings(resident, business.getSalary());
+    }
+
+    /*
+     * EFFECTS: writes content of city to a JSON file
+     */
+    public void saveCityToJson() throws FileNotFoundException {
+        ArrayList<City> cities = new ArrayList<>();
+        cities.add(city);
+
+        JsonWriter jsonWriter = new JsonWriter(destination);
+        jsonWriter.open();
+        jsonWriter.write(cities);
+        jsonWriter.close();
+    }
+
+    /*
+     * MODIFIES: this
+     * EFFECTS: Reads data from a JSON file and saves them into city
+     */
+    public void loadCity() throws IOException {
+        jsonReader = new JsonReader(destination);
+        ArrayList<City> citiesLoaded = jsonReader.read();
+        city = citiesLoaded.get(0);
+    }
+
+    //getters and setters
     public void selectResident(int residentIndex) {
         currentResident = residentIndex;
     }
@@ -66,37 +124,4 @@ public class SwingCityRevolution {
         return city.getHotels().get(currentHotel);
     }
 
-    public boolean openCurrentHotel() {
-        Hotel hotel = city.getHotels().get(currentHotel);
-        return hotel.openBusiness();
-    }
-
-    public void closeCurrentHotel() {
-        Hotel hotel = city.getHotels().get(currentHotel);
-        hotel.closeHotel();
-    }
-
-    public void assignJob(Business business, Resident resident) {
-        business.addStaff(resident);
-        Bank bank = city.getBank();
-        bank.initializeSES();
-        bank.createEarnings(resident, business.getSalary());
-    }
-
-    public void saveCityToJson() throws FileNotFoundException {
-        ArrayList<City> cities = new ArrayList<>();
-        cities.add(city);
-
-        JsonWriter jsonWriter = new JsonWriter(destination);
-        jsonWriter.open();
-        jsonWriter.write(cities);
-        jsonWriter.close();
-    }
-
-    public void loadCity() throws IOException {
-        jsonReader = new JsonReader(destination);
-        ArrayList<City> citiesLoaded = jsonReader.read();
-        city = citiesLoaded.get(0);
-
-    }
 }

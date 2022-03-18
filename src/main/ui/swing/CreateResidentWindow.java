@@ -1,7 +1,7 @@
 package ui.swing;
 
 import model.City;
-import model.Hotel;
+import model.Resident;
 import ui.swing.simulators.SwingCityRevolution;
 
 import javax.swing.*;
@@ -10,41 +10,52 @@ import java.awt.*;
 
 import static javax.swing.JOptionPane.showMessageDialog;
 
-public class HotelWindow extends Window {
+// Represents a window that lets user create a new resident
+public class CreateResidentWindow extends Window {
     private static final int SETTINGS_PANEL_WIDTH = 450;
-    private static final int SETTINGS_PANEL_HEIGHT = 150;
+    private static final int SETTINGS_PANEL_HEIGHT = 170;
 
     private final City city;
     private final SwingCityRevolution cityRevolution;
-
-    private Hotel.Theme theme;
+    private boolean isFemale;
     private String name;
-    private int star;
-    private boolean themeSelected;
+    private int age;
+    private boolean genderSelected;
 
-    private JPanel confirmPanel;
     private JPanel settingPanel;
+    private JPanel confirmPanel;
     private JTextField nameField;
-    private JComboBox<String> starList;
-    private JButton skiResortBtn;
-    private JButton beachResortBtn;
+    private JTextField ageField;
+    private JPanel genderPanel;
+    private JButton femaleBtn;
+    private JButton maleBtn;
 
-
-    public HotelWindow(City city, SwingCityRevolution cityRevolution) {
+    /*
+     * EFFECTS: creates a create resident window
+     */
+    public CreateResidentWindow(City city, SwingCityRevolution cityRevolution) {
         super();
         this.city = city;
+        genderSelected = false;
         this.cityRevolution = cityRevolution;
         init();
         centreOnScreen();
         setVisible(true);
     }
 
+    /*
+     * EFFECTS: starting method that calls methods to initiate background and main menu
+     */
     @Override
     protected void init() {
         initBackground();
         initMain();
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: initiates main menu
+     */
     @Override
     protected void initMain() {
         super.initMain();
@@ -52,6 +63,10 @@ public class HotelWindow extends Window {
         add(mainPanel);
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: sets the background image of the window depending on the theme of city
+     */
     @Override
     protected void initBackground() {
         ImageIcon imgIcon;
@@ -72,6 +87,11 @@ public class HotelWindow extends Window {
         pack();
     }
 
+
+    /*
+     * MODIFIES: this
+     * EFFECTS: sets up main menu template and spacing
+     */
     private void setupMenu() {
         JLabel menuTitle = new JLabel("The City of " + city.getCityName());
         menuTitle.setForeground(FONT_COLOR_DARK);
@@ -83,15 +103,19 @@ public class HotelWindow extends Window {
         fake.setOpaque(false);
 
         initSettingsPanel();
-        initThemePanel();
+        initGenderPanel();
         mainPanel.add(fake);
         initConfirmPanel();
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: initiates settingsPanel and sets its position
+     */
     private void initSettingsPanel() {
         JPanel addResidentText = new JPanel();
         addResidentText.setBackground(BLUE);
-        JLabel label = new JLabel("Add Hotel");
+        JLabel label = new JLabel("ADD RESIDENT");
         label.setForeground(Color.white);
         addResidentText.setPreferredSize(new Dimension(450, 30));
         addResidentText.add(label);
@@ -106,115 +130,134 @@ public class HotelWindow extends Window {
         mainPanel.add(settingPanel);
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: adds content to settingsPanel
+     */
     private void configSettingPanel() {
         JLabel cityNameText = new JLabel("Name:");
         nameField = new JTextField();
-        cityNameText.setBounds(90, 10, 100, 50);
+        cityNameText.setBounds(90, 25, 100, 50);
         cityNameText.setForeground(FONT_COLOR_DARK);
-        nameField.setBounds(180, 10, 150, 50);
+        nameField.setBounds(180, 25, 150, 50);
         nameField.setHorizontalAlignment(JTextField.CENTER);
 
-        JLabel ageText = new JLabel("Hotel Star:");
-        String[] stars = {"1-star", "2-star", "3-star", "4-star", "5-star"};
-        starList = new JComboBox<>(stars);
-        starList.setBounds(180, 80, 150, 50);
-
-        ageText.setBounds(90, 80, 100, 50);
+        JLabel ageText = new JLabel("Age:");
+        ageField = new JTextField();
+        ageText.setBounds(90, 100, 100, 50);
         ageText.setForeground(FONT_COLOR_DARK);
-
+        ageField.setBounds(180, 100, 150, 50);
+        ageField.setHorizontalAlignment(JTextField.CENTER);
 
         settingPanel.add(cityNameText);
         settingPanel.add(nameField);
         settingPanel.add(ageText);
-        settingPanel.add(starList);
+        settingPanel.add(ageField);
     }
 
-    private void initThemePanel() {
+    /*
+     * MODIFIES: this
+     * EFFECTS: initiates gender panel and its content
+     */
+    private void initGenderPanel() {
         JPanel textPanel = new JPanel();
         textPanel.setBackground(BLUE);
-        JLabel label = new JLabel("Theme");
+        JLabel label = new JLabel("GENDER");
         label.setForeground(Color.white);
         textPanel.setPreferredSize(new Dimension(450, 30));
         textPanel.add(label);
 
-        JPanel themePanel = new JPanel();
-        themePanel.setPreferredSize(new Dimension(450, 150));
-        themePanel.setBackground(LIGHT_BLUE);
-        themePanel.setLayout(null);
+        genderPanel = new JPanel();
+        genderPanel.setPreferredSize(new Dimension(450, 130));
+        genderPanel.setBackground(LIGHT_BLUE);
+        genderPanel.setLayout(null);
 
-        JLabel ski = new JLabel("Ski Resort");
-        ski.setBounds(90, 120, 100, 20);
-        JLabel beach = new JLabel("Beach Resort");
-        beach.setBounds(285, 120, 100, 20);
-        ski.setForeground(FONT_COLOR_DARK);
-        beach.setForeground(FONT_COLOR_DARK);
+        femaleBtn = new JButton(new ImageIcon("data/pictures/femaleImg.png"));
+        maleBtn = new JButton(new ImageIcon("data/pictures/maleImg.png"));
+        femaleBtn.setBounds(120, 20, 100, 100);
+        maleBtn.setBounds(240, 20, 100, 100);
+        femaleBtn.setBorder(BorderFactory.createEtchedBorder(0));
+        maleBtn.setBorder(BorderFactory.createEtchedBorder(1));
+        addGenderButtons();
 
-        initHotelButtons();
-        themePanel.add(skiResortBtn);
-        themePanel.add(beachResortBtn);
-        themePanel.add(ski);
-        themePanel.add(beach);
         mainPanel.add(textPanel);
-        mainPanel.add(themePanel);
+        mainPanel.add(genderPanel);
     }
 
-    private void initHotelButtons() {
-        skiResortBtn = new JButton(new ImageIcon("data/pictures/skiResort.png"));
-        beachResortBtn = new JButton(new ImageIcon("data/pictures/beachResort.png"));
-        skiResortBtn.setBounds(50, 20, 150, 100);
-        beachResortBtn.setBounds(250, 20, 150, 100);
-        skiResortBtn.setBorder(BorderFactory.createEtchedBorder(0));
-        beachResortBtn.setBorder(BorderFactory.createEtchedBorder(1));
-
-        skiResortBtn.addActionListener(e -> {
-            if (beachResortBtn.isEnabled()) {
-                beachResortBtn.setIcon(new ImageIcon("data/pictures/beachResort.png"));
+    /*
+     * MODIFIES: this
+     * EFFECTS: adds female and male buttons that allow user to select the gender of resident
+     */
+    private void addGenderButtons() {
+        femaleBtn.addActionListener(e -> {
+            if (maleBtn.isEnabled()) {
+                maleBtn.setIcon(new ImageIcon("data/pictures/maleImg.png"));
             }
-            skiResortBtn.setIcon(new ImageIcon("data/pictures/skiDarken.png"));
-            theme = Hotel.Theme.SKI;
-            themeSelected = true;
+            femaleBtn.setIcon(new ImageIcon("data/pictures/femaleDarken.png"));
+            isFemale = true;
+            genderSelected = true;
         });
-        beachResortBtn.addActionListener(e -> {
-            if (skiResortBtn.isEnabled()) {
-                skiResortBtn.setIcon(new ImageIcon("data/pictures/skiResort.png"));
+        maleBtn.addActionListener(e -> {
+            if (femaleBtn.isEnabled()) {
+                femaleBtn.setIcon(new ImageIcon("data/pictures/femaleImg.png"));
             }
-            beachResortBtn.setIcon(new ImageIcon("data/pictures/beachDarken.png"));
-            theme = Hotel.Theme.BEACH;
-            themeSelected = true;
+            maleBtn.setIcon(new ImageIcon("data/pictures/maleDarken.png"));
+            isFemale = false;
+            genderSelected = true;
         });
+        genderPanel.add(femaleBtn);
+        genderPanel.add(maleBtn);
     }
 
-
+    /*
+     * MODIFIES: this
+     * EFFECTS: initiates confirm panel and sets its position
+     */
     private void initConfirmPanel() {
         confirmPanel = new JPanel();
         confirmPanel.setLayout(null);
         confirmPanel.setBackground(new Color(192, 192, 192));
         confirmPanel.setPreferredSize(new Dimension(500, 50));
-        addButtonsToConfirmPanel();
+        addConfirmBtn();
         addBackButton();
         mainPanel.add(confirmPanel);
     }
 
-    private void addButtonsToConfirmPanel() {
+    /*
+     * MODIFIES: this
+     * EFFECTS: adds a checkmark button to confirmPanel that provides input instructions when is clicked on
+     */
+    private void addConfirmBtn() {
         JButton confirmButton = new JButton(new ImageIcon("data/pictures/checkmark.png"));
         confirmButton.setBounds(450, 0, 50, 48);
         confirmButton.setBorderPainted(false);
 
         confirmButton.addActionListener(e -> {
-            if (nameField.getText().length() != 0 && themeSelected) {
+            if (nameField.getText().length() != 0 && ageField.getText().length() != 0 && genderSelected) {
                 name = nameField.getText();
-                star = starList.getSelectedIndex() + 1;
-                cityRevolution.addNewHotel(new Hotel(name, star, theme));
-                showMessageDialog(this, "Hotel has been successfully added!");
+                try {
+                    age = Integer.parseInt(ageField.getText());
+                    if (age <= 0) {
+                        throw new NumberFormatException();
+                    }
+                } catch (NumberFormatException ex) {
+                    showMessageDialog(this, "Age must be a positive Integer");
+                }
+                cityRevolution.addNewResident(new Resident(name, isFemale, age));
+                showMessageDialog(this, "Resident has been successfully added!");
                 CityWindow cityWindow = new CityWindow(cityRevolution);
                 dispose();
             } else {
-                showMessageDialog(this, "Empty Name/Theme");
+                showMessageDialog(this, "Empty Name/Age/Gender");
             }
         });
         confirmPanel.add(confirmButton);
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: adds a back button to confirmPanel that leads user to previous page if clicked on
+     */
     private void addBackButton() {
         JButton backBtn = new JButton(new ImageIcon("data/pictures/backBtn.png"));
         backBtn.setBounds(0, 0, 50, 48);

@@ -11,10 +11,14 @@ import java.io.IOException;
 
 import static javax.swing.JOptionPane.showMessageDialog;
 
+// Represents the main window for game starting
 public class MainWindow extends JFrame {
     private JPanel buttonsPanel;
     private final SwingCityRevolution cityRevolution;
 
+    /*
+     * EFFECTS: creates a main window
+     */
     public MainWindow(SwingCityRevolution cityRevolution) {
         super("City Revolution");
         this.cityRevolution = cityRevolution;
@@ -26,6 +30,9 @@ public class MainWindow extends JFrame {
         setVisible(true);
     }
 
+    /*
+     * EFFECTS: starting method that calls methods to initiate background and main menu
+     */
     private void init() {
         setBackGround();
         setTitle();
@@ -38,6 +45,10 @@ public class MainWindow extends JFrame {
         add(buttonsPanel);
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: sets the background image of the window
+     */
     private void setBackGround() {
         ImageIcon imgIcon = new ImageIcon("data/pictures/background.png");
         Image img = imgIcon.getImage();
@@ -51,6 +62,10 @@ public class MainWindow extends JFrame {
         pack();
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: adds the title image
+     */
     private void setTitle() {
         JPanel titlePanel = new JPanel();
         ImageIcon imgIcon = new ImageIcon("data/pictures/city revolution.png");
@@ -63,6 +78,10 @@ public class MainWindow extends JFrame {
         add(titlePanel);
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: sets up & adds new city and resume city buttons
+     */
     private void initButtons() {
         JButton newCityBtn = new JButton(new ImageIcon("data/pictures/newcitybutton.png"));
         newCityBtn.setPreferredSize(new Dimension(110, 50));
@@ -89,6 +108,10 @@ public class MainWindow extends JFrame {
         buttonsPanel.setOpaque(false);
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: sets up & adds save game button
+     */
     private void initSaveBtn() {
         JButton saveBtn = new JButton(new ImageIcon("data/pictures/save.png"));
         saveBtn.setPreferredSize(new Dimension(110, 50));
@@ -109,6 +132,10 @@ public class MainWindow extends JFrame {
         buttonsPanel.add(saveBtn);
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: sets up & adds load game button
+     */
     private void initLoadBtn() {
         JButton loadBtn = new JButton(new ImageIcon("data/pictures/load.png"));
         loadBtn.setPreferredSize(new Dimension(110, 50));

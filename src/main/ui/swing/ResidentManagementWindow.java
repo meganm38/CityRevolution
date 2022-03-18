@@ -9,6 +9,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
+// Represents a window that displays a resident's info
 public class ResidentManagementWindow extends Window {
     private Resident resident;
     private SwingCityRevolution cityRevolution;
@@ -18,7 +19,9 @@ public class ResidentManagementWindow extends Window {
     private JPanel confirmPanel;
     private JPanel infoPanel;
 
-
+    /*
+     * EFFECTS: constructs a visible resident management window
+     */
     public ResidentManagementWindow(SwingCityRevolution cityRevolution) {
         super();
         this.city = cityRevolution.getCity();
@@ -29,12 +32,19 @@ public class ResidentManagementWindow extends Window {
         setVisible(true);
     }
 
+    /*
+     * EFFECTS: initiates the background and main panel
+     */
     @Override
     protected void init() {
         initBackground();
         initMain();
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: initiates the main panel
+     */
     @Override
     protected void initMain() {
         super.initMain();
@@ -42,6 +52,10 @@ public class ResidentManagementWindow extends Window {
         add(mainPanel);
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: adds spacing to the main panel and initiates all necessary panels
+     */
     private void setupMenu() {
         JLabel menuTitle = new JLabel("RESIDENT INFO");
         menuTitle.setForeground(FONT_COLOR_DARK);
@@ -57,6 +71,11 @@ public class ResidentManagementWindow extends Window {
         initConfirmPanel();
     }
 
+
+    /*
+     * MODIFIES: this
+     * EFFECTS: initiates and adds a panel that displays hotel's name to frame
+     */
     private void initDisplayPanel() {
         JPanel residentNameText = new JPanel();
         residentNameText.setBackground(BLUE);
@@ -74,6 +93,10 @@ public class ResidentManagementWindow extends Window {
         mainPanel.add(displayPanel);
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: adds a profile picture depending on resident's gender
+     */
     private void addProfilePic() {
         JPanel fake = new JPanel();
         fake.setPreferredSize(new Dimension(450, 30));
@@ -89,6 +112,10 @@ public class ResidentManagementWindow extends Window {
         displayPanel.add(profilePic);
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: initiates and adds a panel that displays resident's name, age and gender
+     */
     private void addResidentInfo() {
         JPanel fake = new JPanel();
         fake.setPreferredSize(new Dimension(450, 20));
@@ -117,6 +144,10 @@ public class ResidentManagementWindow extends Window {
         displayPanel.add(infoPanel);
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: initiates and adds a panel that displays resident's job status and bank account balance
+     */
     private void addAdditionalInfo() {
         JLabel bankAccount = new JLabel(
                 "Bank Account Balance: " + city.getBank().getAccounts().get(resident.getName()));
@@ -137,6 +168,10 @@ public class ResidentManagementWindow extends Window {
         infoPanel.add(bankAccount);
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: sets the background image of the window depending on the theme of city
+     */
     @Override
     protected void initBackground() {
         ImageIcon imgIcon = new ImageIcon("data/pictures/residentBackground.png");
@@ -152,6 +187,10 @@ public class ResidentManagementWindow extends Window {
         pack();
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: initiates confirm panel and sets its position
+     */
     private void initConfirmPanel() {
         confirmPanel = new JPanel();
         confirmPanel.setLayout(null);
@@ -161,6 +200,10 @@ public class ResidentManagementWindow extends Window {
         mainPanel.add(confirmPanel);
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: adds a checkmark button to confirmPanel that provides input instructions when clicked on
+     */
     private void addButtonsToConfirmPanel() {
         JButton checkBtn = new JButton(new ImageIcon("data/pictures/checkmark.png"));
         checkBtn.setBounds(450, 0, 50, 48);

@@ -7,6 +7,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
+// Represents an abstract window of type JDialog that is used for components' settings
 public abstract class SettingWindow extends JDialog {
     protected static final int MAIN_PANEL_WIDTH = 400;
     protected static final int MAIN_PANEL_HEIGHT = 300;
@@ -28,6 +29,9 @@ public abstract class SettingWindow extends JDialog {
     protected Hotel hotel;
     protected SwingCityRevolution cityRevolution;
 
+    /*
+     * EFFECTS: constructs a setting window
+     */
     protected SettingWindow(
             String windowName, String panelName, ImageIcon imgIcon, SwingCityRevolution cityRevolution) {
         super();
@@ -45,11 +49,18 @@ public abstract class SettingWindow extends JDialog {
         setVisible(true);
     }
 
+    /*
+     * EFFECTS: initiates the background and main panel
+     */
     protected void init() {
         initBackground();
         initMain();
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: sets up the background image
+     */
     protected void initBackground() {
         Image img = imgIcon.getImage();
         JPanel background = new JPanel() {
@@ -64,11 +75,19 @@ public abstract class SettingWindow extends JDialog {
     }
 
 
+    /*
+     * MODIFIES： this
+     * EFFECTS: centers the window on screen
+     */
     protected void centreOnScreen() {
         Dimension scrn = Toolkit.getDefaultToolkit().getScreenSize();
         setLocation((scrn.width - getWidth()) / 2, (scrn.height - getHeight()) / 2);
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: initiates the main panel
+     */
     protected void initMain() {
         JPanel fake = new JPanel();
         fake.setPreferredSize(new Dimension(500, 30));
@@ -84,6 +103,10 @@ public abstract class SettingWindow extends JDialog {
         add(mainPanel);
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: sets up title and background panel
+     */
     protected void setup() {
         JLabel menuTitle = new JLabel(panelName);
         menuTitle.setForeground(FONT_COLOR_DARK);
@@ -107,9 +130,16 @@ public abstract class SettingWindow extends JDialog {
         initConfirmPanel();
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: adds content to background panel
+     */
     protected abstract void setupBackgroundPanel();
 
-
+    /*
+     * MODIFIES: this
+     * EFFECTS: initiates confirm panel and sets its position
+     */
     protected void initConfirmPanel() {
         confirmPanel = new JPanel();
         confirmPanel.setLayout(null);
@@ -119,6 +149,10 @@ public abstract class SettingWindow extends JDialog {
         mainPanel.add(confirmPanel);
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: adds checkmark button to confirm panel
+     */
     protected void addButtonsToConfirmPanel() {
         checkBtn = new JButton(new ImageIcon("data/pictures/checkmark.png"));
         checkBtn.setBounds(MAIN_PANEL_WIDTH - 50, 0, 50, 48);
@@ -127,6 +161,10 @@ public abstract class SettingWindow extends JDialog {
         confirmPanel.add(checkBtn);
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: adds action listener to the checkmark button
+     */
     protected abstract void addBtnActionListener();
 
 }

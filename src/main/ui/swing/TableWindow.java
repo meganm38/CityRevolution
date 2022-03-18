@@ -6,11 +6,15 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
+// Represents an abstract window that is used for displaying information in a table
 public abstract class TableWindow extends SettingWindow {
     protected String[] columnNames;
     protected String[][] data;
     protected int columnSize;
 
+    /*
+     * EFFECTS: constructs a table window
+     */
     protected TableWindow(
             String windowName, String panelName, ImageIcon imgIcon, SwingCityRevolution cityRevolution,
             int columnSize) {
@@ -18,6 +22,10 @@ public abstract class TableWindow extends SettingWindow {
         this.columnSize = columnSize;
     }
 
+    /*
+     *
+     * EFFECTS: constructs a setting window
+     */
     @Override
     protected void setup() {
         JLabel menuTitle = new JLabel(panelName);
@@ -42,11 +50,19 @@ public abstract class TableWindow extends SettingWindow {
         initConfirmPanel();
     }
 
+    /*
+     *  MODIFIES: this
+     *  EFFECTS: dispose window when button is clicked
+     */
     @Override
     protected void addBtnActionListener() {
         checkBtn.addActionListener(e -> dispose());
     }
 
+    /*
+     *  MODIFIES: this
+     *  EFFECTS: sets up color and font of table data
+     */
     @Override
     protected void setupBackgroundPanel() {
         initTableContent();
@@ -59,5 +75,9 @@ public abstract class TableWindow extends SettingWindow {
         backgroundPanel.add(sp);
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: initiates
+     */
     protected abstract void initTableContent();
 }

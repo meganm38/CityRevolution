@@ -109,6 +109,15 @@ public class Hotel extends Business implements Writable {
     }
 
     /*
+     * MODIFIES: this
+     * EFFECTS: set hotelIsOpen to false
+     */
+    public void closeHotel() {
+        businessIsOpen = false;
+    }
+
+
+    /*
      * REQUIRES: numOfBookings > 0 AND person != null
      *           AND number of available rooms >= numOfBookings.
      * MODIFIES: this
@@ -192,9 +201,5 @@ public class Hotel extends Business implements Writable {
 
     public Theme getTheme() {
         return theme;
-    }
-
-    public void closeHotel() {
-        businessIsOpen = false;
     }
 }
