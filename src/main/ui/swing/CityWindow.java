@@ -97,7 +97,7 @@ public class CityWindow extends Window {
 
     private void initResidentPanel() {
         residentPanel = new JPanel();
-        residentPanel.setBackground(new Color(223, 220, 229));
+        residentPanel.setBackground(PINK);
         residentPanel.setBounds(GAP, GAP,
                 SETTINGS_PANEL_WIDTH / 2 - GAP * 2, SETTINGS_PANEL_HEIGHT - 2 * GAP);
         JLabel residentText = new JLabel("RESIDENTS");

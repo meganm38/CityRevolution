@@ -16,6 +16,7 @@ public class ResidentManagementWindow extends Window {
 
     private JPanel displayPanel;
     private JPanel confirmPanel;
+    private JPanel infoPanel;
 
 
     public ResidentManagementWindow(SwingCityRevolution cityRevolution) {
@@ -94,15 +95,31 @@ public class ResidentManagementWindow extends Window {
         fake.setOpaque(false);
         displayPanel.add(fake);
 
-        JPanel infoPanel = new JPanel();
+        infoPanel = new JPanel();
         infoPanel.setPreferredSize(new Dimension(450, 150));
         infoPanel.setOpaque(false);
         infoPanel.setLayout(null);
         JLabel name = new JLabel("Name: " + resident.getName());
         JLabel age = new JLabel("Age: " + resident.getAge());
         JLabel gender = new JLabel("Gender: " + (resident.isFemale() ? "Female" : "Male"));
-//        JLabel bankAccount = new JLabel(
-//                "Bank Account Balance: " + city.getBank().getAccounts().get(resident.getName()));
+
+        name.setBounds(180, 0, 200, 20);
+        name.setForeground(FONT_COLOR_DARK);
+        age.setBounds(180, 30, 200, 20);
+        age.setForeground(FONT_COLOR_DARK);
+        gender.setBounds(180, 60, 200, 20);
+        gender.setForeground(FONT_COLOR_DARK);
+
+        infoPanel.add(name);
+        infoPanel.add(age);
+        infoPanel.add(gender);
+        addAdditionalInfo();
+        displayPanel.add(infoPanel);
+    }
+
+    private void addAdditionalInfo() {
+        JLabel bankAccount = new JLabel(
+                "Bank Account Balance: " + city.getBank().getAccounts().get(resident.getName()));
 
         String job = "Unemployed";
         for (BusinessInfo businessInfo : BusinessInfo.values()) {
@@ -112,19 +129,12 @@ public class ResidentManagementWindow extends Window {
         JLabel jobLabel = new JLabel("Job: " + job + (job.equals("Unemployed")
                 ? "" : (" staff at " + resident.getWorkingLocation())));
 
-        name.setBounds(180, 0, 200, 20);
-        name.setForeground(FONT_COLOR_DARK);
-        age.setBounds(180, 30, 200, 20);
-        age.setForeground(FONT_COLOR_DARK);
-        gender.setBounds(180, 60, 200, 20);
-        gender.setForeground(FONT_COLOR_DARK);
         jobLabel.setBounds(180, 90, 200, 20);
         jobLabel.setForeground(FONT_COLOR_DARK);
-        infoPanel.add(name);
-        infoPanel.add(age);
-        infoPanel.add(gender);
+        bankAccount.setBounds(180, 120, 200, 20);
+        bankAccount.setForeground(FONT_COLOR_DARK);
         infoPanel.add(jobLabel);
-        displayPanel.add(infoPanel);
+        infoPanel.add(bankAccount);
     }
 
     @Override

@@ -200,7 +200,7 @@ public class ResidentWindow extends Window {
                 } catch (NumberFormatException ex) {
                     showMessageDialog(this, "Age must be a positive Integer");
                 }
-                city.addResident(new Resident(name, isFemale, age));
+                cityRevolution.addNewResident(new Resident(name, isFemale, age));
                 showMessageDialog(this, "Resident has been successfully added!");
                 CityWindow cityWindow = new CityWindow(cityRevolution);
                 dispose();

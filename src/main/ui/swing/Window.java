@@ -7,10 +7,12 @@ public abstract class Window extends JFrame {
     protected static final Color LIGHT_BLUE = new Color(240, 248, 255);
     protected static final Color BLUE = new Color(104, 151, 187);
     protected static final Color FONT_COLOR_DARK = new Color(0, 0, 102);
+    protected static final Color PINK = new Color(223, 220, 229);
     protected static final int THEME_IMAGE_DIMENSIONS = 150;
     protected static final int MAIN_PANEL_WIDTH = 500;
     protected static final int MAIN_PANEL_HEIGHT = 476;
     protected static final Font TITLE_FONT = new Font("Ayuthaya", Font.BOLD, 28);
+    protected static final Font REGULAR_FONT = new Font("Ayuthaya", Font.PLAIN, 14);
     protected static final int GAP = 10;
 
     protected JPanel mainPanel;

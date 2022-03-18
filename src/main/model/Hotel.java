@@ -193,4 +193,8 @@ public class Hotel extends Business implements Writable {
     public Theme getTheme() {
         return theme;
     }
+
+    public void closeHotel() {
+        businessIsOpen = false;
+    }
 }

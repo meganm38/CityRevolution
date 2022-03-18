@@ -65,4 +65,25 @@ public class SwingCityRevolution {
         City city = cities.get(currentCity);
         city.setTheme(theme);
     }
+
+    public void selectHotel(int hotelIndex) {
+        currentHotel = hotelIndex;
+    }
+
+    public Hotel getSelectedHotel() {
+        City city = cities.get(currentCity);
+        return city.getHotels().get(currentHotel);
+    }
+
+    public boolean openCurrentHotel() {
+        City city = cities.get(currentCity);
+        Hotel hotel = city.getHotels().get(currentHotel);
+        return hotel.openBusiness();
+    }
+
+    public void closeCurrentHotel() {
+        City city = cities.get(currentCity);
+        Hotel hotel = city.getHotels().get(currentHotel);
+        hotel.closeHotel();
+    }
 }

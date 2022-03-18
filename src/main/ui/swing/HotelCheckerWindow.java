@@ -29,6 +29,7 @@ public class HotelCheckerWindow extends Window {
         this.cityRevolution = cityRevolution;
         init();
         centreOnScreen();
+        setAlwaysOnTop(true);
         setVisible(true);
     }
 
@@ -139,8 +140,9 @@ public class HotelCheckerWindow extends Window {
         checkBtn.addActionListener(e -> {
             if (hotelList.getSelectedIndex() != -1) {
                 int selectedIndex = hotelList.getSelectedIndex();
+                cityRevolution.selectHotel(selectedIndex);
                 HotelManagementWindow hotelManagementWindow = new HotelManagementWindow(
-                        city.getHotels().get(selectedIndex), cityRevolution);
+                        cityRevolution);
                 dispose();
             } else {
                 showMessageDialog(this, "Select a hotel to proceed");
