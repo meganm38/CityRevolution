@@ -1,13 +1,16 @@
 # City Evolution - Term Project for UBC CPSC 210
 
+## Some Screenshots
+
 ![](data/1.png)
 ![](data/2.png)
 ![](data/3.png)
 ![](data/4.png)
 ![](data/5.png)
 ![](data/6.png)
+![](data/7.png)
 
-*Source: pictures used in this application are taken from the web*
+*Source: pictures used in this application were taken from the web*
 
 ## Proposal
 
@@ -27,7 +30,6 @@ their cities ara almost like real!
 I have always been a fan of simulation games on Steam and enjoyed the immersive experience of building a life and living
 out many aspects of it, so I hope to design such a project where I can control what goes on behind the screens.
 
-___
 ## User Stories
 
 - As a user, I want to be able to create a city.
