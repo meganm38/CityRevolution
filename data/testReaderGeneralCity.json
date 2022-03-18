@@ -8,16 +8,16 @@
             "occupationCode": 0,
             "workingLocation": "Holiday Inn",
             "name": "Monica",
-            "female": true,
             "salary": 1,
+            "female": true,
             "age": 25
           },
           {
             "occupationCode": 0,
             "workingLocation": "Holiday Inn",
             "name": "Monica",
-            "female": true,
             "salary": 1,
+            "female": true,
             "age": 25
           }
         ],
@@ -30,8 +30,8 @@
             "occupationCode": 0,
             "workingLocation": "Holiday Inn",
             "name": "Monica",
-            "female": true,
             "salary": 1,
+            "female": true,
             "age": 25
           }
         ],
@@ -47,6 +47,8 @@
           204,
           205
         ],
+        "Hotel Star": 3,
+        "Theme": "SKI",
         "Is Open": true,
         "Available Rooms": 8,
         "Booking Info": [
@@ -88,12 +90,15 @@
         "Booked Room Numbers": [],
         "Staff": [],
         "Room Numbers": [],
+        "Hotel Star": 3,
+        "Theme": "SKI",
         "Is Open": false,
         "Available Rooms": 0,
         "Booking Info": []
       }
     ],
     "City Name": "Vancouver",
+    "Theme": "LIGHT",
     "Bank Accounts": {
       "Chandler": 2000,
       "Monica": 2000
@@ -120,6 +125,7 @@
   {
     "Hotels": [],
     "City Name": "Toronto",
+    "Theme": "LIGHT",
     "Bank Accounts": {
       "Joey": 2000,
       "Ross": 2000

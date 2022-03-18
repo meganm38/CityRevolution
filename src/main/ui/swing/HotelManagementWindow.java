@@ -27,10 +27,6 @@ public class HotelManagementWindow extends Window {
     private JButton roomSettingBtn;
     private JLabel bookings;
     private JButton bookingSettingBtn;
-    private JButton viewStaffBtn;
-    private JButton viewRoomBtn;
-    private JButton viewBookingBtn;
-
 
     public HotelManagementWindow(SwingCityRevolution cityRevolution) {
         super();
@@ -279,6 +275,52 @@ public class HotelManagementWindow extends Window {
         settingsPanel.add(blank);
     }
 
+//    @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
+//    private void configViewStaffBtn() {
+//        viewStaffBtn.addActionListener(e -> {
+//            final SettingWindow settingWindow = new SettingWindow(
+//                    "View Hotel Staff", "Staff", imgIcon, cityRevolution) {
+//                @Override
+//                protected void setupBackgroundPanel() {
+//                    String[] columnNames = {"Name", "Age", "Gender"};
+//                    ArrayList<Resident> allStaff = hotel.getStaff();
+//                    String[][] data = new String[allStaff.size()][columnNames.length];
+//                    for (int staffIndex = 0; staffIndex < allStaff.size(); staffIndex++) {
+//                        data[staffIndex][0] = allStaff.get(staffIndex).getName();
+//                        data[staffIndex][1] = allStaff.get(staffIndex).getAge() + "";
+//                        data[staffIndex][2] = allStaff.get(staffIndex).isFemale() ? "Female" : "Male";
+//                    }
+//                    JTable table = new JTable(data, columnNames);
+//                    table.setBounds(0, 0, 150, 200);
+//                    table.setRowHeight(20);
+//                    TableColumnModel columnModel = table.getColumnModel();
+//                    columnModel.getColumn(0).setWidth(50);
+//                    columnModel.getColumn(1).setWidth(50);
+//                    columnModel.getColumn(2).setWidth(50);
+//
+//                    table.setFont(REGULAR_FONT);
+//                    table.setForeground(FONT_COLOR_DARK);
+//                    table.setBackground(LIGHT_BLUE);
+//                    JScrollPane sp = new JScrollPane(table);
+//
+//                    DefaultTableCellRenderer tableRenderer = new DefaultTableCellRenderer();
+//                    tableRenderer.setHorizontalAlignment(JLabel.CENTER); //Aligning the table data centrally.
+//                    table.setDefaultRenderer(Object.class, tableRenderer);
+//
+//                    mainPanel.add(sp);
+//
+//                }
+//
+//                @Override
+//                protected void addBtnActionListener() {
+//                    checkBtn.addActionListener(e -> {
+//                        dispose();
+//                    });
+//                }
+//            };
+//        });
+//    }
+
     @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     private void configStaffSettingBtn() {
         staffSettingBtn.addActionListener(e -> {
@@ -391,10 +433,10 @@ public class HotelManagementWindow extends Window {
                             hotel.addRooms(num);
                             changeRoomNumbersDisplay();
                             showMessageDialog(this, "Rooms successfully added!");
-                        } catch (UnsupportedOperationException ex) {
+                            dispose();
+                        } catch (NumberFormatException ex) {
                             showMessageDialog(this, "Enter a positive integer.");
                         }
-                        dispose();
                     });
                 }
             };
@@ -494,11 +536,11 @@ public class HotelManagementWindow extends Window {
                             Resident resident = residents.get(list.getSelectedIndex());
                             hotel.makeBooking(num, resident);
                             changeBookingsInfo();
+                            dispose();
                             showMessageDialog(this, "Rooms successfully added!");
-                        } catch (UnsupportedOperationException ex) {
+                        } catch (NumberFormatException ex) {
                             showMessageDialog(this, "Number must be a positive integer.");
                         }
-                        dispose();
                     });
                 }
             };

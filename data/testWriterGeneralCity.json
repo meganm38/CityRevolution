@@ -8,16 +8,16 @@
                     "occupationCode": 0,
                     "workingLocation": "Holiday Inn",
                     "name": "Monica",
-                    "salary": 1,
                     "female": true,
+                    "salary": 1,
                     "age": 25
                   },
                   {
                     "occupationCode": 0,
                     "workingLocation": "Holiday Inn",
                     "name": "Monica",
-                    "salary": 1,
                     "female": true,
+                    "salary": 1,
                     "age": 25
                   }
                 ],
@@ -30,8 +30,8 @@
                   "occupationCode": 0,
                   "workingLocation": "Holiday Inn",
                   "name": "Monica",
-                  "salary": 1,
                   "female": true,
+                  "salary": 1,
                   "age": 25
                 }
               ],
@@ -47,6 +47,8 @@
                 204,
                 205
               ],
+              "Hotel Star": 3,
+              "Theme": "SKI",
               "Is Open": true,
               "Available Rooms": 8,
               "Booking Info": [
@@ -82,16 +84,18 @@
                 }
               ]
             },
-            {
-                "Hotel Name": "Another Hotel",
-              "Guests": [],
-              "Booked Room Numbers": [],
-              "Staff": [],
-              "Room Numbers": [],
-              "Is Open": false,
-              "Available Rooms": 0,
-              "Booking Info": []
-            }
+          {
+            "Hotel Name": "Another Hotel",
+            "Guests": [],
+            "Booked Room Numbers": [],
+            "Staff": [],
+            "Room Numbers": [],
+            "Hotel Star": 3,
+            "Theme": "SKI",
+            "Is Open": false,
+            "Available Rooms": 0,
+            "Booking Info": []
+          }
         ],
       "City Name": "Vancouver",
       "Theme": "LIGHT",
@@ -144,5 +148,5 @@
         "Name": "Ross"
       }
     ]
-    }
+  }
 ]

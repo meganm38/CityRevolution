@@ -54,4 +54,12 @@ public class CityTest {
     public void testGetBank() {
         assertEquals("Bank of Vancouver", city.getBank().getBankName());
     }
+
+    @Test
+    public void testSetters() {
+        city.setCityName("Toronto");
+        city.setTheme(City.Theme.DARK);
+        assertEquals("Toronto", city.getCityName());
+        assertEquals(City.Theme.DARK, city.getTheme());
+    }
 }

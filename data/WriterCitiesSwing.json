@@ -1,0 +1,33 @@
+[
+  {
+    "Hotels": [
+      {
+        "Hotel Name": "ShangriLa",
+        "Guests": [],
+        "Booked Room Numbers": [],
+        "Staff": [],
+        "Room Numbers": [],
+        "Hotel Star": 5,
+        "Theme": "SKI",
+        "Is Open": false,
+        "Available Rooms": 0,
+        "Booking Info": []
+      }
+    ],
+    "City Name": "Vancouver",
+    "Theme": "LIGHT",
+    "Bank Accounts": {
+      "Monica": 2000
+    },
+    "Residents": [
+      {
+        "Occupation Code": -1,
+        "Salary": 0,
+        "Working Location": "Unemployed",
+        "Sex": "Female",
+        "Age": 25,
+        "Name": "Monica"
+      }
+    ]
+  }
+]

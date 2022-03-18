@@ -187,13 +187,22 @@ public class CityWindow extends Window {
 
     private void addButtonsToConfirmPanel() {
         JButton backBtn = new JButton(new ImageIcon("data/pictures/backBtn.png"));
-        backBtn.setBounds(0, 0, 50, 48);
+        backBtn.setBounds(450, 0, 50, 48);
         backBtn.setBorderPainted(false);
         backBtn.addActionListener(e -> {
             CreateCityWindow cityWindow = new CreateCityWindow(cityRevolution);
             dispose();
         });
         optionsPanel.add(backBtn);
+
+        JButton homeBtn = new JButton(new ImageIcon("data/pictures/home.png"));
+        homeBtn.setBounds(0, 0, 50, 48);
+        homeBtn.setBorderPainted(false);
+        homeBtn.addActionListener(e -> {
+            MainWindow main = new MainWindow(cityRevolution);
+            dispose();
+        });
+        optionsPanel.add(homeBtn);
     }
 }
 

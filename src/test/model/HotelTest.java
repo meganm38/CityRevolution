@@ -90,7 +90,8 @@ class HotelTest {
         assertFalse(hotel1.openBusiness());
         hotel1.addStaff(resident1);
         assertTrue(hotel1.openBusiness());
-
+        hotel1.closeHotel();
+        assertFalse(hotel1.isBusinessOpen());
     }
 
     @Test
@@ -103,7 +104,7 @@ class HotelTest {
         assertEquals(new ArrayList<>(asList(101, 102, 103)), hotel1.getBookedRoomNumbers());
 
         HashMap<Integer, String> bookingInfoMap = hotel1.getBookingInfo();
-        assertTrue(bookingInfoMap.size() == 5);
+        assertEquals(5, bookingInfoMap.size());
 
         for (Integer bookedRoomNum : hotel1.getBookedRoomNumbers()) {
             assertEquals(resident1.getName(), bookingInfoMap.get(bookedRoomNum));
@@ -117,7 +118,7 @@ class HotelTest {
                 hotel1.getBookedRoomNumbers());
 
         bookingInfoMap = hotel1.getBookingInfo();
-        assertTrue(bookingInfoMap.size() == 15);
+        assertEquals(15, bookingInfoMap.size());
 
         for (Integer bookedRoomNum : hotel1.getBookedRoomNumbers()) {
             assertEquals(resident1.getName(), bookingInfoMap.get(bookedRoomNum));
