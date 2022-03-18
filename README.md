@@ -3,7 +3,7 @@
 ![](data/2.png)
 ![](data/3.png)
 
-*Source: shutterstock.com*
+*Source: pictures used in this application are taken from the web*
 ## Proposal
 
 ### What will this application do?
@@ -23,9 +23,10 @@ out many aspects of it, so I hope to design such a project where I can control w
 
 ___
 ## User Stories
-- As a user, I want to be able to create multiple cities.
-- As a user, I want to be able to select a city that I have created and add contents to that city such as hotels
-  and residents.
+
+- As a user, I want to be able to create a city.
+- As a user, I want to be able to select a city that I have created and add contents to that city such as hotels and
+  residents.
 - As a user, I want to be able to select a content that I have added to a city and manipulate its functionality. 
   For example, with a hotel, I want to be able to hire residents as staff, create hotel rooms, book residents into hotel rooms, etc.
 - As a user, I want to be able to view all the contents that I have added to a city, and view the status of each content that I have created. 
