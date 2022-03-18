@@ -15,7 +15,9 @@ public class City implements Writable {
     private ArrayList<Business> businesses;
     private Theme theme;
 
-    public enum Theme {LIGHT, DARK}
+    public enum Theme {
+        LIGHT, DARK
+    }
 
     /*
      * REQUIRES: cityName is not null
