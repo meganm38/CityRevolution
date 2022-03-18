@@ -8,6 +8,8 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import static javax.swing.JOptionPane.showMessageDialog;
 
@@ -18,6 +20,11 @@ public class HotelManagementWindow extends Window {
     private JPanel attributesPanel;
     private JPanel settingsPanel;
     private JPanel confirmPanel;
+
+    private JPanel staffInfoPanel;
+    private JPanel roomInfoPanel;
+    private JPanel bookingInfoPanel;
+
     private ImageIcon imgIcon;
     private JButton openSettingBtn;
     private JLabel businessStatus;
@@ -28,6 +35,14 @@ public class HotelManagementWindow extends Window {
     private JLabel bookings;
     private JButton bookingSettingBtn;
 
+    private JButton viewStaffBtn;
+    private JButton viewRoomBtn;
+    private JButton viewBookingBtn;
+
+    /*
+     * REQUIRES: cityRevolution cannot be empty
+     * EFFECTS: constructs a visible hotel management window
+     */
     public HotelManagementWindow(SwingCityRevolution cityRevolution) {
         super();
         this.hotel = cityRevolution.getSelectedHotel();
@@ -37,12 +52,19 @@ public class HotelManagementWindow extends Window {
         setVisible(true);
     }
 
+    /*
+     * EFFECTS: initiates the background and main panel
+     */
     @Override
     protected void init() {
         initBackground();
         initMain();
     }
 
+    /*
+     * MODIFIFES: this
+     * EFFECTS: initiates the main panel
+     */
     @Override
     protected void initMain() {
         super.initMain();
@@ -50,6 +72,10 @@ public class HotelManagementWindow extends Window {
         add(mainPanel);
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: adds spacing to the main panel and initiates all necessary panels
+     */
     private void setupMenu() {
         JLabel menuTitle = new JLabel("HOTEL INFO");
         menuTitle.setForeground(FONT_COLOR_DARK);
@@ -66,6 +92,10 @@ public class HotelManagementWindow extends Window {
         initConfirmPanel();
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: initiates and adds a panel that displays hotel's attributes to frame
+     */
     private void initDisplayPanelAttributes() {
         JPanel hotelAttributePanel = new JPanel();
         hotelAttributePanel.setBackground(BLUE);
@@ -86,6 +116,10 @@ public class HotelManagementWindow extends Window {
         mainPanel.add(attributesBackgroundPanel);
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: adds spacing to the main panel and initiates all necessary panels
+     */
     private void initDisplayPanelSettings() {
         JPanel hotelSettingsPanel = new JPanel();
         hotelSettingsPanel.setBackground(BLUE);
@@ -174,7 +208,7 @@ public class HotelManagementWindow extends Window {
         JLabel openForBusiness = new JLabel("Hotel Status:");
         openForBusiness.setFont(REGULAR_FONT);
         openForBusiness.setForeground(FONT_COLOR_DARK);
-        openForBusiness.setBounds(90, 5, 150, 25);
+        openForBusiness.setBounds(100, 5, 150, 25);
         openForBusinessPanel.add(openForBusiness);
 
         businessStatus = new JLabel(hotel.isBusinessOpen() ? "Open" : "Closed");
@@ -246,7 +280,7 @@ public class HotelManagementWindow extends Window {
     }
 
     private void addStaffInfo() {
-        JPanel staffInfoPanel = new JPanel();
+        staffInfoPanel = new JPanel();
         staffInfoPanel.setBackground(PINK);
         staffInfoPanel.setPreferredSize(new Dimension(430, 36));
         staffInfoPanel.setLayout(null);
@@ -254,7 +288,7 @@ public class HotelManagementWindow extends Window {
         JLabel hotelStaffText = new JLabel("Hotel Staff:");
         hotelStaffText.setFont(REGULAR_FONT);
         hotelStaffText.setForeground(FONT_COLOR_DARK);
-        hotelStaffText.setBounds(90, 5, 150, 25);
+        hotelStaffText.setBounds(100, 5, 150, 25);
         staffInfoPanel.add(hotelStaffText);
 
         staff = new JLabel(hotel.getStaff().size() + "/1");
@@ -263,11 +297,7 @@ public class HotelManagementWindow extends Window {
         staff.setBounds(250, 5, 100, 25);
         staffInfoPanel.add(staff);
 
-        staffSettingBtn = new JButton(new ImageIcon("data/pictures/settingSmall.png"));
-        staffSettingBtn.setBounds(380, 0, 35, 35);
-        staffSettingBtn.setBorderPainted(false);
-        configStaffSettingBtn();
-        staffInfoPanel.add(staffSettingBtn);
+        addViewAndSettingButtons();
 
         JPanel blank = new JPanel();
         blank.setPreferredSize(new Dimension(430, 5));
@@ -275,51 +305,39 @@ public class HotelManagementWindow extends Window {
         settingsPanel.add(blank);
     }
 
-//    @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
-//    private void configViewStaffBtn() {
-//        viewStaffBtn.addActionListener(e -> {
-//            final SettingWindow settingWindow = new SettingWindow(
-//                    "View Hotel Staff", "Staff", imgIcon, cityRevolution) {
-//                @Override
-//                protected void setupBackgroundPanel() {
-//                    String[] columnNames = {"Name", "Age", "Gender"};
-//                    ArrayList<Resident> allStaff = hotel.getStaff();
-//                    String[][] data = new String[allStaff.size()][columnNames.length];
-//                    for (int staffIndex = 0; staffIndex < allStaff.size(); staffIndex++) {
-//                        data[staffIndex][0] = allStaff.get(staffIndex).getName();
-//                        data[staffIndex][1] = allStaff.get(staffIndex).getAge() + "";
-//                        data[staffIndex][2] = allStaff.get(staffIndex).isFemale() ? "Female" : "Male";
-//                    }
-//                    JTable table = new JTable(data, columnNames);
-//                    table.setBounds(0, 0, 150, 200);
-//                    table.setRowHeight(20);
-//                    TableColumnModel columnModel = table.getColumnModel();
-//                    columnModel.getColumn(0).setWidth(50);
-//                    columnModel.getColumn(1).setWidth(50);
-//                    columnModel.getColumn(2).setWidth(50);
-//
-//                    table.setFont(REGULAR_FONT);
-//                    table.setForeground(FONT_COLOR_DARK);
-//                    table.setBackground(LIGHT_BLUE);
-//                    JScrollPane sp = new JScrollPane(table);
-//
-//                    DefaultTableCellRenderer tableRenderer = new DefaultTableCellRenderer();
-//                    tableRenderer.setHorizontalAlignment(JLabel.CENTER); //Aligning the table data centrally.
-//                    table.setDefaultRenderer(Object.class, tableRenderer);
-//
-//                    mainPanel.add(sp);
-//
-//                }
-//
-//                @Override
-//                protected void addBtnActionListener() {
-//                    checkBtn.addActionListener(e -> {
-//                        dispose();
-//                    });
-//                }
-//            };
-//        });
-//    }
+    private void addViewAndSettingButtons() {
+        staffSettingBtn = new JButton(new ImageIcon("data/pictures/settingSmall.png"));
+        staffSettingBtn.setBounds(380, 0, 35, 35);
+        staffSettingBtn.setBorderPainted(false);
+
+        viewStaffBtn = new JButton(new ImageIcon("data/pictures/view.png"));
+        viewStaffBtn.setBounds(20, 0, 35, 35);
+        viewStaffBtn.setBorderPainted(false);
+
+        configStaffSettingBtn();
+        configViewStaffBtn();
+        staffInfoPanel.add(staffSettingBtn);
+        staffInfoPanel.add(viewStaffBtn);
+    }
+
+    private void configViewStaffBtn() {
+        viewStaffBtn.addActionListener(e -> {
+            final TableWindow settingWindow = new TableWindow(
+                    "View Hotel Staff", "Staff", imgIcon, cityRevolution, 3) {
+                @Override
+                protected void initTableContent() {
+                    columnNames = new String[]{"Name", "Age", "Gender"};
+                    ArrayList<Resident> allStaff = hotel.getStaff();
+                    data = new String[allStaff.size()][columnNames.length];
+                    for (int staffIndex = 0; staffIndex < allStaff.size(); staffIndex++) {
+                        data[staffIndex][0] = allStaff.get(staffIndex).getName();
+                        data[staffIndex][1] = allStaff.get(staffIndex).getAge() + "";
+                        data[staffIndex][2] = allStaff.get(staffIndex).isFemale() ? "Female" : "Male";
+                    }
+                }
+            };
+        });
+    }
 
     @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     private void configStaffSettingBtn() {
@@ -374,7 +392,7 @@ public class HotelManagementWindow extends Window {
     }
 
     private void addRoomInfo() {
-        JPanel roomInfoPanel = new JPanel();
+        roomInfoPanel = new JPanel();
         roomInfoPanel.setBackground(PINK);
         roomInfoPanel.setPreferredSize(new Dimension(430, 36));
         roomInfoPanel.setLayout(null);
@@ -382,7 +400,7 @@ public class HotelManagementWindow extends Window {
         JLabel roomInfoText = new JLabel("Hotel Rooms:");
         roomInfoText.setFont(REGULAR_FONT);
         roomInfoText.setForeground(FONT_COLOR_DARK);
-        roomInfoText.setBounds(90, 5, 150, 25);
+        roomInfoText.setBounds(100, 5, 150, 25);
         roomInfoPanel.add(roomInfoText);
 
         rooms = new JLabel(hotel.getRoomNumbers().size() + "/1");
@@ -391,16 +409,44 @@ public class HotelManagementWindow extends Window {
         rooms.setBounds(250, 5, 100, 25);
         roomInfoPanel.add(rooms);
 
+        addButtonsToRoomInfo();
+
+        JPanel blank = new JPanel();
+        blank.setPreferredSize(new Dimension(430, 5));
+        settingsPanel.add(roomInfoPanel);
+        settingsPanel.add(blank);
+    }
+
+    private void addButtonsToRoomInfo() {
         roomSettingBtn = new JButton(new ImageIcon("data/pictures/settingSmall.png"));
         roomSettingBtn.setBounds(380, 0, 35, 35);
         roomSettingBtn.setBorderPainted(false);
         configRoomSettingBtn();
         roomInfoPanel.add(roomSettingBtn);
 
-        JPanel blank = new JPanel();
-        blank.setPreferredSize(new Dimension(430, 5));
-        settingsPanel.add(roomInfoPanel);
-        settingsPanel.add(blank);
+        viewRoomBtn = new JButton(new ImageIcon("data/pictures/view.png"));
+        viewRoomBtn.setBounds(20, 0, 35, 35);
+        viewRoomBtn.setBorderPainted(false);
+        configRoomViewBtn();
+        roomInfoPanel.add(viewRoomBtn);
+    }
+
+    private void configRoomViewBtn() {
+        viewRoomBtn.addActionListener(e -> {
+            final TableWindow settingWindow = new TableWindow(
+                    "View Hotel Rooms", "Rooms", imgIcon, cityRevolution, 2) {
+                @Override
+                protected void initTableContent() {
+                    columnNames = new String[]{"Count", "Room Number"};
+                    ArrayList<Integer> roomNumbers = hotel.getRoomNumbers();
+                    data = new String[roomNumbers.size()][columnNames.length];
+                    for (int roomCount = 0; roomCount < roomNumbers.size(); roomCount++) {
+                        data[roomCount][0] = (roomCount + 1) + "";
+                        data[roomCount][1] = roomNumbers.get(roomCount) + "";
+                    }
+                }
+            };
+        });
     }
 
     @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
@@ -448,7 +494,7 @@ public class HotelManagementWindow extends Window {
     }
 
     private void addBookingInfo() {
-        JPanel bookingInfoPanel = new JPanel();
+        bookingInfoPanel = new JPanel();
         bookingInfoPanel.setBackground(PINK);
         bookingInfoPanel.setPreferredSize(new Dimension(430, 36));
         bookingInfoPanel.setLayout(null);
@@ -456,7 +502,7 @@ public class HotelManagementWindow extends Window {
         JLabel bookingInfoText = new JLabel("Hotel Bookings:");
         bookingInfoText.setFont(REGULAR_FONT);
         bookingInfoText.setForeground(FONT_COLOR_DARK);
-        bookingInfoText.setBounds(90, 5, 150, 25);
+        bookingInfoText.setBounds(100, 5, 150, 25);
         bookingInfoPanel.add(bookingInfoText);
 
         bookings = new JLabel(hotel.getBookedRoomNumbers().size() + "");
@@ -465,16 +511,52 @@ public class HotelManagementWindow extends Window {
         bookings.setBounds(250, 5, 100, 25);
         bookingInfoPanel.add(bookings);
 
+        addButtonsToBooking();
+
+        JPanel blank = new JPanel();
+        blank.setPreferredSize(new Dimension(430, 5));
+        settingsPanel.add(bookingInfoPanel);
+        settingsPanel.add(blank);
+    }
+
+    private void addButtonsToBooking() {
         bookingSettingBtn = new JButton(new ImageIcon("data/pictures/settingSmall.png"));
         bookingSettingBtn.setBounds(380, 0, 35, 35);
         bookingSettingBtn.setBorderPainted(false);
         configBookingSettingBtn();
         bookingInfoPanel.add(bookingSettingBtn);
 
-        JPanel blank = new JPanel();
-        blank.setPreferredSize(new Dimension(430, 5));
-        settingsPanel.add(bookingInfoPanel);
-        settingsPanel.add(blank);
+        viewBookingBtn = new JButton(new ImageIcon("data/pictures/view.png"));
+        viewBookingBtn.setBounds(20, 0, 35, 35);
+        viewBookingBtn.setBorderPainted(false);
+        configBookingViewBtn();
+        bookingInfoPanel.add(viewBookingBtn);
+    }
+
+    private void configBookingViewBtn() {
+        viewBookingBtn.addActionListener(e -> {
+            final TableWindow settingWindow = new TableWindow(
+                    "View Hotel Rooms", "Rooms", imgIcon, cityRevolution, 2) {
+                @Override
+                protected void initTableContent() {
+                    columnNames = new String[]{"Room Number", "Guest Name"};
+                    HashMap<Integer, String> bookings = hotel.getBookingInfo();
+                    String[] bookedRoomNumbers = new String[bookings.size()];
+                    String[] guestNames = new String[bookings.size()];
+                    int count = 0;
+                    for (Map.Entry<Integer, String> entry : bookings.entrySet()) {
+                        bookedRoomNumbers[count] = entry.getKey() + "";
+                        guestNames[count] = entry.getValue();
+                        count++;
+                    }
+                    data = new String[bookings.size()][columnNames.length];
+                    for (int roomCount = 0; roomCount < bookings.size(); roomCount++) {
+                        data[roomCount][0] = bookedRoomNumbers[roomCount];
+                        data[roomCount][1] = guestNames[roomCount];
+                    }
+                }
+            };
+        });
     }
 
     @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})

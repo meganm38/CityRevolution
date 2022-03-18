@@ -2,31 +2,138 @@
   {
     "Hotels": [
       {
-        "Hotel Name": "ShangriLa",
-        "Guests": [],
-        "Booked Room Numbers": [],
-        "Staff": [],
-        "Room Numbers": [],
-        "Hotel Star": 5,
-        "Theme": "SKI",
-        "Is Open": false,
-        "Available Rooms": 0,
-        "Booking Info": []
+        "Hotel Name": "Holiday Inn",
+        "Guests": [
+          {
+            "occupationCode": -1,
+            "workingLocation": "Unemployed",
+            "name": "Monica Geller",
+            "salary": 0,
+            "female": true,
+            "age": 24
+          },
+          {
+            "occupationCode": -1,
+            "workingLocation": "Unemployed",
+            "name": "Monica Geller",
+            "salary": 0,
+            "female": true,
+            "age": 24
+          },
+          {
+            "occupationCode": -1,
+            "workingLocation": "Unemployed",
+            "name": "Monica Geller",
+            "salary": 0,
+            "female": true,
+            "age": 24
+          },
+          {
+            "occupationCode": -1,
+            "workingLocation": "Unemployed",
+            "name": "Monica Geller",
+            "salary": 0,
+            "female": true,
+            "age": 24
+          },
+          {
+            "occupationCode": -1,
+            "workingLocation": "Unemployed",
+            "name": "Monica Geller",
+            "salary": 0,
+            "female": true,
+            "age": 24
+          }
+        ],
+        "Booked Room Numbers": [
+          101,
+          102,
+          103,
+          104,
+          105
+        ],
+        "Staff": [
+          {
+            "occupationCode": 0,
+            "workingLocation": "Holiday Inn",
+            "name": "Chandler Bing",
+            "salary": 1,
+            "female": false,
+            "age": 24
+          }
+        ],
+        "Room Numbers": [
+          101,
+          102,
+          103,
+          104,
+          105,
+          201,
+          202,
+          203,
+          204,
+          205
+        ],
+        "Hotel Star": 3,
+        "Theme": "BEACH",
+        "Is Open": true,
+        "Available Rooms": 5,
+        "Booking Info": [
+          {
+            "101": "Monica Geller"
+          },
+          {
+            "102": "Monica Geller"
+          },
+          {
+            "103": "Monica Geller"
+          },
+          {
+            "104": "Monica Geller"
+          },
+          {
+            "105": "Monica Geller"
+          },
+          {
+            "201": "Empty"
+          },
+          {
+            "202": "Empty"
+          },
+          {
+            "203": "Empty"
+          },
+          {
+            "204": "Empty"
+          },
+          {
+            "205": "Empty"
+          }
+        ]
       }
     ],
     "City Name": "Vancouver",
     "Theme": "LIGHT",
     "Bank Accounts": {
-      "Monica": 2000
+      "Monica Geller": 2000,
+      "Chandler Bing": 2097
     },
     "Residents": [
+      {
+        "Occupation Code": 0,
+        "Salary": 1,
+        "Working Location": "Holiday Inn",
+        "Sex": "Male",
+        "Age": 24,
+        "Name": "Chandler Bing"
+      },
       {
         "Occupation Code": -1,
         "Salary": 0,
         "Working Location": "Unemployed",
         "Sex": "Female",
-        "Age": 25,
-        "Name": "Monica"
+        "Age": 24,
+        "Name": "Monica Geller"
       }
     ]
   }
