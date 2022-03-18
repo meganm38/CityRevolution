@@ -21,7 +21,7 @@ public class ResidentManagementWindow extends Window {
 
     public ResidentManagementWindow(SwingCityRevolution cityRevolution) {
         super();
-        this.city = cityRevolution.getCurrentCity();
+        this.city = cityRevolution.getCity();
         this.resident = cityRevolution.getSelectedResident();
         this.cityRevolution = cityRevolution;
         init();

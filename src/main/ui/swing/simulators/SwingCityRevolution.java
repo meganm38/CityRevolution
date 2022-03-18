@@ -1,19 +1,18 @@
 package ui.swing.simulators;
 
-import model.City;
-import model.Hotel;
-import model.Resident;
+import model.*;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class SwingCityRevolution {
 
-    private final ArrayList<City> cities;
-    private int currentCity;
     private int currentHotel;
     private int currentResident;
+    private City city;
 
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
@@ -21,19 +20,16 @@ public class SwingCityRevolution {
 
     // EFFECTS: initiates all simulators and runs the city revolution application
     public SwingCityRevolution() {
-        cities = new ArrayList<>();
-        currentCity = -1;
+        city = null;
     }
 
     public void addNewCity(City city) {
-        cities.add(city);
-        currentCity = cities.size() - 1;
+        this.city = city;
         currentHotel = -1;
         currentResident = -1;
     }
 
     public void addNewResident(Resident resident) {
-        City city = cities.get(currentCity);
         city.addResident(resident);
         city.getBank().createAccountForResident(resident, 2000);
     }
@@ -43,26 +39,22 @@ public class SwingCityRevolution {
     }
 
     public void addNewHotel(Hotel hotel) {
-        City city = cities.get(currentCity);
         city.addHotel(hotel);
     }
 
     public Resident getSelectedResident() {
-        City city = cities.get(currentCity);
         return city.getResidents().get(currentResident);
     }
 
-    public City getCurrentCity() {
-        return cities.get(currentCity);
+    public City getCity() {
+        return city;
     }
 
     public void changeCityName(String name) {
-        City city = cities.get(currentCity);
         city.setCityName(name);
     }
 
     public void changeCityTheme(City.Theme theme) {
-        City city = cities.get(currentCity);
         city.setTheme(theme);
     }
 
@@ -71,19 +63,40 @@ public class SwingCityRevolution {
     }
 
     public Hotel getSelectedHotel() {
-        City city = cities.get(currentCity);
         return city.getHotels().get(currentHotel);
     }
 
     public boolean openCurrentHotel() {
-        City city = cities.get(currentCity);
         Hotel hotel = city.getHotels().get(currentHotel);
         return hotel.openBusiness();
     }
 
     public void closeCurrentHotel() {
-        City city = cities.get(currentCity);
         Hotel hotel = city.getHotels().get(currentHotel);
         hotel.closeHotel();
+    }
+
+    public void assignJob(Business business, Resident resident) {
+        business.addStaff(resident);
+        Bank bank = city.getBank();
+        bank.initializeSES();
+        bank.createEarnings(resident, business.getSalary());
+    }
+
+    public void saveCityToJson() throws FileNotFoundException {
+        ArrayList<City> cities = new ArrayList<>();
+        cities.add(city);
+
+        JsonWriter jsonWriter = new JsonWriter(destination);
+        jsonWriter.open();
+        jsonWriter.write(cities);
+        jsonWriter.close();
+    }
+
+    public void loadCity() throws IOException {
+        jsonReader = new JsonReader(destination);
+        ArrayList<City> citiesLoaded = jsonReader.read();
+        city = citiesLoaded.get(0);
+
     }
 }

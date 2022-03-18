@@ -12,6 +12,9 @@ import static javax.swing.JOptionPane.showMessageDialog;
 public class CreateCityWindow extends Window {
     private City city;
     private SwingCityRevolution cityRevolution;
+    private City.Theme theme;
+    private String cityName;
+
     private JPanel settingPanel;
     private JPanel themePanel;
     private JPanel confirmPanel;
@@ -19,13 +22,10 @@ public class CreateCityWindow extends Window {
     private JButton lightThemeBtn;
     private JButton darkThemeBtn;
 
-    private City.Theme theme;
-    private String cityName;
-
     public CreateCityWindow(SwingCityRevolution cityRevolution) {
         super();
-        if (cityRevolution != null) {
-            city = cityRevolution.getCurrentCity();
+        if (cityRevolution.getCity() != null) {
+            city = cityRevolution.getCity();
         }
         this.cityRevolution = cityRevolution;
         init();
@@ -196,7 +196,7 @@ public class CreateCityWindow extends Window {
         checkBtn.addActionListener(e -> {
             cityName = inputField.getText();
             if (cityName != null && theme != null) {
-                if (cityRevolution == null) {
+                if (cityRevolution.getCity() == null) {
                     cityRevolution = new SwingCityRevolution();
                     cityRevolution.addNewCity(new City(cityName, theme));
                 } else {
@@ -217,7 +217,7 @@ public class CreateCityWindow extends Window {
         backBtn.setBounds(0, 0, 50, 48);
         backBtn.setBorderPainted(false);
         backBtn.addActionListener(e -> {
-            MainWindow mainWindow = new MainWindow();
+            MainWindow mainWindow = new MainWindow(cityRevolution);
             dispose();
         });
         confirmPanel.add(backBtn);

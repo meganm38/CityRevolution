@@ -25,7 +25,7 @@ public class HotelCheckerWindow extends Window {
 
     public HotelCheckerWindow(SwingCityRevolution cityRevolution) {
         super();
-        this.city = cityRevolution.getCurrentCity();
+        this.city = cityRevolution.getCity();
         this.cityRevolution = cityRevolution;
         init();
         centreOnScreen();

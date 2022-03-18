@@ -25,7 +25,7 @@ public class ResidentCheckerWindow extends Window {
 
     public ResidentCheckerWindow(SwingCityRevolution cityRevolution) {
         super();
-        this.city = cityRevolution.getCurrentCity();
+        this.city = cityRevolution.getCity();
         this.cityRevolution = cityRevolution;
         init();
         centreOnScreen();

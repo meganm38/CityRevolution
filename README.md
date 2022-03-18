@@ -1,5 +1,7 @@
 # City Evolution - Term Project for UBC CPSC 210
-![](data/1.jpeg)
+![](data/1.png)
+![](data/2.png)
+![](data/3.png)
 
 *Source: shutterstock.com*
 ## Proposal

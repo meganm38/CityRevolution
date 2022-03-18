@@ -15,16 +15,22 @@ public class HotelManagementWindow extends Window {
     private final SwingCityRevolution cityRevolution;
     private final Hotel hotel;
 
-    private JPanel attributesBackgroundPanel;
     private JPanel attributesPanel;
-    private JPanel settingsBackgroundPanel;
     private JPanel settingsPanel;
     private JPanel confirmPanel;
-    ImageIcon imgIcon;
-    JButton openSettingBtn;
-    JLabel businessStatus;
-    JLabel staff;
-    JButton staffSettingBtn;
+    private ImageIcon imgIcon;
+    private JButton openSettingBtn;
+    private JLabel businessStatus;
+    private JLabel staff;
+    private JButton staffSettingBtn;
+    private JLabel rooms;
+    private JButton roomSettingBtn;
+    private JLabel bookings;
+    private JButton bookingSettingBtn;
+    private JButton viewStaffBtn;
+    private JButton viewRoomBtn;
+    private JButton viewBookingBtn;
+
 
     public HotelManagementWindow(SwingCityRevolution cityRevolution) {
         super();
@@ -72,7 +78,7 @@ public class HotelManagementWindow extends Window {
         hotelAttributePanel.setPreferredSize(new Dimension(450, 30));
         hotelAttributePanel.add(attributesText);
 
-        attributesBackgroundPanel = new JPanel();
+        JPanel attributesBackgroundPanel = new JPanel();
         attributesBackgroundPanel.setPreferredSize(new Dimension(450, 120));
         attributesBackgroundPanel.setBackground(LIGHT_BLUE);
         attributesBackgroundPanel.setLayout(null);
@@ -92,7 +98,7 @@ public class HotelManagementWindow extends Window {
         hotelSettingsPanel.setPreferredSize(new Dimension(450, 30));
         hotelSettingsPanel.add(hotelSettingText);
 
-        settingsBackgroundPanel = new JPanel();
+        JPanel settingsBackgroundPanel = new JPanel();
         settingsBackgroundPanel.setPreferredSize(new Dimension(450, 178));
         settingsBackgroundPanel.setBackground(LIGHT_BLUE);
         settingsBackgroundPanel.setLayout(null);
@@ -287,13 +293,13 @@ public class HotelManagementWindow extends Window {
                     instructionLabel.setFont(REGULAR_FONT);
                     instructionLabel.setForeground(FONT_COLOR_DARK);
 
-                    ArrayList<Resident> residents = cityRevolution.getCurrentCity().getResidents();
+                    ArrayList<Resident> residents = cityRevolution.getCity().getResidents();
                     String[] residentNames = new String[residents.size()];
                     for (int i = 0; i < residents.size(); i++) {
                         residentNames[i] = residents.get(i).getName();
                     }
                     list = new JComboBox<>(residentNames);
-                    list.setBounds(200, 60, 100, 50);
+                    list.setBounds(200, 60, 150, 50);
 
                     backgroundPanel.add(instructionLabel);
                     backgroundPanel.add(list);
@@ -303,11 +309,14 @@ public class HotelManagementWindow extends Window {
                 @Override
                 protected void addBtnActionListener() {
                     checkBtn.addActionListener(e -> {
-                        ArrayList<Resident> residents = cityRevolution.getCurrentCity().getResidents();
+                        if (list.getSelectedIndex() == -1) {
+                            showMessageDialog(this, "No resident selected.");
+                        }
+                        ArrayList<Resident> residents = cityRevolution.getCity().getResidents();
                         if (hotel.getStaff().contains(residents.get(list.getSelectedIndex()))) {
                             showMessageDialog(this, "This resident is already working here.");
                         } else {
-                            hotel.addStaff(residents.get(list.getSelectedIndex()));
+                            cityRevolution.assignJob(hotel, residents.get(list.getSelectedIndex()));
                             showMessageDialog(this, "Added as staff!");
                             changeHotelStaff();
                         }
@@ -334,21 +343,66 @@ public class HotelManagementWindow extends Window {
         roomInfoText.setBounds(90, 5, 150, 25);
         roomInfoPanel.add(roomInfoText);
 
-        JLabel businessStatus = new JLabel(hotel.getRoomNumbers().size() + "/1");
-        businessStatus.setFont(REGULAR_FONT);
-        businessStatus.setForeground(Color.blue.darker());
-        businessStatus.setBounds(250, 5, 100, 25);
-        roomInfoPanel.add(businessStatus);
+        rooms = new JLabel(hotel.getRoomNumbers().size() + "/1");
+        rooms.setFont(REGULAR_FONT);
+        rooms.setForeground(Color.blue.darker());
+        rooms.setBounds(250, 5, 100, 25);
+        roomInfoPanel.add(rooms);
 
-        JButton settingIcon = new JButton(new ImageIcon("data/pictures/settingSmall.png"));
-        settingIcon.setBounds(380, 0, 35, 35);
-        settingIcon.setBorderPainted(false);
-        roomInfoPanel.add(settingIcon);
+        roomSettingBtn = new JButton(new ImageIcon("data/pictures/settingSmall.png"));
+        roomSettingBtn.setBounds(380, 0, 35, 35);
+        roomSettingBtn.setBorderPainted(false);
+        configRoomSettingBtn();
+        roomInfoPanel.add(roomSettingBtn);
 
         JPanel blank = new JPanel();
         blank.setPreferredSize(new Dimension(430, 5));
         settingsPanel.add(roomInfoPanel);
         settingsPanel.add(blank);
+    }
+
+    @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
+    private void configRoomSettingBtn() {
+        roomSettingBtn.addActionListener(e -> {
+            final SettingWindow settingWindow = new SettingWindow(
+                    "Hotel Rooms Setting", "Add rooms", imgIcon, cityRevolution) {
+                JTextField textField;
+
+                @Override
+                protected void setupBackgroundPanel() {
+                    JLabel instructionLabel = new JLabel("Number of Rooms to add:");
+                    instructionLabel.setBounds(20, 60, 200, 50);
+                    instructionLabel.setFont(REGULAR_FONT);
+                    instructionLabel.setForeground(FONT_COLOR_DARK);
+
+                    textField = new JTextField();
+                    textField.setBounds(220, 60, 100, 50);
+
+                    backgroundPanel.add(instructionLabel);
+                    backgroundPanel.add(textField);
+                }
+
+                //TODO: change associations between staff and work
+                @Override
+                protected void addBtnActionListener() {
+                    checkBtn.addActionListener(e -> {
+                        try {
+                            int num = Integer.parseInt(textField.getText());
+                            hotel.addRooms(num);
+                            changeRoomNumbersDisplay();
+                            showMessageDialog(this, "Rooms successfully added!");
+                        } catch (UnsupportedOperationException ex) {
+                            showMessageDialog(this, "Enter a positive integer.");
+                        }
+                        dispose();
+                    });
+                }
+            };
+        });
+    }
+
+    private void changeRoomNumbersDisplay() {
+        rooms.setText(hotel.getRoomNumbers().size() + "/1");
     }
 
     private void addBookingInfo() {
@@ -363,21 +417,96 @@ public class HotelManagementWindow extends Window {
         bookingInfoText.setBounds(90, 5, 150, 25);
         bookingInfoPanel.add(bookingInfoText);
 
-        JLabel businessStatus = new JLabel(hotel.getBookedRoomNumbers().size() + "");
-        businessStatus.setFont(REGULAR_FONT);
-        businessStatus.setForeground(Color.blue.darker());
-        businessStatus.setBounds(250, 5, 100, 25);
-        bookingInfoPanel.add(businessStatus);
+        bookings = new JLabel(hotel.getBookedRoomNumbers().size() + "");
+        bookings.setFont(REGULAR_FONT);
+        bookings.setForeground(Color.blue.darker());
+        bookings.setBounds(250, 5, 100, 25);
+        bookingInfoPanel.add(bookings);
 
-        JButton settingIcon = new JButton(new ImageIcon("data/pictures/settingSmall.png"));
-        settingIcon.setBounds(380, 0, 35, 35);
-        settingIcon.setBorderPainted(false);
-        bookingInfoPanel.add(settingIcon);
+        bookingSettingBtn = new JButton(new ImageIcon("data/pictures/settingSmall.png"));
+        bookingSettingBtn.setBounds(380, 0, 35, 35);
+        bookingSettingBtn.setBorderPainted(false);
+        configBookingSettingBtn();
+        bookingInfoPanel.add(bookingSettingBtn);
 
         JPanel blank = new JPanel();
         blank.setPreferredSize(new Dimension(430, 5));
         settingsPanel.add(bookingInfoPanel);
         settingsPanel.add(blank);
+    }
+
+    @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
+    private void configBookingSettingBtn() {
+        bookingSettingBtn.addActionListener(e -> {
+            final SettingWindow settingWindow = new SettingWindow(
+                    "Hotel Bookings Setting", "Add Bookings", imgIcon, cityRevolution) {
+                JTextField num;
+                JComboBox<String> list;
+
+                @Override
+                protected void setupBackgroundPanel() {
+                    JLabel nameInstruction = new JLabel("Choose resident:");
+                    nameInstruction.setBounds(20, 40, 200, 50);
+                    nameInstruction.setFont(REGULAR_FONT);
+                    nameInstruction.setForeground(FONT_COLOR_DARK);
+
+                    ArrayList<Resident> residents = cityRevolution.getCity().getResidents();
+                    String[] residentNames = new String[residents.size()];
+                    for (int i = 0; i < residents.size(); i++) {
+                        residentNames[i] = residents.get(i).getName();
+                    }
+                    list = new JComboBox<>(residentNames);
+                    list.setBounds(220, 40, 150, 50);
+
+                    JLabel instructionLabel = new JLabel("Number of bookings to add:");
+                    instructionLabel.setBounds(20, 90, 200, 50);
+                    instructionLabel.setFont(REGULAR_FONT);
+                    instructionLabel.setForeground(FONT_COLOR_DARK);
+
+                    num = new JTextField();
+                    num.setBounds(220, 90, 100, 50);
+
+                    backgroundPanel.add(nameInstruction);
+                    backgroundPanel.add(list);
+                    backgroundPanel.add(instructionLabel);
+                    backgroundPanel.add(num);
+                }
+
+                @Override
+                protected void addBtnActionListener() {
+                    checkBtn.addActionListener(e -> {
+                        if (list.getSelectedIndex() == -1) {
+                            showMessageDialog(this, "No resident selected.");
+                            return;
+                        }
+                        if (!hotel.isBusinessOpen()) {
+                            showMessageDialog(this, "Hotel is not yet open for business");
+                            return;
+                        }
+                        try {
+                            int num = Integer.parseInt(this.num.getText());
+                            if (num > hotel.getAvailableRooms()) {
+                                showMessageDialog(this, "This hotel only has "
+                                        + hotel.getAvailableRooms() + " rooms available.");
+                                return;
+                            }
+                            ArrayList<Resident> residents = cityRevolution.getCity().getResidents();
+                            Resident resident = residents.get(list.getSelectedIndex());
+                            hotel.makeBooking(num, resident);
+                            changeBookingsInfo();
+                            showMessageDialog(this, "Rooms successfully added!");
+                        } catch (UnsupportedOperationException ex) {
+                            showMessageDialog(this, "Number must be a positive integer.");
+                        }
+                        dispose();
+                    });
+                }
+            };
+        });
+    }
+
+    private void changeBookingsInfo() {
+        bookings.setText(hotel.getBookedRoomNumbers().size() + "");
     }
 
     @Override
@@ -413,7 +542,7 @@ public class HotelManagementWindow extends Window {
         checkBtn.setBounds(450, 0, 50, 48);
         checkBtn.setBorderPainted(false);
         checkBtn.addActionListener(e -> {
-            CityWindow cityWindow = new CityWindow(cityRevolution);
+            HotelCheckerWindow hotelCheckerWindow = new HotelCheckerWindow(cityRevolution);
             dispose();
         });
         confirmPanel.add(checkBtn);

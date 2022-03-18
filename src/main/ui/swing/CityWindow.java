@@ -22,7 +22,7 @@ public class CityWindow extends Window {
 
     public CityWindow(SwingCityRevolution cityRevolution) {
         super();
-        this.city = cityRevolution.getCurrentCity();
+        this.city = cityRevolution.getCity();
         this.cityRevolution = cityRevolution;
         init();
         centreOnScreen();
