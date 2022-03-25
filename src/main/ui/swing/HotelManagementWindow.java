@@ -386,43 +386,13 @@ public class HotelManagementWindow extends Window {
 
     /*
      * MODIFIES: this
-     * EFFECTS: initiates a new setting window for uses to choose resident to add as hotel staff
+     * EFFECTS: initiates a new setting window for uses to choose resident to add as hotel staff;
+                adds listener to checkmark button if a resident is selected
      */
-    @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     private void configStaffSettingBtn() {
         staffSettingBtn.addActionListener(e -> {
-            final SettingWindow settingWindow = new SettingWindow(
+            final AddHotelStaffWindow settingWindow = new AddHotelStaffWindow(
                     "Hotel Staff Setting", "Add Staff", imgIcon, cityRevolution) {
-                JComboBox<String> list;
-
-                /*
-                 * MODIFIES: this
-                 * EFFECTS: sets up instructions for choosing resident
-                 */
-                @Override
-                protected void setupBackgroundPanel() {
-                    JLabel instructionLabel = new JLabel("Choose a resident:");
-                    instructionLabel.setBounds(60, 60, 150, 50);
-                    instructionLabel.setFont(REGULAR_FONT);
-                    instructionLabel.setForeground(FONT_COLOR_DARK);
-
-                    ArrayList<Resident> residents = cityRevolution.getCity().getResidents();
-                    String[] residentNames = new String[residents.size()];
-                    for (int i = 0; i < residents.size(); i++) {
-                        residentNames[i] = residents.get(i).getName();
-                    }
-                    list = new JComboBox<>(residentNames);
-                    list.setBounds(200, 60, 150, 50);
-
-                    backgroundPanel.add(instructionLabel);
-                    backgroundPanel.add(list);
-                }
-
-                /*
-                 * MODIFIES: this
-                 * EFFECTS: adds listener to checkmark button if a resident is selected
-                 */
-                //TODO: user working somewhere else
                 @Override
                 protected void addBtnActionListener() {
                     checkBtn.addActionListener(e -> {
@@ -531,31 +501,10 @@ public class HotelManagementWindow extends Window {
      * MODIFIES: this
      * EFFECTS: initiates a new setting window for uses to choose the number of rooms to add to hotel
      */
-    @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     private void configRoomSettingBtn() {
         roomSettingBtn.addActionListener(e -> {
-            final SettingWindow settingWindow = new SettingWindow(
+            final AddHotelRoomWindow settingWindow = new AddHotelRoomWindow(
                     "Hotel Rooms Setting", "Add rooms", imgIcon, cityRevolution) {
-                JTextField textField;
-
-                /*
-                 * MODIFIES: this
-                 * EFFECTS: sets up instructions for choosing the number of rooms
-                 */
-                @Override
-                protected void setupBackgroundPanel() {
-                    JLabel instructionLabel = new JLabel("Number of Rooms to add:");
-                    instructionLabel.setBounds(20, 60, 200, 50);
-                    instructionLabel.setFont(REGULAR_FONT);
-                    instructionLabel.setForeground(FONT_COLOR_DARK);
-
-                    textField = new JTextField();
-                    textField.setBounds(220, 60, 100, 50);
-
-                    backgroundPanel.add(instructionLabel);
-                    backgroundPanel.add(textField);
-                }
-
                 /*
                  * MODIFIES: this
                  * EFFECTS: adds listener to checkmark button
@@ -668,71 +617,26 @@ public class HotelManagementWindow extends Window {
      * MODIFIES: this
      * EFFECTS: initiates a new setting window for uses to add bookings
      */
-    @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     private void configBookingSettingBtn() {
         bookingSettingBtn.addActionListener(e -> {
-            final SettingWindow settingWindow = new SettingWindow(
+            final AddBookingToHotelWindow AddBookingToHotelWindow = new AddBookingToHotelWindow(
                     "Hotel Bookings Setting", "Add Bookings", imgIcon, cityRevolution) {
-                JTextField num;
-                JComboBox<String> list;
-
-                @Override
-                protected void setupBackgroundPanel() {
-                    JLabel nameInstruction = new JLabel("Choose resident:");
-                    nameInstruction.setBounds(20, 40, 200, 50);
-                    nameInstruction.setFont(REGULAR_FONT);
-                    nameInstruction.setForeground(FONT_COLOR_DARK);
-
-                    ArrayList<Resident> residents = cityRevolution.getCity().getResidents();
-                    String[] residentNames = new String[residents.size()];
-                    for (int i = 0; i < residents.size(); i++) {
-                        residentNames[i] = residents.get(i).getName();
-                    }
-                    list = new JComboBox<>(residentNames);
-                    list.setBounds(220, 40, 150, 50);
-
-                    JLabel instructionLabel = new JLabel("Number of bookings to add:");
-                    instructionLabel.setBounds(20, 90, 200, 50);
-                    instructionLabel.setFont(REGULAR_FONT);
-                    instructionLabel.setForeground(FONT_COLOR_DARK);
-
-                    num = new JTextField();
-                    num.setBounds(220, 90, 100, 50);
-
-                    backgroundPanel.add(nameInstruction);
-                    backgroundPanel.add(list);
-                    backgroundPanel.add(instructionLabel);
-                    backgroundPanel.add(num);
-                }
-
-                @Override
-                protected void addBtnActionListener() {
-                    checkBtn.addActionListener(e -> {
-                        if (list.getSelectedIndex() == -1) {
-                            showMessageDialog(this, "No resident selected.");
+                protected void setUpBtn() {
+                    try {
+                        if (Integer.parseInt(this.num.getText()) > hotel.getAvailableRooms()) {
+                            showMessageDialog(this, "This hotel only has "
+                                    + hotel.getAvailableRooms() + " rooms available.");
                             return;
                         }
-                        if (!hotel.isBusinessOpen()) {
-                            showMessageDialog(this, "Hotel is not yet open for business");
-                            return;
-                        }
-                        try {
-                            int num = Integer.parseInt(this.num.getText());
-                            if (num > hotel.getAvailableRooms()) {
-                                showMessageDialog(this, "This hotel only has "
-                                        + hotel.getAvailableRooms() + " rooms available.");
-                                return;
-                            }
-                            ArrayList<Resident> residents = cityRevolution.getCity().getResidents();
-                            Resident resident = residents.get(list.getSelectedIndex());
-                            hotel.makeBooking(num, resident);
-                            changeBookingsInfo();
+                        ArrayList<Resident> residents = cityRevolution.getCity().getResidents();
+                        Resident resident = residents.get(list.getSelectedIndex());
+                        hotel.makeBooking(Integer.parseInt(this.num.getText()), resident);
+                        changeBookingsInfo();
                             dispose();
                             showMessageDialog(this, "Rooms successfully added!");
                         } catch (NumberFormatException ex) {
                             showMessageDialog(this, "Number must be a positive integer.");
                         }
-                    });
                 }
             };
         });
@@ -742,7 +646,7 @@ public class HotelManagementWindow extends Window {
      * MODIFIES: this
      * EFFECTS: updates the number of bookings
      */
-    private void changeBookingsInfo() {
+    public void changeBookingsInfo() {
         bookings.setText(hotel.getBookedRoomNumbers().size() + "");
     }
 
