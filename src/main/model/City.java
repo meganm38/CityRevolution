@@ -30,7 +30,7 @@ public class City implements Writable {
         businesses = new ArrayList<>();
         bank = new Bank("Bank of " + cityName);
         this.theme = theme;
-        EventLog.getInstance().logEvent(new Event(cityName + " has been created."));
+        EventLog.getInstance().logEvent(new Event("The city of " + cityName + " has been created."));
     }
 
     /*
@@ -40,7 +40,7 @@ public class City implements Writable {
     public void addHotel(Hotel hotel) {
         hotels.add(hotel);
         businesses.add(hotel);
-        EventLog.getInstance().logEvent(new Event("Hotel " + hotel.getBusinessName() + " has been added to City."));
+        EventLog.getInstance().logEvent(new Event("Hotel " + hotel.getBusinessName() + " has been added to city."));
     }
 
     /*
@@ -49,7 +49,7 @@ public class City implements Writable {
      */
     public void addResident(Resident resident) {
         residents.add(resident);
-        EventLog.getInstance().logEvent(new Event("Resident " + resident.getName() + " has been added to City."));
+        EventLog.getInstance().logEvent(new Event("Resident " + resident.getName() + " has been added to city."));
     }
 
     // EFFECTS: returns a city as JSON object

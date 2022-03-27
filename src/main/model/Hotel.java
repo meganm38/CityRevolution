@@ -73,7 +73,7 @@ public class Hotel extends Business implements Writable {
         for (Integer roomNumber : newRoomNumbers) {
             bookingInfo.put(roomNumber, "Empty");
         }
-        EventLog.getInstance().logEvent(new Event(num + " new rooms have been added to " + name + "."));
+        EventLog.getInstance().logEvent(new Event(num + " new hotel rooms have been added to " + name + "."));
     }
 
     /*
@@ -146,7 +146,7 @@ public class Hotel extends Business implements Writable {
             bookingInfo.put(newBookedRoomNumber, person.getName());
         }
         EventLog.getInstance().logEvent(new Event(
-                numOfBookings + " bookings have been made for " + person.getName() + " at " + name + "."));
+                numOfBookings + " bookings have been created for " + person.getName() + " at " + name + "."));
         return newBookedRoomNumbers;
     }
 
