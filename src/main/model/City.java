@@ -30,23 +30,26 @@ public class City implements Writable {
         businesses = new ArrayList<>();
         bank = new Bank("Bank of " + cityName);
         this.theme = theme;
+        EventLog.getInstance().logEvent(new Event(cityName + " has been created."));
     }
 
     /*
      * MODIFIES: this
-     * EFFECTS: add a hotel to the city
+     * EFFECTS: add a hotel to the city, logs event
      */
     public void addHotel(Hotel hotel) {
         hotels.add(hotel);
         businesses.add(hotel);
+        EventLog.getInstance().logEvent(new Event("Hotel " + hotel.getBusinessName() + " has been added to City."));
     }
 
     /*
      * MODIFIES: this
-     * EFFECTS: add a resident to the city
+     * EFFECTS: add a resident to the city, logs event
      */
     public void addResident(Resident resident) {
         residents.add(resident);
+        EventLog.getInstance().logEvent(new Event("Resident " + resident.getName() + " has been added to City."));
     }
 
     // EFFECTS: returns a city as JSON object

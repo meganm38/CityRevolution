@@ -44,3 +44,31 @@ out many aspects of it, so I hope to design such a project where I can control w
   should automatically receive their wages in their bank accounts.
 - As a user, I want to be able to save all the contents of my city into a JSON file.
 - As a user, I want to be given an option to load a JSON file to restore all contents that I have created.
+
+## Phase 4: Task 2
+
+Sun Mar 27 13:57:26 PDT 2022 Vancouver has been created.
+
+Sun Mar 27 13:57:32 PDT 2022 Resident Chandler has been added to City.
+
+Sun Mar 27 13:57:39 PDT 2022 Resident Monica has been added to City.
+
+Sun Mar 27 13:57:47 PDT 2022 Hotel ShangriLa has been added to City.
+
+Sun Mar 27 13:57:54 PDT 2022 Hotel JW has been added to City.
+
+Sun Mar 27 13:58:01 PDT 2022 Chandler is now working at JW.
+
+Sun Mar 27 13:58:04 PDT 2022 10 new rooms have been added to JW.
+
+Sun Mar 27 13:58:15 PDT 2022 JW is open for business.
+
+Sun Mar 27 13:58:19 PDT 2022 5 bookings have been made for Monica at JW.
+
+Sun Mar 27 13:58:27 PDT 2022 Chandler is now working at ShangriLa.
+
+Sun Mar 27 13:58:30 PDT 2022 20 new rooms have been added to ShangriLa.
+
+Sun Mar 27 13:58:33 PDT 2022 ShangriLa is open for business.
+
+Sun Mar 27 13:58:36 PDT 2022 5 bookings have been made for Chandler at ShangriLa.

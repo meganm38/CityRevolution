@@ -73,6 +73,7 @@ public class Hotel extends Business implements Writable {
         for (Integer roomNumber : newRoomNumbers) {
             bookingInfo.put(roomNumber, "Empty");
         }
+        EventLog.getInstance().logEvent(new Event(num + " new rooms have been added to " + name + "."));
     }
 
     /*
@@ -84,6 +85,7 @@ public class Hotel extends Business implements Writable {
     public void addStaff(Resident person) {
         super.addStaff(person);
         person.setOccupation(occupationCode, name, SALARY_PER_SECOND);
+        EventLog.getInstance().logEvent(new Event(person.getName() + " is now working at " + name + "."));
     }
 
     /*
@@ -95,7 +97,6 @@ public class Hotel extends Business implements Writable {
     public void removeStaff(Resident resident) {
         super.removeStaff(resident);
         resident.setOccupation(-1, null, 0);
-
     }
 
     /*
@@ -105,6 +106,9 @@ public class Hotel extends Business implements Writable {
      */
     public boolean openBusiness() {
         businessIsOpen = !roomNumbers.isEmpty() && !staff.isEmpty();
+        if (businessIsOpen) {
+            EventLog.getInstance().logEvent(new Event(name + " is open for business."));
+        }
         return businessIsOpen;
     }
 
@@ -113,6 +117,7 @@ public class Hotel extends Business implements Writable {
      * EFFECTS: set hotelIsOpen to false
      */
     public void closeHotel() {
+        EventLog.getInstance().logEvent(new Event(name + " is now closed."));
         businessIsOpen = false;
     }
 
@@ -140,6 +145,8 @@ public class Hotel extends Business implements Writable {
         for (Integer newBookedRoomNumber : newBookedRoomNumbers) {
             bookingInfo.put(newBookedRoomNumber, person.getName());
         }
+        EventLog.getInstance().logEvent(new Event(
+                numOfBookings + " bookings have been made for " + person.getName() + " at " + name + "."));
         return newBookedRoomNumbers;
     }
 
