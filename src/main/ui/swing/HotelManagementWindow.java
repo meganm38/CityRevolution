@@ -245,37 +245,10 @@ public class HotelManagementWindow extends Window {
      * MODIFIES: this
      * EFFECTS: initiates a setting window for displaying instructions on setting a hotel status
      */
-    @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     private void configOpenSettingBtn() {
         openSettingBtn.addActionListener(e -> {
-            final SettingWindow settingWindow = new SettingWindow(
+            final SetHotelStatusWindow settingWindow = new SetHotelStatusWindow(
                     "Hotel Status Setting", "Hotel Status", imgIcon, cityRevolution) {
-                JComboBox<String> list;
-
-                /*
-                 * MODIFIES: this
-                 * EFFECTS: adds instructions to background panel for setting a hotel status
-                 */
-                @Override
-                protected void setupBackgroundPanel() {
-                    JLabel instructionLabel = new JLabel("Hotel Status:");
-                    instructionLabel.setBounds(80, 60, 100, 50);
-                    instructionLabel.setFont(REGULAR_FONT);
-                    instructionLabel.setForeground(FONT_COLOR_DARK);
-
-                    String[] status = {"Open", "Closed"};
-                    list = new JComboBox<>(status);
-                    list.setBounds(200, 60, 100, 50);
-
-                    backgroundPanel.add(instructionLabel);
-                    backgroundPanel.add(list);
-                }
-
-                /*
-                 * MODIFIES: this
-                 * EFFECTS: adds listener to checkBtn
-                 */
-                @Override
                 protected void addBtnActionListener() {
                     checkBtn.addActionListener(e -> {
                         if (list.getSelectedIndex() == 0) {
@@ -284,8 +257,7 @@ public class HotelManagementWindow extends Window {
                                 showMessageDialog(this, "Hotel is now open for Business!");
                                 dispose();
                             } else {
-                                showMessageDialog(this, "No staff/hotel rooms.\n"
-                                        + "Hotel cannot be opened.");
+                                showMessageDialog(this, "No staff/hotel rooms.\n" + "Hotel cannot be opened.");
                             }
                         } else {
                             cityRevolution.closeCurrentHotel();

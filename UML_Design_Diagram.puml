@@ -1,0 +1,137 @@
+@startuml
+hide empty members
+skinparam classFontSize 18
+
+together {
+    abstract class Business
+    enum BusinessInfo
+    class Bank
+    class City
+    class Hotel
+    class Resident
+    class Event
+    class EventLog
+    Enum City.Theme
+    Enum Hotel.Theme
+    Bank ..|> Writable
+    City ..|> Writable
+    Hotel ..|> Writable
+    Resident ..|> Writable
+    Hotel --|> Business
+    Business "1"--- "0..*" Resident
+    City o---> "0..*" Resident
+    City o---> "0..*" Hotel
+    City o---> "0..*" Business
+    City o---> "1" Bank
+    EventLog o---> "0..*" Event
+    Hotel ---> "0..*" Resident
+    Hotel +--> Hotel.Theme
+    City +--> City.Theme
+}
+
+together {
+JsonReader -[hidden]- Writable
+class JsonWriter
+interface Writable
+}
+
+together {
+abstract class SettingWindow
+abstract class AddBookingToHotelWindow <<anonymous>>
+abstract class AddHotelRoomWindow <<anonymous>>
+abstract class AddHotelStaffWindow <<anonymous>>
+abstract class TableWindow  <<anonymous>>
+abstract class SetHotelStatusWindow <<anonymous>>
+
+SettingWindow <|--down- AddBookingToHotelWindow
+SettingWindow <|--down- AddHotelRoomWindow
+SettingWindow <|--down- AddHotelStaffWindow
+SettingWindow <|--down- TableWindow
+SettingWindow <|--down- SetHotelStatusWindow
+
+SettingWindow ---up-> "1" SwingCityRevolution
+SettingWindow ---up-> "1" Hotel
+
+AddBookingToHotelWindow ---up-> "1" SwingCityRevolution
+AddBookingToHotelWindow ---up-> "1" Hotel
+
+AddHotelRoomWindow ---up-> "1" SwingCityRevolution
+AddHotelRoomWindow ---up-> "1" Hotel
+
+AddHotelStaffWindow ----> "1" SwingCityRevolution
+AddHotelStaffWindow ----> "1" Hotel
+
+TableWindow ----> "1" SwingCityRevolution
+TableWindow ----> "1" Hotel
+
+SetHotelStatusWindow ----> "1" SwingCityRevolution
+
+}
+
+together {
+abstract class Window
+class CityWindow extends Window
+class CreateCityWindow extends Window
+class CreateHotelWindow extends Window
+class CreateResidentWindow
+class MainWindow
+class ResidentCheckerWindow extends Window
+
+Window <|--up- CreateResidentWindow
+Window <|--up- HotelCheckerWindow
+Window <|-down- HotelManagementWindow
+Window <|--up- ResidentManagementWindow
+
+
+CityWindow ---down-> "1" City
+CityWindow ---down-> "1" SwingCityRevolution
+
+CreateCityWindow ---down-> "1" City
+CreateCityWindow ---down-> "1" SwingCityRevolution
+
+CreateHotelWindow ---down-> "1" City
+CreateHotelWindow ---down-> "1" SwingCityRevolution
+
+CreateResidentWindow ---down-> "1" City
+CreateResidentWindow ---down-> "1" SwingCityRevolution
+
+HotelCheckerWindow ---down-> "1" City
+HotelCheckerWindow ---down-> "1" SwingCityRevolution
+
+HotelManagementWindow ---down-> "1" Hotel
+HotelManagementWindow ---down-> "1" SwingCityRevolution
+HotelManagementWindow +--> AddBookingToHotelWindow
+HotelManagementWindow +--> AddHotelRoomWindow
+HotelManagementWindow +--> AddHotelStaffWindow
+HotelManagementWindow +--> TableWindow
+HotelManagementWindow +--> SetHotelStatusWindow
+
+
+MainWindow ---down-> "1" SwingCityRevolution
+
+ResidentCheckerWindow ---down-> "1" City
+ResidentCheckerWindow ---down-> "1" SwingCityRevolution
+
+
+}
+
+
+together {
+class CityRevolution
+class HotelSimulator
+class Main
+class ResidentSimulator
+CityRevolution o-> "0..*" City
+CityRevolution o-down-> "1" HotelSimulator
+CityRevolution o-up-> "1" ResidentSimulator
+CityRevolution o-left-> "1" JsonWriter
+CityRevolution o-left-> "1" JsonReader
+HotelSimulator --> "1" ResidentSimulator
+}
+
+class SwingCityRevolution
+SwingCityRevolution o--> "1" City
+SwingCityRevolution o-up-> "1" JsonReader
+SwingCityRevolution o-up-> "1" JsonWriter
+
+@enduml

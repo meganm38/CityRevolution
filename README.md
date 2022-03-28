@@ -72,3 +72,14 @@ Sun Mar 27 13:58:30 PDT 2022 20 new hotel rooms have been added to ShangriLa.
 Sun Mar 27 13:58:33 PDT 2022 ShangriLa is open for business.
 
 Sun Mar 27 13:58:36 PDT 2022 5 bookings have been created for Chandler at ShangriLa.
+
+## Phase 4: Task 3
+
+If I had more time to work on this project:
+
+- I would create Exception classes to handle invalid user inputs inside model rather than checking them against
+  constraints in the ui.
+
+- I would refactor additional repetitive code in my swing ui windows. Although they all currently extend the abstract
+  class Window, I realized that there still existed some methods in the child classes which shared very similar
+  implementations.

@@ -26,6 +26,7 @@ public abstract class SettingWindow extends JDialog {
     protected JPanel backgroundPanel;
     protected JPanel confirmPanel;
     protected JButton checkBtn;
+
     protected Hotel hotel;
     protected SwingCityRevolution cityRevolution;
 

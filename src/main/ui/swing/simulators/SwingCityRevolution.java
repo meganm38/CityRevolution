@@ -75,7 +75,7 @@ public class SwingCityRevolution {
         ArrayList<City> cities = new ArrayList<>();
         cities.add(city);
 
-        JsonWriter jsonWriter = new JsonWriter(destination);
+        jsonWriter = new JsonWriter(destination);
         jsonWriter.open();
         jsonWriter.write(cities);
         jsonWriter.close();
